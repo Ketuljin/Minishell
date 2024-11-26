@@ -13,11 +13,6 @@
 #ifndef STRUCTURE_MINISHELL_H
 # define STRUCTURE_MINISHELL_H
 
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-
 typedef s_command
 {
 	s_command	*next;
@@ -35,5 +30,11 @@ typedef s_task
 	int		type;
 
 }		t_task;
+
+typedef	s_environment
+{
+	char	*original;
+	char	
+}
 
 #endif
