@@ -23,6 +23,8 @@ typedef s_command
 	s_command	*next;
 	s_task		*first;
 	char		*full_task;
+	int		out_put;
+	int		in_put;
 }			t_command;
 
 typedef s_task
