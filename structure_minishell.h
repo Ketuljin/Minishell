@@ -31,10 +31,4 @@ typedef s_task
 
 }		t_task;
 
-typedef	s_environment
-{
-	char	*original;
-	char	
-}
-
 #endif
