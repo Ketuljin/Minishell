@@ -1,105 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 15:20:55 by jkerthe           #+#    #+#             */
+/*   Updated: 2024/11/28 15:20:55 by jkerthe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "structure_minishell.h"
 
-static void	change_pwd(char **env, char *new_path)
+static void	change_pwd(char **env, char *new_path, char *name)
 {
-	int 	i;
+	int		i;
 	char	*current_pwd;
+	int		z;
 
 	i = 0;
 	if (!env || !new_path)
 		return ;
-	while(env[i])
+	z = ft_strlen(name);
+	while (env[i])
 	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		if (ft_strncmp(env[i], name, z) == 0)
 		{
-			current_pwd = env[i] + 4;
+			current_pwd = env[i] + z;
 			ft_strcpy(current_pwd, new_path);
 			return ;
 		}
 		i++;
 	}
+	create_env_var(env, new_path, name);
 }
-static void	change_oldpwd(char **env, char *new_path)
-{
-	int 	i;
-	char	*current_pwd;
-
-	i = 0;
-	if (!env || !new_path)
-		return ;
-	while(env[i])
-	{
-		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
-		{
-			current_pwd = env[i] + 4;
-			ft_strcpy(current_pwd, new_path);
-			return ;
-		}
-		i++;
-	}
-}
-
-char *get_env_var(const char *var, char **env) {
-    int len;
-	int	i;
-
-	if (!var || !env)
-		return NULL;
-	len = ft_strlen(var);
-	i = 0;
-  	while(env[i]) {
-        if (ft_strncmp(env[i], var, len) == 0 && env[i][len] == '=')
-            return (env[i] + len + 1);
-		i++;
-    }
-    return NULL;
-}
-
-
 
 
 
 int	execute_cd_args(t_command *command, char *current_path, char **env)
 {
-
-	t_task task = command->task->next;
-
-	if (task != NULL)
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (0);
-	}
-	if (chdir(task) == -1)
+	t_task	*task;
+	char	path;
+	task = command->task->next;
+	path = option(task->content);
+	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("minishell: cd:", 2);
-		ft_putstr_fd(command->task->next->content, 2);
+		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": no such file or directory", 2);
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	cd_no_arg(t_command *command, char **env)
 {
 	char	*home;
+	char	*stock;
 
+	stock = get_env_var("PWD");
 	home = get_env_var("HOME");
+
 	if (!home)
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		return 0;
+		return (1);
 	}
-	if(chdir(home) == -1)
+	if (chdir(home) == -1)
 	{
 		ft_putstr_fd("message d'erreur à definir", 2);
-		return (0);
+		return (1);
 	}
-	return (1);
+	change_pwd(stock, env, "OLDPWD=");
+	change_pwd(get_env_var("HOME"), env, "PWD=");
+	return (0);
 }
 
-
-
-int ft_exec_cd(t_command *command, char **env)
+int	ft_exec_cd(t_command *command, char **env)
 {
 	int		i;
 	char	*current_path;
@@ -109,19 +86,19 @@ int ft_exec_cd(t_command *command, char **env)
 	if (!current_path)
 	{
 		ft_putstr_fd("minishell: getcwd", 2);
-		return 0;
+		return (1);
 	}
 	i = count_task(command);
 	if (i > 2)
 	{
 		ft_putstr_fd("-Minishell: cd: too many arguments", 2);
-		free(current_path);
-		return(1);
+		free (current_path);
+		return (1);
 	}
 	if (i == 1)
 		cd_no_arg(command, env);
 	else if (i == 2)
 		cd_args(command, current_path, env);
-	free(current_path);
-	return(0);
+	free (current_path);
+	return (0);
 }

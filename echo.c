@@ -1,28 +1,61 @@
-#include "structure_minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
+/*   Updated: 2024/11/28 15:43:55 by jkerthe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "structure_minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	char	a;
+	int		i;
+
+	i = 0;
+	a = 0;
+	while (s[i] != '\0')
+	{
+		a = s[i];
+		write (fd, &a, 1);
+		i++;
+	}
+}
 
 int	option(char *a)
 {
-	if(*a != '-')
-		return(1);
-	a++;
-	if(!*a)
+	if (*a != '-')
 		return (1);
-	while(*a)
+	a++;
+	if (!*a)
+		return (1);
+	while (*a)
 	{
 		if (*a != 'n')
-			return(1);
+			return (1);
 		a++;
 	}
-	return(0);
-
+	return (0);
 }
 
-int ft_exec_echo(t_command *command)
+int	ft_exec_echo(t_command *command)
 {
-	t_task *task = command->first->next;
-	int	suppress_newline = 0;
-	int	first_arg = 1;
+	t_task	*task;
+	int		suppress_newline;
+	int		first_arg;
 
+	task = command->first->next;
+	suppress_newline = 0;
+	first_arg = 1;
 	if (task && !option(task->content))
 	{
 		suppress_newline = 1;
@@ -31,12 +64,12 @@ int ft_exec_echo(t_command *command)
 	while (task)
 	{
 		if (!first_arg)
-			ft_putstr_fd(" ", 1);
-		ft_putstr_fd(task->content, 1);
+			ft_putstr_fd(" ", command->out_put);
+		ft_putstr_fd(task->content, command->out_put);
 		first_arg = 0;
 		task = task->next;
 	}
 	if (!suppress_newline)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", command->out_put);
 	return (0);
 }
