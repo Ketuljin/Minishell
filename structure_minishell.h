@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2024/11/20 18:57:16 by jkerthe          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:52:21 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef s_command
 	s_command	*next;
 	s_task		*first;
 	char		*full_task;
-	int		out_put;
-	int		in_put;
+	int			out_put;
+	int			in_put;
 }			t_command;
 
 typedef s_task

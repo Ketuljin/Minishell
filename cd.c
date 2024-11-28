@@ -34,15 +34,29 @@ static void	change_pwd(char **env, char *new_path, char *name)
 	}
 	create_env_var(env, new_path, name);
 }
-
-
-
+char	*option(char	*content)
+{
+	if(ft_strcmp(content, "-0"))
+		return(get_env_var("PWD"));
+	else if(ft_strcmp(content, "-1") || ft_strcmp(content, "-"))
+		return(get_end_var("OLDPWD"));
+	else if (content[0] == '-') && (ft_isnumeric(content[1])) && (content[2] == '\0')
+	{
+		ft_putstr_fd("Minishell: cd: no such entry in dir stack");
+		return(NULL);
+	}
+	return (content);
+	//gerer .. et .
+}
 int	execute_cd_args(t_command *command, char *current_path, char **env)
 {
 	t_task	*task;
 	char	path;
+
 	task = command->task->next;
 	path = option(task->content);
+	if (path == NULL)
+		return (1);
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("minishell: cd:", 2);
