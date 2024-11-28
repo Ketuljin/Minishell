@@ -1,12 +1,13 @@
 #include <stdio.h>
-//Voire pour créer une structure quie stockera toutes les informations de env (en utilisant le meme procédé que pour l'afficher)
-void ft_env(char **envp) {
-    if (!envp || !*envp) {
-        fprintf(stderr, "env: no environment variables found\n");
+
+void ft_exec_env(char **env) {
+    if (!env || !*env) {
+        ft_putstr_fd("env: no environment variables found\n", 2);
         return;
     }
-    while (*envp) {
-        printf("%s\n", *envp);
-        envp++;
+    while (*env) {
+       ft_putstr_fd(*env, 1);
+       ft_putstr_fd("\n", 1);
+        env++;
     }
 }

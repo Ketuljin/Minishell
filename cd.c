@@ -1,11 +1,22 @@
 #include "structure_minishell.h"
 
-int	execute_cd_args(t_command *command, char *current_path)
+static void	change_pwd(char **env, char *new_path)//to do
 {
-	char	*next_pwd;
+	
+}
+
+
+
+
+
+
+
+int	execute_cd_args(t_command *command, char *current_path, char **env)
+{
+	//char	*next_pwd;
 
 	t_task task = command->task->next;
-	new_pwd = NULL;
+	//new_pwd = NULL;
 	if (task != NULL)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
@@ -21,7 +32,7 @@ int	execute_cd_args(t_command *command, char *current_path)
 	return (1);
 }
 
-int	cd_no_arg(t_command *command)
+int	cd_no_arg(t_command *command, char **env)
 {
 	char	*home;
 
@@ -31,7 +42,7 @@ int	cd_no_arg(t_command *command)
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return 0;
 	}
-	if(chrdir(home) == -1)
+	if(chdir(home) == -1)
 	{
 		ft_putstr_fd("message d'erreur à definir", 2);
 		return (0);
@@ -39,7 +50,9 @@ int	cd_no_arg(t_command *command)
 	return (1);
 }
 
-int ft_exec_cd(t_command *command)
+
+
+int ft_exec_cd(t_command *command, char **env)
 {
 	int		i;
 	char	*current_path;
@@ -51,11 +64,17 @@ int ft_exec_cd(t_command *command)
 		ft_putstr_fd("minishell: getcwd", 2);
 		return 0;
 	}
-
-	if(command->task->next == NULL)
-		i = cd_no_arg(command);
-	else
-		i = cd_args(command, current_path);
+	i = count_task(command);
+	if (i > 2)
+	{
+		ft_putstr_fd("-Minishell: cd: too many arguments", 2);
+		free(current_path);
+		return(1);
+	}
+	if (i == 1)
+		cd_no_arg(command, env);
+	else if (i == 2)
+		cd_args(command, current_path, env);
 	free(current_path);
-	return(i);
+	return(0);
 }

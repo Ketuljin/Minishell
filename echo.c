@@ -3,27 +3,27 @@
 int	option(char *a)
 {
 	if(*a != '-')
-		return(0);
+		return(1);
 	a++;
 	if(!*a)
-		return (0);
+		return (1);
 	while(*a)
 	{
 		if (*a != 'n')
-			return(0);
+			return(1);
 		a++;
 	}
-	return(1);
+	return(0);
 
 }
 
 int ft_exec_echo(t_command *command)
 {
-	t_task * task = command->first->next;
+	t_task *task = command->first->next;
 	int	suppress_newline = 0;
 	int	first_arg = 1;
 
-	if (tast && option(task->content))
+	if (task && !option(task->content))
 	{
 		suppress_newline = 1;
 		task = task->next;
@@ -31,12 +31,12 @@ int ft_exec_echo(t_command *command)
 	while (task)
 	{
 		if (!first_arg)
-			printf(" ");
-		printf("%s", task->content);
+			ft_putstr_fd(" ", 1);
+		ft_putstr_fd(task->content, 1);
 		first_arg = 0;
 		task = task->next;
 	}
 	if (!suppress_newline)
-		printf("\n");
-	return (1);
+		ft_putstr_fd("\n", 1);
+	return (0);
 }
