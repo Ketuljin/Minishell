@@ -1,11 +1,59 @@
 #include "structure_minishell.h"
 
-static void	change_pwd(char **env, char *new_path)//to do
+static void	change_pwd(char **env, char *new_path)
 {
-	
+	int 	i;
+	char	*current_pwd;
+
+	i = 0;
+	if (!env || !new_path)
+		return ;
+	while(env[i])
+	{
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		{
+			current_pwd = env[i] + 4;
+			ft_strcpy(current_pwd, new_path);
+			return ;
+		}
+		i++;
+	}
+}
+static void	change_oldpwd(char **env, char *new_path)
+{
+	int 	i;
+	char	*current_pwd;
+
+	i = 0;
+	if (!env || !new_path)
+		return ;
+	while(env[i])
+	{
+		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
+		{
+			current_pwd = env[i] + 4;
+			ft_strcpy(current_pwd, new_path);
+			return ;
+		}
+		i++;
+	}
 }
 
+char *get_env_var(const char *var, char **env) {
+    int len;
+	int	i;
 
+	if (!var || !env)
+		return NULL;
+	len = ft_strlen(var);
+	i = 0;
+  	while(env[i]) {
+        if (ft_strncmp(env[i], var, len) == 0 && env[i][len] == '=')
+            return (env[i] + len + 1);
+		i++;
+    }
+    return NULL;
+}
 
 
 
@@ -13,10 +61,9 @@ static void	change_pwd(char **env, char *new_path)//to do
 
 int	execute_cd_args(t_command *command, char *current_path, char **env)
 {
-	//char	*next_pwd;
 
 	t_task task = command->task->next;
-	//new_pwd = NULL;
+
 	if (task != NULL)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
