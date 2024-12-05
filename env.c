@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "structure_minishell.h"
 
 char	*get_env_var(const char *var, char **env)
 {
@@ -30,17 +30,25 @@ char	*get_env_var(const char *var, char **env)
 	return (NULL);
 }
 
-void	ft_exec_env(char **env)
+int	ft_exec_env(t_command *command, char **env)
 {
+	t_task *task;
+
+	task = command->first_task;
 	if (!env || !*env)
 	{
-		ft_putstr_fd("env: no environment variables found\n", 2);
-		return ;
+		ft_putstr_fd("Minishell: env: no environment variables found\n", 2);
+		return (1) ;
+	}
+	if (task->next != NULL)
+	{
+		ft_putstr_fd("Minishell: env: too many argument", 2);
 	}
 	while (*env)
 	{
-		ft_putstr_fd(*env, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd(*env, command->out_put);
+		ft_putstr_fd("\n", command->out_put);
 		env++;
 	}
+	return (0);
 }

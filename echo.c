@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "structure_minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "structure_minishell.h"
+
 
 void	ft_putstr_fd(char *s, int fd)
 {
