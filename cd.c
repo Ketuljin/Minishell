@@ -32,22 +32,23 @@ static void	change_pwd(char **env, char *new_path, char *name)
 		}
 		i++;
 	}
-	create_env_var(env, new_path, name);
+	create_env_var(env, ft_strcat(name, new_path));
 }
 
 char	*option(char	*content)
 {
-	if(!ft_strcmp(content, "-"))
-		return(get_env_var("OLDPWD"));
-	else if(!ft_strncmp(content, "-", 1))
+	if (!ft_strcmp(content, "-"))
+		return (get_env_var("OLDPWD"));
+	else if (!ft_strncmp(content, "-", 1))
 	{
 		ft_putstr_fd("minishell: cd:", 2);
 		ft_putstr_fd(content, 2);
 		ft_putstr_fd(": invalid option", 2);
-		return(NULL);
+		return (NULL);
 	}
-	return(content);
+	return (content);
 }
+
 int	execute_cd_args(t_command *command, char *current_path, char **env)
 {
 	t_task	*task;
@@ -74,7 +75,6 @@ int	cd_no_arg(t_command *command, char **env)
 
 	stock = get_env_var("PWD");
 	home = get_env_var("HOME");
-
 	if (!home)
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);

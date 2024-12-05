@@ -12,22 +12,6 @@
 
 #include "structure_minishell.h"
 
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	char	a;
-	int		i;
-
-	i = 0;
-	a = 0;
-	while (s[i] != '\0')
-	{
-		a = s[i];
-		write (fd, &a, 1);
-		i++;
-	}
-}
-
 int	option(char *a)
 {
 	if (*a != '-')

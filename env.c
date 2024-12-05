@@ -12,6 +12,17 @@
 
 #include "structure_minishell.h"
 
+int	create_env_var(char **env, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	env[i] = str;
+	env[i +1] = NULL;
+}
+
 char	*get_env_var(const char *var, char **env)
 {
 	int	len;
@@ -32,13 +43,13 @@ char	*get_env_var(const char *var, char **env)
 
 int	ft_exec_env(t_command *command, char **env)
 {
-	t_task *task;
+	t_task	*task;
 
 	task = command->first_task;
 	if (!env || !*env)
 	{
 		ft_putstr_fd("Minishell: env: no environment variables found\n", 2);
-		return (1) ;
+		return (1);
 	}
 	if (task->next != NULL)
 	{

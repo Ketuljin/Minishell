@@ -26,3 +26,16 @@ int	count_task(t_command *command)
 	}
 	return (i);
 }
+void	printf_export(char **stock)
+{
+	int	i;
+
+	i = 0;
+	while(stock[i])
+	{
+		ft_putstr_fd("declare -x ", command->out_put);
+		ft_putstr_fd(stock[i], command->out_put);
+		ft_putstr_fd("\n", command->out_put);
+		i++;
+	}
+}

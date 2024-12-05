@@ -1,21 +1,29 @@
-#include <stdio.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 15:26:56 by jkerthe           #+#    #+#             */
+/*   Updated: 2024/12/05 15:26:56 by jkerthe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "structure_minishell.h"
 
 int	order_check(char	**stock)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(stock[i] && stock[i+1])
+	while (stock[i] && stock[i +1])
 	{
-		if (strcmp(stock[i], stock[i+1]) > 0)
-			return(1);
+		if (strcmp(stock[i], stock[i +1]) > 0)
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 void	ascii_order(char **stock, t_command *command)
@@ -27,43 +35,35 @@ void	ascii_order(char **stock, t_command *command)
 	while (order_check(stock))
 	{
 		i = 0;
-		while (stock[i] && stock[i+1])
+		while (stock[i] && stock[i +1])
 		{
-			if (strcmp(stock[i], stock[i+1]) > 0)
+			if (strcmp(stock[i], stock[i +1]) > 0)
 			{
 				temp = stock[i];
-				stock[i] = stock[i+1];
-				stock[i+1] = temp;
+				stock[i] = stock[i +1];
+				stock[i +1] = temp;
 			}
 			i++;
 		}
 	}
-	i = 0;
-	while(stock[i])
-	{
-		ft_putstr_fd("declare -x ", command->out_put);
-		ft_putstr_fd(stock[i], command->out_put);
-		ft_putstr_fd("\n", command->out_put);
-		i++;
-	}
-
+	printf_export(stock);
 }
 
 int	export_no_arg(t_command *command, char **env)
 {
-	char **stock;
-	int count;
-	int i;
+	char	**stock;
+	int		count;
+	int		i;
 
 	i = 0;
 	count = 0;
-	while(env[count] != NULL)
+	while (env[count] != NULL)
 		count++;
 	stock = malloc((count +1) * sizeof(char *));
 	if (stock == NULL)
 	{
-		ft_putstr_fd("Erreur d'allocation mémoire", 2);
-		return(1);
+		ft_putstr_fd("Memory leak", 2);
+		return (1);
 	}
 	while (i < count)
 	{
@@ -73,20 +73,37 @@ int	export_no_arg(t_command *command, char **env)
 	stock[i] = NULL;
 	ascii_order(stock, command);
 	free(stock);
-	return(0);
+	return (0);
+}
+
+int	check_task(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			if ((i != 0) && (str[i +1] != '\0'))
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 int	exec_export(t_command *command, char **env)
 {
-	t_task *task;
+	t_task	*task;
 
 	task = command->first_task->next;
-	if(task == NULL)
+	if (task == NULL)
 		export_no_arg(command, env);
-	while(task != NULL)
-	[
-		if(check_task(task->content))
-			create_export(task, env);
+	while (task != NULL)
+	{
+		if (!check_task(task->content))
+			create_env_var(task->content, env);
 		task = task->next;
-	]
+	}
 }
