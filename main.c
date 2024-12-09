@@ -11,19 +11,48 @@
 /* ************************************************************************** */
 
 #include "newlibft/libft.h"
+#include "structure_minishell.h"
 # include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdlib.h>
 
-int main(int argc, char const **argv, char **envp)
+void	free_struct2(t_task	*first)
 {
-	char	**environment;
+	if (first == NULL)
+		return ();
+	free_struct2(first->next);
+	free(first->content);
+	first->content = NULL;
+	first->prev = NULL;
+	free(first);
+	first = NULL;
+}
+
+void	free_struct(t_command	*first)
+{
+	if (first == NULL)
+		return ();
+	free_struct(first->next);
+	free(first->full_task);
+	first->full_task = NULL;
+	free_struct2(first->first);
+	free(first);
+	first = NULL;
+}
+
+int	main(int argc, char const **argv, char **envp)
+{
+	char		**environment;
+	t_command	*first;
 	// char	*test;
 
 	(void)argv;
 	(void)argc;
 	environment = ft_tabdup(envp);
+	first = NULL;
 	// test = readline("torture : ");
 	ft_tabfree(environment);
+	free_struct(first);
 	return 0;
 }
