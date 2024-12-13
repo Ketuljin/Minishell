@@ -6,6 +6,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Ilibft 
 # Fichiers sources et objets
 SRC =	main.c \
+		main_utils.c \
 
 OBJ= $(SRC:.c=.o)
 
