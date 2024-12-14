@@ -15,7 +15,7 @@
 void	free_struct2(t_task	*first)
 {
 	if (first == NULL)
-		return ();
+		return ;
 	free_struct2(first->next);
 	free(first->content);
 	first->content = NULL;
@@ -27,7 +27,7 @@ void	free_struct2(t_task	*first)
 void	free_struct(t_command	*first)
 {
 	if (first == NULL)
-		return ();
+		return ;
 	free_struct(first->next);
 	free(first->full_task);
 	first->full_task = NULL;
