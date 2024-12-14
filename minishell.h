@@ -13,12 +13,14 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "newlibft/libft.h"
-# include "structure_minishell.h"
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdlib.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+
+# include "newlibft/libft.h"
+# include "parsing/parsing.h"
+# include "structure_minishell.h"
 
 void	free_struct(t_command	*first);
 

@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/12/14 04:08:23 by vdunatte         ###   ########.fr       */
+/*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
+/*   Updated: 2024/12/14 04:04:51 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
+# include "../structure_minishell.h"
 
-int	main(int argc, char const **argv, char **envp)
-{
-	char		**environment;
-	t_command	*first;
-	char		*line;
+int	parsing(char *line, char **envp, t_command first);
 
-	(void)argv;
-	(void)argc;
-	environment = ft_tabdup(envp);
-	while (1)
-	{
-		line = readline("torture : ");
-		parsing(line, environment, first);
-		free_struct(first);
-	}
-	ft_tabfree(environment);
-	free_struct(first);
-	return (0);
-}
+#endif
