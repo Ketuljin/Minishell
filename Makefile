@@ -7,6 +7,8 @@ CFLAGS = -Wall -Wextra -Werror -g -Ilibft
 # Fichiers sources et objets
 SRC =	main.c \
 		main_utils.c \
+		 \
+		parsing/parsing.c \
 
 OBJ= $(SRC:.c=.o)
 
