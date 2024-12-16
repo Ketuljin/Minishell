@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:58:08 by jkerthe           #+#    #+#             */
-/*   Updated: 2024/12/10 16:40:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/16 17:58:40 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ char **delete_env_var(char **env, char *str)
 		i++;
 	}
 	return(env);
-}	
+}
 
-char **exec_unset(t_command *command, char **env)
+char **ft_exec_unset(t_command *command, char **env)
 {
 	t_task	*task;
 

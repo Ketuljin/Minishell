@@ -28,7 +28,7 @@ int	option_echo(char *a)
 	return (0);
 }
 
-int	ft_exec_echo(t_command *command)
+void	ft_exec_echo(t_command *command)
 {
 	t_task	*task;
 	int		suppress_newline;

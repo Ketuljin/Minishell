@@ -15,9 +15,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
 char**	add_env_var(char **env, char *str)
 {
 	char	**new_env;
@@ -76,9 +73,6 @@ int arleady_exist(char **env, char *content)
     return 0;
 }
 
-
-
-
 char	**export_arg(char **env, char *content)
 {
 	int		i;
@@ -103,7 +97,7 @@ char	**export_arg(char **env, char *content)
 	return (env);
 }
 
-char	**exec_export(t_command *command, char **env)
+char	**ft_exec_export(t_command *command, char **env)
 {
 	t_task	*task;
 

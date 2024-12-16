@@ -37,74 +37,50 @@ char    **change_var(char **env, char *new_value, char *name)
         i++;
     }
     env = add_env_var(env, new_var);
-    free(new_var); 
-    return(env);
-}
-int ft_exec_cd(t_command *command, char **env)
-{
-    int task_count;
-
-    task_count = count_task(command);
-
-    if (task_count > 1)
-    {
-        ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-        return (1);
-    }
-    if (task_count == 0)
-        return cd_no_arg(env);
-
-    if (task_count == 1)
-        return execute_cd_args(command, env);
-
-    return (0);
+    free (new_var); 
+    return (env);
 }
 
-int cd_no_arg(char **env)
+
+char	**cd_no_arg(char ***env)
 {
     char *home;
     char *pwd;
 
-    pwd = get_env_var("PWD", env);
-    home = get_env_var("HOME", env);
-
+    pwd = get_env_var("PWD", *env);
+    home = get_env_var("HOME", *env);
     if (!home)
     {
         ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-        return (1);
+        return (env);
     }
-
     if (chdir(home) == -1)
-    {
-        perror("minishell: cd");
-        return (1);
-    }
-    change_var(env, pwd, "OLDPWD");
-    change_var(env, home, "PWD");
-    return (0);
+        return (env);
+    *env = change_var(*env, pwd, "OLDPWD");
+    *env = change_var(*env, home, "PWD");
+    return (*env);
 }
 
-int execute_cd_args(t_command *command, char **env)
+char	**execute_cd_args(t_command *command, char ***env)
 {
     t_task *task;
     char *path;
     char *pwd;
 
     task = command->first->next;
-    path = option_cd(task->content, env);
+    path = option_cd(task->content, *env);
     if (!path)
         return (1);
-
-    pwd = get_env_var("PWD", env);
-
+    pwd = get_env_var("PWD", *env);
     if (chdir(path) == -1)
     {
-        perror("minishell: cd");
+        ft_putstr_fd("minishell: cd no such file or directory:", 2);
+		ft_putstr_fd(path, 2);
         return (1);
     }
-    change_var(env, pwd, "OLDPWD");
-    change_var(env, get_env_var("HOME", env), "PWD");
-    return (0);
+    *env = change_var(*env, pwd, "OLDPWD");
+    *env = change_var(*env, get_env_var("HOME", *env), "PWD");
+    return (*env);
 }
 
 char *option_cd(char *content, char **env)
@@ -121,4 +97,26 @@ char *option_cd(char *content, char **env)
     }
 
     return content;
+}
+
+char	**ft_exec_cd(t_command *command, char **env)
+{
+    int task_count;
+
+    task_count = count_task(command);
+    if (task_count > 1)
+    {
+        ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+        return (1);
+    }
+    if (task_count == 0)
+	{
+		cd_no_arg(&env);
+		return (env);
+	}
+    if (task_count == 1)
+	{
+		execute_cd_args(command, &env);
+        return (env);
+	}
 }
