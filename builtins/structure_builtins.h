@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURE_MINISHELL_H
-# define STRUCTURE_MINISHELL_H
+#ifndef STRUCTURE_BUILTINS_H
+# define STRUCTURE_BUILTINS_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -38,22 +38,17 @@ typedef struct s_task
 }		t_task;
 
 /* ************************************************************************** */
-int		ft_exec_cd(t_command *command, char **env);
-char	*option_cd(char	*content, char **env);
-int		execute_cd_args(t_command *command, char **env);
-int		cd_no_arg(char **env);
+char	**ft_exec_cd(t_command *command, char **env);
+char	*option_cd(char *content, char **env);
+char	**execute_cd_args(t_command *command, char ***env);
+char	**cd_no_arg(char ***env);
 char    **change_var(char **env, char *new_value, char *name);
 /* ************************************************************************** */
-int		ft_exec_echo(t_command *command);
-int		option_echo(char *a);
+void	ft_exec_echo(t_command *command);
+int	option_echo(char *a);
 /* ************************************************************************** */
-int		ft_exec_env(t_command *command, char **env);
+int	ft_exec_env(t_command *command, char **env);
 char	*get_env_var(const char *var, char **env);
-int		create_env_var(char **env, char *str);
-/* ************************************************************************** */
-char **	exec_export(t_command *command, char **env);
-int	check_task(char	*str);
-char**	add_env_var(char **env, char *str);
 /* ************************************************************************** */
 int	export_no_arg(t_command *command, char **env);
 void	printf_export(char **stock, t_command *command);
@@ -61,11 +56,23 @@ void	ascii_order(char **stock, t_command *command);
 int	order_check(char	**stock);
 int	compare_ascii(char *s1, char *s2);
 /* ************************************************************************** */
-int		ft_exec_pwd(char	**env);
+char	**ft_exec_export(t_command *command, char **env);
+char	**export_arg(char **env, char *content);
+int	arleady_exist(char **env, char *content);
+int	check_task(char	*str);
+char**	add_env_var(char **env, char *str);
 /* ************************************************************************** */
-int		count_line(char	**str);
+void	ft_exec_pwd(t_command *command, char	**env);
+/* ************************************************************************** */
+char	**ft_exec_unset(t_command *command, char **env);
+char	**delete_env_var(char **env, char *str);
+char	**delete_env_line(char **env, int pos);
+/* ************************************************************************** */
+char	**copy_memory(char **src, char **dest, int z);
+int	count_task(t_command *command);
+int	count_line(char	**str);
 void	free_double(char **str);
-int		count_task(t_command *command);
-char **copy_memory(char **src, char **dest, int z);
+/* ************************************************************************** */
+
 
 #endif

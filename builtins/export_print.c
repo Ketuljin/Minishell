@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 int	compare_ascii(char *s1, char *s2)
 {

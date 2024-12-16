@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 char **delete_env_line(char **env, int pos)
 {

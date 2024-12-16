@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 char	*get_env_var(const char *var, char **env)
 {

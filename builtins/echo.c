@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 int	option_echo(char *a)
 {
@@ -52,7 +52,7 @@ void	ft_exec_echo(t_command *command)
 	}
 	if (!suppress_newline)
 		ft_putstr_fd("\n", command->out_put);
-	return (0);
+	return ;
 }
 
 

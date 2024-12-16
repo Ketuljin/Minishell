@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 void	free_double(char **str)
 {

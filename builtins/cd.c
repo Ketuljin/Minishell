@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 char    **change_var(char **env, char *new_value, char *name)
 {
@@ -52,10 +52,10 @@ char	**cd_no_arg(char ***env)
     if (!home)
     {
         ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-        return (env);
+        return (*env);
     }
     if (chdir(home) == -1)
-        return (env);
+        return (*env);
     *env = change_var(*env, pwd, "OLDPWD");
     *env = change_var(*env, home, "PWD");
     return (*env);
@@ -70,13 +70,13 @@ char	**execute_cd_args(t_command *command, char ***env)
     task = command->first->next;
     path = option_cd(task->content, *env);
     if (!path)
-        return (1);
+        return (*env);
     pwd = get_env_var("PWD", *env);
     if (chdir(path) == -1)
     {
         ft_putstr_fd("minishell: cd no such file or directory:", 2);
 		ft_putstr_fd(path, 2);
-        return (1);
+        return (*env);
     }
     *env = change_var(*env, pwd, "OLDPWD");
     *env = change_var(*env, get_env_var("HOME", *env), "PWD");
@@ -107,7 +107,7 @@ char	**ft_exec_cd(t_command *command, char **env)
     if (task_count > 1)
     {
         ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-        return (1);
+        return (env);
     }
     if (task_count == 0)
 	{
@@ -119,4 +119,5 @@ char	**ft_exec_cd(t_command *command, char **env)
 		execute_cd_args(command, &env);
         return (env);
 	}
+    return (env);
 }

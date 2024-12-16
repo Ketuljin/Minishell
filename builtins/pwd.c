@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_minishell.h"
+#include "structure_builtins.h"
 
 void	ft_exec_pwd(t_command *command, char	**env)
 {
@@ -19,11 +19,11 @@ void	ft_exec_pwd(t_command *command, char	**env)
 
 	task = command->first;
 	if (task->next != NULL)
-		return (0);
+		return ;
 	path = get_env_var("PWD", env);
 	if(path == NULL)
 	{
-		ft_putstr_fd("Minishell: missing PWD");
+		ft_putstr_fd("Minishell: missing PWD", 1);
 		return ;
 	}
 	ft_putstr_fd(path, 1);
