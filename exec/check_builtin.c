@@ -36,3 +36,10 @@ char	**exec_builtin(t_command *command, char **env)
 		env = ft_exec_cd(command, env);
 	return (env);
 }
+
+int	is_pipe(t_command *command)
+{
+	if (command->next !=  NULL)
+		return (0)
+	return (1);
+}
