@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structure_minishell.h                              :+:      :+:    :+:   */
+/*   structure_builtins.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2024/12/10 16:25:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/17 15:34:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_BUILTINS_H
 # define STRUCTURE_BUILTINS_H
 
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -38,11 +38,11 @@ typedef struct s_task
 }		t_task;
 
 /* ************************************************************************** */
-char	**ft_exec_cd(t_command *command, char **env);
+int		ft_exec_cd(t_command *command, char ***env);
 char	*option_cd(char *content, char **env);
-char	**execute_cd_args(t_command *command, char ***env);
-char	**cd_no_arg(char ***env);
-char    **change_var(char **env, char *new_value, char *name);
+int		execute_cd_args(t_command *command, char ***env);
+int		cd_no_arg(char ***env);
+char    **change_var(char ***env, char *new_value, char *name);
 /* ************************************************************************** */
 void	ft_exec_echo(t_command *command);
 int	option_echo(char *a);
