@@ -12,8 +12,14 @@
 
 #ifndef PARSING_H
 # define PARSING_H
+
+# include <stdio.h>
+
+# include "../newlibft/libft.h"
 # include "../structure_minishell.h"
 
 int	parsing(char *line, char **envp, t_command first);
+
+char *replace_var(char *line, char **envp);
 
 #endif
