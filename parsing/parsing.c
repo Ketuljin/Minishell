@@ -14,5 +14,12 @@
 
 int	parsing(char *line, char **envp, t_command first)
 {
-	return (0);
+	int	i;
+
+	i = 0
+	while (/* condition */)
+	{
+		/* code */
+	}
+	
 }
