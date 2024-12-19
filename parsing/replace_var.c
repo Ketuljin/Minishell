@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/19 03:09:23 by vdunatte          #+#    #+#             */
+/*   Updated: 2024/12/19 03:09:23 by vdunatte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 
-char *get_var2(char *envp)
+char	*get_var2(char *envp)
 {
-	char	var;
+	char	*var;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
+	var = NULL;
 	while (envp[i] != '=')
 		i++;
 	i++;
@@ -17,17 +30,17 @@ char *get_var2(char *envp)
 		i++;
 		j++;
 	}
-	return(var);
+	return (var);
 }
 
-char *get_var(char **line, char **envp)
+char	*get_var(char **line, char **envp)
 {
-	char	var;
+	char	*var;
 	int		i;
 
 	var = NULL;
 	i = 0;
-	while (*line[0] != '\0' && (ft_isalnum(*line[0]) != 0|| *line[0] == '_'))
+	while (*line[0] != '\0' && (ft_isalnum(*line[0]) != 0 || *line[0] == '_'))
 	{
 		var[i] = *line[0];
 		i++;
@@ -37,15 +50,15 @@ char *get_var(char **line, char **envp)
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(var, envp[i], ft_strlen(var)) == 0)
-			return (get_var2(envp[i]))
+			return (get_var2(envp[i]));
 		i++;
 	}
-	return("");
+	return ("");
 }
 
-char *replace_var(char *line, char **envp)
+char	*replace_var(char *line, char **envp)
 {
-	char	*newline = NULL;
+	char	*newline;
 	char	*temp;
 	int		i;
 
@@ -61,16 +74,16 @@ char *replace_var(char *line, char **envp)
 				return (line);
 		}
 		if (line[0] == '$')
-			{
-				stock(newline, temp);
-				temp = NULL;
-                i = 0;
-				stock(newline, get_var(line + 1, envp));
-			}
+		{
+			stock(&newline, temp);
+			temp = NULL;
+			i = 0;
+			stock(&newline, get_var(&line + 1, envp));
+		}
 		temp[i] = line[0];
 		i++;
 		line++;
 	}
-    stock(newline, temp);
-    return (newline,temp);
+	stock(&newline, temp);
+	return (newline);
 }
