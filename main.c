@@ -26,8 +26,10 @@ int	main(int argc, char const **argv, char **envp)
 		line = readline("torture : ");
 		parsing(line, environment, first);
 		free_struct(first);
+		free(line);
 	}
 	ft_tabfree(environment);
 	free_struct(first);
+	
 	return (0);
 }
