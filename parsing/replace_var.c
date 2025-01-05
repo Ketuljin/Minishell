@@ -20,7 +20,7 @@ char	*get_var2(char *envp)
 
 	i = 0;
 	j = 0;
-	var = NULL;
+	var = ft_calloc(ft_strlen(envp) + 1, sizeof(char));
 	while (envp[i] != '=')
 		i++;
 	i++;
@@ -38,22 +38,24 @@ char	*get_var(char **line, char **envp)
 	char	*var;
 	int		i;
 
-	var = NULL;
+	var = ft_calloc(ft_strlen(*line) + 2, sizeof(char));
 	i = 0;
-	while (*line[0] != '\0' && (ft_isalnum(*line[0]) != 0 || *line[0] == '_'))
+	while ((*line)[0] != '\0'
+		&& (ft_isalnum((*line)[0]) != 0 || (*line)[0] == '_'))
 	{
-		var[i] = *line[0];
+		var[i] = (*line)[0];
 		i++;
+		(*line)++;
 	}
 	var[i] = '=';
 	i = 0;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(var, envp[i], ft_strlen(var)) == 0)
-			return (get_var2(envp[i]));
+			return (free(var), get_var2(envp[i]));
 		i++;
 	}
-	return ("");
+	return (free(var), "");
 }
 
 char	*replace_var(char *line, char **envp)
@@ -63,7 +65,7 @@ char	*replace_var(char *line, char **envp)
 	int		i;
 
 	i = 0;
-	temp = NULL;
+	temp = ft_calloc(ft_strlen(line) + 1, sizeof(char));
 	newline = NULL;
 	while (line[0] != '\0')
 	{
@@ -76,14 +78,16 @@ char	*replace_var(char *line, char **envp)
 		if (line[0] == '$')
 		{
 			stock(&newline, temp);
-			temp = NULL;
+			ft_bzero(temp, ft_strlen(line) + 1);
 			i = 0;
-			stock(&newline, get_var(&line + 1, envp));
+			line++;
+			stock(&newline, get_var(&line, envp));
 		}
 		temp[i] = line[0];
 		i++;
 		line++;
 	}
 	stock(&newline, temp);
+	free(temp);
 	return (newline);
 }
