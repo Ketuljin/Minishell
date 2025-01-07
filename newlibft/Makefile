@@ -7,6 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 # Fichiers sources et objets
 SRC = get_next_line.c \
+	ft_stock.c \
 	\
 	ft_atoi.c \
 	ft_bzero.c \

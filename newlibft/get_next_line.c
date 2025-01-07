@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 00:08:06 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/08/19 01:37:57 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/01/07 23:59:57 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@ char	*destock(char **remaining_str, unsigned int i)
 	temp = ft_substr(s, 0, i);
 	free(s);
 	return (temp);
-}
-
-void	stock(char **remaining_str, char *str)
-{
-	char	*s;
-
-	s = NULL;
-	if (*remaining_str != NULL)
-	{
-		s = ft_strdup (*remaining_str);
-		free(*remaining_str);
-	}
-	if (s == NULL || str == NULL )
-	{
-		if (s == NULL && str == NULL)
-			*remaining_str = ft_strjoin("", "");
-		if (s == NULL && str != NULL)
-			*remaining_str = ft_strjoin("", str);
-		if (s != NULL && str == NULL)
-			*remaining_str = ft_strjoin(s, "");
-	}
-	else
-		*remaining_str = ft_strjoin(s, str);
-	if (*remaining_str != NULL)
-		free(s);
 }
 
 char	*get_last_line(int fd, char **remaining_str, int nbread)

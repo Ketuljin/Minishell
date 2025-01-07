@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:01:04 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/12/05 21:02:18 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/01/08 00:01:40 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 
 char	*destock(char **remaining_str, unsigned int i);
 void	stock(char **remaining_str, char *str);
+void	stock_2mlc(char **remaining_str, char *str);
 char	*get_next_line(int fd);
 
 #endif
