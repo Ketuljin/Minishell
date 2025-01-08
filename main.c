@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/12/19 03:35:08 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:07:18 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ int	main(int argc, char const **argv, char **envp)
 	t_command	*first;
 	char		*line;
 	int			test;
+	int			value_return;
 
 	(void)argv;
 	(void)argc;
 	environment = ft_tabdup(envp);
 	first = NULL;
 	test = 0;
+	value_return = 0;
 	while (test != 2)
 	{
 		line = readline("torture : ");
-		parsing(line, environment, first);
+		parsing(line, environment, first, value_return);
 		free_struct(first);
 		free(line);
 		test++;
