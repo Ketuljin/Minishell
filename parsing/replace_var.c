@@ -33,11 +33,16 @@ char	*get_var2(char *envp)
 	return (var);
 }
 
-char	*get_var(char **line, char **envp)
+char	*get_var(char **line, char **envp, int value_return)
 {
 	char	*var;
 	int		i;
 
+	if((*line)[0] == '?')
+		{
+			(*line)++;
+			return(ft_itoa(value_return));
+		}
 	var = ft_calloc(ft_strlen(*line) + 2, sizeof(char));
 	i = 0;
 	while ((*line)[0] != '\0'
@@ -55,10 +60,10 @@ char	*get_var(char **line, char **envp)
 			return (free(var), get_var2(envp[i]));
 		i++;
 	}
-	return (free(var), "");
+	return (free(var), NULL);
 }
 
-char	*replace_var(char *line, char **envp)
+char	*replace_var(char *line, char **envp, int value_return)
 {
 	char	*newline;
 	char	*temp;
@@ -71,9 +76,10 @@ char	*replace_var(char *line, char **envp)
 	{
 		if (line[0] == '\'')
 		{
-			line = ft_strchr(line + 1, 39) + 1;
+			line = ft_strchr(line + 1, 39);
 			if (line == NULL)
-				return (line);
+				return (free(temp), line);
+			line++;
 		}
 		if (line[0] == '$')
 		{
@@ -81,11 +87,12 @@ char	*replace_var(char *line, char **envp)
 			ft_bzero(temp, ft_strlen(line) + 1);
 			i = 0;
 			line++;
-			stock(&newline, get_var(&line, envp));
+			stock_2mlc(&newline, get_var(&line, envp, value_return));
 		}
 		temp[i] = line[0];
 		i++;
-		line++;
+		if (line[0] != '\0')
+			line++;
 	}
 	stock(&newline, temp);
 	free(temp);

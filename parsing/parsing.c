@@ -6,13 +6,13 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/12/19 03:35:41 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:06:05 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	parsing(char *line, char **envp, t_command *first)
+int	parsing(char *line, char **envp, t_command *first, int value_return)
 {
 	int	i;
 	char	*temp;
@@ -21,8 +21,11 @@ int	parsing(char *line, char **envp, t_command *first)
 	(void)line;
 	(void)envp;
 	(void)first;
-	temp = replace_var(line, envp);
-	printf("%s\n", temp);
+	temp = replace_var(line, envp, value_return);
+	if (temp != NULL)
+		printf("%s\n", temp);
+	else
+		printf("NULL");
 	free(temp);
 	return (i);
 }
