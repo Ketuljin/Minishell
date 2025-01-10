@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/01/08 02:07:18 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:46:05 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char const **argv, char **envp)
 	first = NULL;
 	test = 0;
 	value_return = 0;
-	while (test != 2)
+	while (test != 5)
 	{
 		line = readline("torture : ");
 		parsing(line, environment, first, value_return);
