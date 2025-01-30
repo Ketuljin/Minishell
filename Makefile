@@ -10,6 +10,7 @@ SRC =	main.c \
 		 \
 		parsing/parsing.c \
 		parsing/replace_var.c \
+		parsing/split_pipe.c \
 
 OBJ= $(SRC:.c=.o)
 
