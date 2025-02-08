@@ -22,6 +22,6 @@
 # include "parsing/parsing.h"
 # include "structure_minishell.h"
 
-void	free_struct(t_command	**first);
+void	free_struct(t_command	**	first);
 
 #endif
