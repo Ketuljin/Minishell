@@ -54,7 +54,7 @@ char	*get_var(char **line, char **envp, int value_return)
 	}
 	var[i] = '=';
 	i = -1;
-	while (envp[i] != NULL)
+	while (envp[++i] != NULL)
 		if (ft_strncmp(var, envp[i], ft_strlen(var)) == 0)
 			return (free(var), get_var2(envp[i]));
 	return (free(var), NULL);
