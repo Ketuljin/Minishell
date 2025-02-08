@@ -9,8 +9,9 @@ SRC =	main.c \
 		main_utils.c \
 		 \
 		parsing/parsing.c \
-		parsing/replace_var.c \
 		parsing/split_pipe.c \
+		parsing/split_token.c \
+		parsing/replace_var.c \
 
 OBJ= $(SRC:.c=.o)
 
