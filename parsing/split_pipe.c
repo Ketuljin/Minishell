@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 03:42:49 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/08 01:30:21 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/15 00:49:30 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ t_command	*lst_command_new(void *content)
 	return (lst);
 }
 
-char	*extract_skip(char **line, int len)
-{
-	char	*ret;
-
-	ret = ft_substr(*line, 0, len);
-	if (ret == NULL)
-		return (NULL);
-	*line += len;
-	return (ret);
-}
-
 int	split_pipe(char *line, t_command *first)
 {
 	int		i;
@@ -47,12 +36,8 @@ int	split_pipe(char *line, t_command *first)
 	temp = line;
 	while (temp[0] != '\0')
 	{
-		if (temp[0] == '\"' || temp[0] == '\'')
-		{
-			temp = ft_strchr(temp + 1, temp[0]);
-			if (temp == NULL)
-				return (1);
-		}
+		if (skip_quote(&temp) == 1)
+			return (1);
 		if (temp[0] == '|')
 		{
 			i = (long)temp - (long)line;
@@ -61,8 +46,7 @@ int	split_pipe(char *line, t_command *first)
 				return (1);
 			ft_lstadd_back((t_list **)&first, (t_list *)lst_command_new(NULL));
 			first = first->next;
-			line++;
-			temp = line;
+			temp = ++line;
 		}
 		if (temp[0] != '\0')
 			temp++;
