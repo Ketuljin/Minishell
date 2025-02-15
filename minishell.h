@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 
-# include "newlibft/libft.h"
-# include "parsing/parsing.h"
-# include "structure_minishell.h"
+#include "newlibft/libft.h"
+#include "parsing/parsing.h"
+#include "structure_minishell.h"
 
-void	free_struct(t_command	**	first);
+void	free_struct(t_command **first);
 
 #endif
