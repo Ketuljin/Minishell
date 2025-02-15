@@ -8,6 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -g -Ilibft
 SRC =	main.c \
 		main_utils.c \
 		 \
+		parsing/utlis.c \
 		parsing/parsing.c \
 		parsing/split_pipe.c \
 		parsing/split_token.c \
