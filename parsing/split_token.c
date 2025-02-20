@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/15 00:50:02 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/16 02:11:13 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ t_task	*lst_task_new(void *content, t_task *prev)
 	return (lst);
 }
 
+void	skip_space(char **temp, char **full_task, int i)
+{
+	while ((*temp)[i] != '\0' && ((*temp)[i] == ' ' || (*temp)[i] == '	'))
+	{
+		(*temp)++;
+		(*full_task)++;
+	}
+	
+}
+
 int	splitter(char *full_task, t_task *first)
 {
 	int		i;
@@ -33,6 +43,7 @@ int	splitter(char *full_task, t_task *first)
 
 	i = 0;
 	temp = full_task;
+	skip_space(&temp, &full_task, 0);
 	while (temp[0] != '\0')
 	{
 		if (skip_quote(&temp) == 1)
@@ -43,6 +54,7 @@ int	splitter(char *full_task, t_task *first)
 			first->content = extract_skip(&full_task, i);
 			if (first->content == NULL)
 				return (1);
+			skip_space(&temp, &full_task, 1);
 			ft_lstadd_back((t_list **)&first, (t_list *)lst_task_new(NULL, NULL));
 			printf("2 %s\n", first->content);
 			first = first->next;
@@ -52,7 +64,7 @@ int	splitter(char *full_task, t_task *first)
 			temp++;
 	}
 	first->content = ft_strdup(full_task);
-	printf("3 %s\n", first->content);
+	printf("3 %s\n\n", first->content);
 	if (first->content == NULL)
 		return (1);
 	return (0);
