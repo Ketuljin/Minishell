@@ -14,9 +14,8 @@
 
 void	free_double(char **str)
 {
-	int i;
+	int	i;
 
-	
 	if (!str)
 		return ;
 	i = 0;
@@ -43,7 +42,7 @@ int	count_task(t_command *command)
 	t_task	*actual_task;
 	int		i;
 
-	i = 0;
+	i = 1;
 	actual_task = command->first;
 	while (actual_task->next)
 	{
@@ -53,21 +52,21 @@ int	count_task(t_command *command)
 	return (i);
 }
 
-char **copy_memory(char **src, char **dest, int z)
+char	**copy_memory(char **src, char **dest, int z)
 {
 	int	i;
 
 	i = 0;
-	while(src[i])
+	while (src[i])
 	{
-		if(i != z)
+		if (i != z)
 		{
-			dest[i] = malloc((ft_strlen(src[i])+1) * sizeof(char));
+			dest[i] = malloc((ft_strlen(src[i]) + 1) * sizeof(char));
 			if (!dest[i])
 				return (NULL);
-			ft_strlcpy(dest[i], src[i], (ft_strlen(src[i])+1));
+			ft_strlcpy(dest[i], src[i], (ft_strlen(src[i]) + 1));
 		}
 		i++;
 	}
-	return(dest);
+	return (dest);
 }

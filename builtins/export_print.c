@@ -19,13 +19,13 @@ int	compare_ascii(char *s1, char *s2)
 
 	j = 0;
 	i = 0;
-	while(s1[i])
+	while (s1[i])
 	{
 		j = s1[i] + j;
 		i++;
 	}
 	i = 0;
-	while(s2[i])
+	while (s2[i])
 	{
 		j = j - s2[i];
 		i++;
@@ -38,9 +38,9 @@ int	order_check(char	**stock)
 	int	i;
 
 	i = 0;
-	while (stock[i] && stock[i +1])
+	while (stock[i] && stock[i + 1])
 	{
-		if (compare_ascii(stock[i], stock[i+1]) > 0)
+		if (compare_ascii(stock[i], stock[i + 1]) > 0)
 			return (1);
 		i++;
 	}
@@ -75,7 +75,7 @@ void	printf_export(char **stock, t_command *command)
 	int	i;
 
 	i = 0;
-	while(stock[i])
+	while (stock[i])
 	{
 		ft_putstr_fd("declare -x ", command->out_put);
 		ft_putstr_fd(stock[i], command->out_put);

@@ -12,19 +12,20 @@
 
 #include "structure_builtins.h"
 
-void	ft_exec_pwd(t_command *command, char	**env)
+int	ft_exec_pwd(t_command *command)
 {
 	char	*path;
 	t_task	*task;
 
+	path = malloc(sizeof(char) * 100);
 	task = command->first;
 	if (task->next != NULL)
-		return ;
-	path = get_env_var("PWD", env);
-	if(path == NULL)
+		return (-1);
+	getcwd(path, 100);
+	if (path == NULL)
 	{
 		ft_putstr_fd("Minishell: missing PWD", 1);
-		return ;
+		return (-1);
 	}
 	ft_putstr_fd(path, 1);
 	ft_putstr_fd("\n", 1);
@@ -33,5 +34,5 @@ void	ft_exec_pwd(t_command *command, char	**env)
 		free (path);
 		path = NULL;
 	}
-	return ;
+	return (0);
 }

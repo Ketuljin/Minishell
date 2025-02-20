@@ -28,7 +28,7 @@ int	option_echo(char *a)
 	return (0);
 }
 
-void	ft_exec_echo(t_command *command)
+int	ft_exec_echo(t_command *command)
 {
 	t_task	*task;
 	int		suppress_newline;
@@ -52,8 +52,5 @@ void	ft_exec_echo(t_command *command)
 	}
 	if (!suppress_newline)
 		ft_putstr_fd("\n", command->out_put);
-	return ;
+	return (0);
 }
-
-
-

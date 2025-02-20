@@ -10,7 +10,11 @@ SRC = cd.c \
 	pwd.c\
 	unset.c\
 	utils_task.c\
-	
+	change_var.c \
+	../exec/check_builtin.c \
+	../exec/ft_exec_1.c \
+	../exec/pipes_utils.c \
+
 
 
 
