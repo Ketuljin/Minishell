@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 char	**add_env_var(char **env, char *str)
 {
@@ -91,17 +91,21 @@ int	export_arg(char ***env, char *content)
 
 int	ft_exec_export(t_command *command, char ***env)
 {
+	int		count;
 	t_task	*task;
 
-	task = command->first->next;
-	if (task == NULL)
+	task = command->first;
+	count = count_task(command);
+	if (count == 1)
 	{
 		export_no_arg(command, *env);
 		return (0);
 	}
+	task = task->next;
 	while (task != NULL)
 	{
-		export_arg(env, task->content);
+		if (task->type == 0)
+			export_arg(env, task->content);
 		task = task->next;
 	}
 	return (0);

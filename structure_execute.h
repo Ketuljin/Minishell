@@ -1,43 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structure_builtins.h                               :+:      :+:    :+:   */
+/*   structure_execute.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/20 10:43:45 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:36:13 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURE_BUILTINS_H
-# define STRUCTURE_BUILTINS_H
+#ifndef STRUCTURE_EXECUTE_H
+# define STRUCTURE_EXECUTE_H
 
-# include "libft/libft.h"
+//# include <
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <signal.h>
-# include <sys/wait.h>
-
-typedef struct s_command
-{
-	struct s_command	*next;
-	struct s_task		*first;
-	char				*full_task;
-	int					out_put;
-	int					in_put;
-}			t_command;
-
-typedef struct s_task
-{
-	struct s_task	*next;
-	struct s_task	*prev;
-	char			*content;
-	int				type;
-
-}		t_task;
 
 /* ******************** cd.c ******************** */
 int			cd_no_arg(char ***env);
@@ -73,16 +53,18 @@ void		free_double(char **str);
 int			count_line(char	**str);
 int			count_task(t_command *command);
 char		**copy_memory(char **src, char **dest, int z);
+int			count_command(t_command *command);
 /* ******************** ft_exec.c ******************** */
-int			ft_execvp(t_command *command);
+int			ft_execvp(t_command *command, char ***env);
 int			ft_exec_parent(int **pipes, int nb_command);
 int			ft_create_process(int **pipes, t_command *command,
 				char ***env, int count);
-int			ft_check(t_command *command, char ***env);
+int			ft_execute(t_command *command, char ***env);
 /* ******************** check_builtin.c ******************** */
 int			is_builtin(char *content);
 int			exec_builtin(t_command *command, char ***env);
 t_command	*search_command(t_command *command, int count);
+int			count_out_put(t_command *command);
 /* ******************** change_var.c ******************** */
 char		*change_var_utils(char *name, char *newvalue, int name_len);
 char		**change_var(char ***env, char *new_value, char *name);
@@ -93,5 +75,16 @@ int			**ft_create_pipe(int nb_command);
 int			**free_pipe(int **pipes, int nb_command);
 int			ft_exec_pipe(t_command *command, char ***env, int nb_command);
 int			is_pipe(t_command *command);
+char		*path_execve(const char *dir, const char *command);
+void		ft_close_dup(t_command *command, int fd);
+int			ft_open_out_put(int type, int out_put,
+				char *content, int saved_stdout);
+int			ft_verif_out_put(t_command *command);
+void		ft_close_out_put(t_command *command, int fd_save);
+int			ft_verif_in_put(t_command *command);
+int			ft_open_in_put(int type, int in_put,
+				char *content, int saved_stdin);
+void		open_str_stdin(const char *str);
+void		ft_close_in_put(t_command *command, int fd_stdin);
 
 #endif

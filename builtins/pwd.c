@@ -10,16 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 int	ft_exec_pwd(t_command *command)
 {
 	char	*path;
-	t_task	*task;
 
 	path = malloc(sizeof(char) * 100);
-	task = command->first;
-	if (task->next != NULL)
+	if (1 != count_task(command))
 		return (-1);
 	getcwd(path, 100);
 	if (path == NULL)

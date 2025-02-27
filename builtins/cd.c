@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 int	cd_no_arg(char ***env)
 {
@@ -30,8 +30,8 @@ int	cd_no_arg(char ***env)
 		perror("minishell: cd");
 		return (1);
 	}
-	change_var(env, pwd, "OLDPWD");
 	change_pwd(env, home, "PWD");
+	change_var(env, pwd, "OLDPWD");
 	free (pwd);
 	return (0);
 }
@@ -41,6 +41,7 @@ int	execute_cd_args(t_command *command, char ***env)
 	t_task	*task;
 	char	*path;
 	char	*pwd;
+	char	*tmp;
 
 	pwd = malloc(sizeof(char) * 1000);
 	task = command->first->next;
@@ -54,9 +55,11 @@ int	execute_cd_args(t_command *command, char ***env)
 		return (1);
 	}
 	change_var(env, pwd, "OLDPWD");
-	getcwd(path, 1000);
-	change_pwd(env, get_env_var("PWD", *env), "PWD");
-	free(pwd);
+	tmp = malloc(sizeof(char) * 1000);
+	getcwd(tmp, 1000);
+	change_pwd(env, tmp, "PWD");
+	free (tmp);
+	free (pwd);
 	return (0);
 }
 
@@ -79,14 +82,14 @@ int	ft_exec_cd(t_command *command, char ***env)
 	int	task_count;
 
 	task_count = count_task(command);
-	if (task_count > 1)
+	if (task_count > 2)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (1);
 	}
-	if (task_count == 0)
-		return (cd_no_arg(env));
 	if (task_count == 1)
+		return (cd_no_arg(env));
+	if (task_count == 2)
 		return (execute_cd_args(command, env));
 	return (0);
 }

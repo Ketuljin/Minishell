@@ -6,11 +6,11 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 09:11:17 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/20 10:00:01 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:33:20 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 char	*change_var_utils(char *name, char *new_value, int name_len)
 {
@@ -39,7 +39,6 @@ char	**change_var(char ***env, char *new_value, char *name)
 		if (ft_strncmp((*env)[i], name, name_len) == 0
 			&& (*env)[i][name_len] == '=')
 		{
-			free((*env)[i]);
 			(*env)[i] = new_var;
 			return (*env);
 		}
@@ -66,7 +65,6 @@ char	**change_pwd(char ***env, char *new_value, char *name)
 		if (ft_strncmp((*env)[i], name, name_len) == 0
 			&& (*env)[i][name_len] == '=')
 		{
-			free((*env)[i]);
 			(*env)[i] = new_var;
 			return (*env);
 		}

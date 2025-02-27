@@ -6,11 +6,11 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:06:44 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/20 10:34:06 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:38:28 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins/structure_builtins.h"
+#include "../structure_execute.h"
 
 void	close_pipes(int **pipes, int nb_command)
 {

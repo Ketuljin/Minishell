@@ -6,11 +6,11 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:58:08 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/18 10:20:34 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:33:41 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 char	**delete_env_line(char **env, int pos)
 {
@@ -62,9 +62,11 @@ char	**delete_env_var(char **env, char *str)
 int	ft_exec_unset(t_command *command, char ***env)
 {
 	t_task	*task;
+	int		cpt;
 
+	cpt = count_task(command);
 	task = command->first->next;
-	if (!task)
+	if (cpt == 1)
 		return (0);
 	while (task != NULL && task->content != NULL)
 	{

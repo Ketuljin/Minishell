@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 int	option_echo(char *a)
 {
@@ -32,11 +32,9 @@ int	ft_exec_echo(t_command *command)
 {
 	t_task	*task;
 	int		suppress_newline;
-	int		first_arg;
 
 	task = command->first->next;
 	suppress_newline = 0;
-	first_arg = 1;
 	if (task && !option_echo(task->content))
 	{
 		suppress_newline = 1;
@@ -44,13 +42,11 @@ int	ft_exec_echo(t_command *command)
 	}
 	while (task)
 	{
-		if (!first_arg)
-			ft_putstr_fd(" ", command->out_put);
-		ft_putstr_fd(task->content, command->out_put);
-		first_arg = 0;
+		if (task->type == 0)
+			ft_putstr_fd(task->content, command->fd_out_put);
 		task = task->next;
 	}
 	if (!suppress_newline)
-		ft_putstr_fd("\n", command->out_put);
+		ft_putstr_fd("\n", command->fd_out_put);
 	return (0);
 }

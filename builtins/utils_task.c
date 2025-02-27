@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 void	free_double(char **str)
 {
@@ -42,8 +42,24 @@ int	count_task(t_command *command)
 	t_task	*actual_task;
 	int		i;
 
-	i = 1;
+	i = 0;
 	actual_task = command->first;
+	while (actual_task)
+	{
+		if (actual_task->type == 0)
+			i++;
+		actual_task = actual_task->next;
+	}
+	return (i);
+}
+
+int	count_command(t_command *command)
+{
+	t_command	*actual_task;
+	int			i;
+
+	i = 1;
+	actual_task = command;
 	while (actual_task->next)
 	{
 		i++;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure_builtins.h"
+#include "../structure_execute.h"
 
 int	compare_ascii(char *s1, char *s2)
 {
@@ -77,9 +77,9 @@ void	printf_export(char **stock, t_command *command)
 	i = 0;
 	while (stock[i])
 	{
-		ft_putstr_fd("declare -x ", command->out_put);
-		ft_putstr_fd(stock[i], command->out_put);
-		ft_putstr_fd("\n", command->out_put);
+		ft_putstr_fd("declare -x ", command->fd_out_put);
+		ft_putstr_fd(stock[i], command->fd_out_put);
+		ft_putstr_fd("\n", command->fd_out_put);
 		i++;
 	}
 }
