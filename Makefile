@@ -14,6 +14,22 @@ SRC =	main.c \
 		parsing/split_token.c \
 		parsing/replace_var.c \
 		parsing/check_heredoc.c \
+		 \
+		exec/check_builtin.c \
+		exec/ft_exec_1.c \
+		exec/pipes_utils.c \
+		exec/ft_out_put.c \
+		exec/ft_in_put.c \
+		 \
+		exec/builtins/cd.c \
+		exec/builtins/echo.c \
+		exec/builtins/env.c \
+		exec/builtins/export.c \
+		exec/builtins/export_print.c \
+		exec/builtins/pwd.c \
+		exec/builtins/unset.c \
+		exec/builtins/utils_task.c \
+		exec/builtins/change_var.c \
 
 OBJ= $(SRC:.c=.o)
 

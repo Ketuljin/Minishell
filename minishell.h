@@ -21,6 +21,7 @@
 # include "newlibft/libft.h"
 # include "parsing/parsing.h"
 # include "structure_minishell.h"
+# include "exec/structure_execute.h"
 
 void	free_struct(t_command **first);
 
