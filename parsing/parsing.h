@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/26 03:10:07 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:52:53 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ t_command	*lst_command_new(void *content);
 char		*extract_skip(char **line, int len);
 int			skip_quote(char **temp);
 int			char_count(char *s, char c, char d);
-
 
 #endif
