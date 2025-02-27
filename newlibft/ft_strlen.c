@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structure_minishell.h                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/27 17:37:04 by vdunatte         ###   ########.fr       */
+/*   Created: 2023/10/17 02:52:53 by vdunatte          #+#    #+#             */
+/*   Updated: 2025/01/04 02:32:21 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURE_MINISHELL_H
-# define STRUCTURE_MINISHELL_H
+#include "libft.h"
 
-typedef struct s_command
+size_t	ft_strlen(const char *s)
 {
-	struct s_command	*next;
-	struct s_task		*first;
-	char				*full_task;
-	int					fd_in_put;
-	int					fd_out_put;
-}			t_command;
+	size_t	i;
 
-typedef struct s_task
-{
-	struct s_task	*next;
-	char			*content;
-	int				type;
-}		t_task;
-
-#endif
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
