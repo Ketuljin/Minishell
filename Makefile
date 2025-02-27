@@ -13,6 +13,7 @@ SRC =	main.c \
 		parsing/split_pipe.c \
 		parsing/split_token.c \
 		parsing/replace_var.c \
+		parsing/check_heredoc.c \
 
 OBJ= $(SRC:.c=.o)
 

@@ -20,8 +20,6 @@ void	free_struct2(t_task	**first)
 		free_struct2(&(*first)->next);
 	free((*first)->content);
 	(*first)->content = NULL;
-	free((*first)->prev);
-	(*first)->prev = NULL;
 	free(*first);
 	*first = NULL;
 }

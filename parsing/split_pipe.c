@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 03:42:49 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/15 00:49:30 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/24 00:04:53 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ t_command	*lst_command_new(void *content)
 	lst->full_task = content;
 	lst->next = NULL;
 	lst->first = NULL;
-	lst->out_put = STDOUT_FILENO;
-	lst->in_put = STDIN_FILENO;
 	return (lst);
 }
 
@@ -52,7 +50,5 @@ int	split_pipe(char *line, t_command *first)
 			temp++;
 	}
 	first->full_task = ft_strdup(line);
-	if (first->full_task == NULL)
-		return (1);
-	return (0);
+	return (first->full_task == NULL);
 }

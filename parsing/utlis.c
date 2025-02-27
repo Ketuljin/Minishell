@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 23:02:08 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/13 23:38:58 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:13:11 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,18 @@ char	*extract_skip(char **line, int len)
 		return (NULL);
 	*line += len;
 	return (ret);
+}
+
+int	char_count(char *s, char c, char d)
+{
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		if (s[0] == c || s[0] == d)
+			i++;
+		s++;
+	}
+	return (i);
 }
