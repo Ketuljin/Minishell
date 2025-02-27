@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 03:42:49 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/24 00:04:53 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:17:15 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_command	*lst_command_new(void *content)
 	lst->full_task = content;
 	lst->next = NULL;
 	lst->first = NULL;
+	lst->fd_in_put = STDIN_FILENO;
+	lst->fd_out_put = STDOUT_FILENO;
 	return (lst);
 }
 

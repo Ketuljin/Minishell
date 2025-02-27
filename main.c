@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/27 18:07:12 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:56:03 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ int	main(int argc, char const **argv, char **envp)
 	first = NULL;
 	test = 0;
 	value_return = 0;
-	while (test != 5)
+	while (test != 10)
 	{
 		line = readline("torture : ");
 		add_history(line);
 		parsing(line, environment, &first, value_return);
+		printf("%d\n", test);
+		ft_execute(first, &environment);
 		free_struct(&first);
 		test++;
 	}

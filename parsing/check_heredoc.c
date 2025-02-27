@@ -6,16 +6,16 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/27 18:56:09 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:55:54 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	skip_quote_index(char *str, int *i)
-{
-	return (0);
-}
+// int	skip_quote_index(char *str, int *i)
+// {
+// 	return (0);
+// }
 
 int	add_del_space(char *f_task, char **temp, int b)
 {
@@ -26,8 +26,8 @@ int	add_del_space(char *f_task, char **temp, int b)
 	j = 0;
 	while (f_task[i] != '\0')
 	{
-		if (skip_quote_index(f_task, &i) == 1)
-			return (1);
+		// if (skip_quote_index(f_task, &i) == 1)
+		// 	return (1);
 		if (f_task[i] == '>' || f_task[i] == '<')
 		{
 			if (b-- != 1 && (f_task[i - 1] != ' ' || f_task[i - 1] != '	'))
