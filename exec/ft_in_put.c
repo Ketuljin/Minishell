@@ -12,40 +12,39 @@
 
 #include "structure_execute.h"
 
-void	ft_close_in_put (t_command *command, int fd_stdin) 
+void	ft_close_in_put(t_command *command, int fd_stdin)
 {
-	if(command->fd_in_put != fd_stdin && command->fd_in_put != STDIN_FILENO)
+	if (command->fd_in_put != fd_stdin && command->fd_in_put != STDIN_FILENO)
 		close (command->fd_in_put);
-    if (dup2(fd_stdin, STDIN_FILENO == -1))
+	if (dup2(fd_stdin, STDIN_FILENO == -1))
 	{
 		perror("dup2 failed in ft_close_in_put");
 		exit(EXIT_FAILURE);
 	}
-    close(fd_stdin);
+	close(fd_stdin);
 }
-
 
 void	open_str_stdin(const char *str)
 {
-	int fd[2];
+	int	fd[2];
 
-    if (pipe(fd) == -1) {
-        perror("Pipe creation error");
-        exit(EXIT_FAILURE);
-    }
-    write(fd[1], str, ft_strlen(str));
-    close(fd[1]);
-    if (dup2(fd[0], STDIN_FILENO) == -1) 
+	if (pipe(fd) == -1)
+	{
+		perror("Pipe creation error");
+		exit(EXIT_FAILURE);
+	}
+	write(fd[1], str, ft_strlen(str));
+	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
 		perror("dup2 failed in open_str_stdin");
 		close(fd[0]);
 		exit(EXIT_FAILURE);
 	}
-    close(fd[0]);
+	close(fd[0]);
 }
 
-
-int ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
+int	ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 {
 	if (type == 2)
 	{
@@ -53,7 +52,7 @@ int ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 			close(in_put);
 		in_put = open(content, O_RDONLY);
 		if (in_put == -1)
-        	return (-1);
+			return (-1);
 		return (in_put);
 	}
 	if (type == 4)
@@ -67,7 +66,6 @@ int ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 	return (-1);
 }
 
-
 int	ft_verif_in_put(t_command *command)
 {
 	t_task		*task;
@@ -78,9 +76,10 @@ int	ft_verif_in_put(t_command *command)
 	stock_command = command;
 	saved_stdin = dup(STDIN_FILENO);
 	new_in_put = saved_stdin;
-    if (saved_stdin == -1) {
-        perror("dup failed");
-        return (-1);
+	if (saved_stdin == -1)
+	{
+		perror("dup failed");
+		return (-1);
 	}
 	while (stock_command->next)
 	{
@@ -96,15 +95,14 @@ int	ft_verif_in_put(t_command *command)
 			task = task->next;
 		}
 		stock_command = stock_command->next;
-		
 	}
-		if (stock_command->fd_in_put != STDIN_FILENO)
+	if (stock_command->fd_in_put != STDIN_FILENO)
+	{
+		if (dup2(stock_command->fd_in_put, STDIN_FILENO) == -1)
 		{
-			if (dup2(stock_command->fd_in_put, STDIN_FILENO) == -1)
-			{
-				perror("dup2 failed");
-				return (-1);
-			}
+			perror("dup2 failed");
+			return (-1);
 		}
+	}
 	return (saved_stdin);
 }

@@ -20,7 +20,6 @@ char	*get_var2(char *envp)
 
 	i = 0;
 	j = 0;
-
 	var = ft_calloc(ft_strlen(envp) + 1, sizeof(char));
 	while (envp[i] != '=')
 		i++;
@@ -44,7 +43,6 @@ char	*get_var(char **line, char **envp, int value_return)
 		(*line)++;
 		return (ft_itoa(value_return));
 	}
-	//faire pour $PWD avec getcwd
 	var = ft_calloc(ft_strlen(*line) + 2, sizeof(char));
 	i = 0;
 	while ((*line)[0] != '\0'

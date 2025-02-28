@@ -107,24 +107,24 @@ int	ft_create_process(int **pipes, t_command *command, char ***env,
 int	ft_execute(t_command *command, char ***env)
 {
 	int	nb_command;
-	// int	saved_stdout;
-	// int	saved_stdin;
+	int	saved_stdout;
+	int	saved_stdin;
 	int	result;
 
 	nb_command = count_command(command);
-	// saved_stdout = dup(STDOUT_FILENO);
-	// saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
 	if (nb_command == 0)
 		return (0);
-	// command->fd_out_put = ft_verif_out_put(command);
-	// command->fd_in_put = ft_verif_in_put(command);
-	// if (command->fd_out_put == -1 || command->fd_in_put == -1)
-	// 	return (-1);
+	command->fd_out_put = ft_verif_out_put(command);
+	command->fd_in_put = ft_verif_in_put(command);
+	if (command->fd_out_put == -1 || command->fd_in_put == -1)
+		return (-1);
 	if (!is_builtin(command->first->content))
 		result = exec_builtin(command, env);
 	else
 		result = ft_exec_pipe(command, env, nb_command);
-	// ft_close_out_put(command, saved_stdout);
-	// ft_close_in_put(command, saved_stdin);
+	ft_close_out_put(command, saved_stdout);
+	ft_close_in_put(command, saved_stdin);
 	return (result);
 }
