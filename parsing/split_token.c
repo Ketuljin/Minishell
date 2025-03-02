@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/28 02:16:14 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/02 04:23:44 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	splitter(char *full_task, t_task *first)
 	return (first->content == NULL);
 }
 
-// if (check_heredoc(&(first->full_task)) == 0)
-// 	return (1);
 int	split_token(t_command *first)
 {
 	if (first == NULL)
 		return (0);
 	first->first = lst_task_new(NULL);
+	// if (norm_heredoc(&(first->full_task)) == 0)
+	// 	return (1);
 	if (splitter(first->full_task, first->first) == 1)
 		return (1);
 	if (first->first->content[0] == '\0')

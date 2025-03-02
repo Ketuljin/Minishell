@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_heredoc.c                                    :+:      :+:    :+:   */
+/*   norm_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/28 02:15:09 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/02 03:56:48 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	add_del_space(char *f_task, char **temp, int b)
 	return (0);
 }
 
-int	check_heredoc(char **full_task)
+int	norm_heredoc(char **full_task)
 {
 	int		i;
 	char	*temp;
