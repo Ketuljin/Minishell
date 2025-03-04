@@ -13,7 +13,7 @@ SRC =	main.c \
 		parsing/split_pipe.c \
 		parsing/split_token.c \
 		parsing/replace_var.c \
-		parsing/check_heredoc.c \
+		parsing/norm_heredoc.c \
 		 \
 		exec/check_builtin.c \
 		exec/ft_exec_1.c \

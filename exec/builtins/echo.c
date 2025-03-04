@@ -35,7 +35,7 @@ int	ft_exec_echo(t_command *command)
 
 	task = command->first->next;
 	suppress_newline = 0;
-	if (task && !option_echo(task->content))
+	while (task && !option_echo(task->content))
 	{
 		suppress_newline = 1;
 		task = task->next;
@@ -43,7 +43,10 @@ int	ft_exec_echo(t_command *command)
 	while (task)
 	{
 		if (task->type == 0)
+		{
 			ft_putstr_fd(task->content, command->fd_out_put);
+			ft_putstr_fd(" ", command->fd_out_put);
+		}
 		task = task->next;
 	}
 	if (!suppress_newline)

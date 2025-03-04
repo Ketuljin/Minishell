@@ -19,17 +19,9 @@ int	compare_ascii(char *s1, char *s2)
 
 	j = 0;
 	i = 0;
-	while (s1[i])
-	{
-		j = s1[i] + j;
+	while (s1[i] == s2[i])
 		i++;
-	}
-	i = 0;
-	while (s2[i])
-	{
-		j = j - s2[i];
-		i++;
-	}
+	j = s1[i] - s2[i];
 	return (j);
 }
 

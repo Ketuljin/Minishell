@@ -12,13 +12,11 @@
 
 #include "../structure_execute.h"
 
-int	ft_exec_pwd(t_command *command)
+int	ft_exec_pwd(void)
 {
 	char	*path;
 
 	path = malloc(sizeof(char) * 100);
-	if (1 != count_task(command))
-		return (-1);
 	getcwd(path, 100);
 	if (path == NULL)
 	{

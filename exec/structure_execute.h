@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_execute.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/27 20:08:27 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:40:52 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			arleady_exist(char **env, char *content);
 int			export_arg(char ***env, char *content);
 int			ft_exec_export(t_command *command, char ***env);
 /* ******************** pwd.c ******************** */
-int			ft_exec_pwd(t_command *command);
+int			ft_exec_pwd(void);
 /* ******************** unset.c ******************** */
 char		**delete_env_line(char **env, int pos);
 char		**delete_env_var(char **env, char *str);
@@ -61,7 +61,7 @@ int			ft_execvp(t_command *command, char ***env);
 int			ft_exec_parent(int **pipes, int nb_command);
 int			ft_create_process(int **pipes, t_command *command,
 				char ***env, int count);
-int			ft_execute(t_command *command, char ***env);
+void		ft_execute(t_command *command, t_env_ex *env);
 /* ******************** check_builtin.c ******************** */
 int			is_builtin(char *content);
 int			exec_builtin(t_command *command, char ***env);

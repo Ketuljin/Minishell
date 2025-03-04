@@ -12,23 +12,30 @@
 
 #include "../structure_execute.h"
 
-char	**add_env_var(char **env, char *str)
+int	valid_name(char *content)
 {
-	char	**new_env;
-	int		i;
+	int	i;
 
 	i = 0;
-	new_env = malloc((count_line(env) + 2) * sizeof(char *));
-	if (!new_env)
-		return (NULL);
-	new_env = copy_memory(env, new_env, -1);
-	if (new_env == NULL)
-		return (NULL);
-	i = count_line(env);
-	new_env[i] = ft_strdup(str);
-	new_env[i + 1] = NULL;
-	free_double(env);
-	return (new_env);
+	if (0 == ft_isalpha(content[i]) && content[i] != '_')
+	{
+		ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
+		ft_putstr_fd(content, STDOUT_FILENO);
+		ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
+		return (1);
+	}
+	i++;
+	while (content[i] && content[i] != '=')
+	{
+		if (ft_isalpha(content[i] && ft_isdigit(content[i] && content[i] != '_')))
+		{
+			ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
+			ft_putstr_fd(content, STDOUT_FILENO);
+			ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
+		}
+		i++;
+	}
+	return (0);	
 }
 
 int	check_task(char	*str)
@@ -60,10 +67,10 @@ int	arleady_exist(char **env, char *content)
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], content, len) && env[i][len] == '=')
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	export_arg(char ***env, char *content)
@@ -73,19 +80,16 @@ int	export_arg(char ***env, char *content)
 	char	*name;
 
 	i = check_task(content);
-	if (i > 0)
+	if (!arleady_exist(*env, content))
 	{
-		if (!arleady_exist(*env, content))
-			*env = add_env_var(*env, content);
-		else
-		{
-			new_value = ft_substr(content, i + 1, ft_strlen(content));
-			name = ft_substr(content, 0, i);
-			*env = change_var(env, new_value, name);
-			free(new_value);
-			free(name);
-		}
+		new_value = ft_substr(content, i + 1, ft_strlen(content));
+		name = ft_substr(content, 0, i);
+		*env = change_var(env, new_value, name);
+		free(new_value);
+		free(name);
 	}
+	else if (!valid_name(content))
+		*env = add_env_var(*env, content);
 	return (0);
 }
 
