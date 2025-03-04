@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/27 17:37:04 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/04 03:28:58 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ typedef struct s_task
 	char			*content;
 	int				type;
 }		t_task;
+
+typedef struct s_env_ex
+{
+	char	**env;
+	int		exit_code;
+}		t_env_ex;
 
 #endif
