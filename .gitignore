@@ -2,3 +2,5 @@
 .vscode
 Minishell
 test.txt
+*/*.o
+*/*/*.o
