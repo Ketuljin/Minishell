@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 09:11:17 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/27 18:33:20 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/05 20:13:45 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**change_var(char ***env, char *new_value, char *name)
 		}
 		i++;
 	}
-	*env = add_env_var(*env, new_var);
+	// *env = add_env_var(*env, new_var);
 	free(new_var);
 	return (*env);
 }

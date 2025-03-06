@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/04 03:53:48 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:43:49 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	parsing(char *line, t_command **first, t_env_ex *env_ex)
 	temp = NULL;
 	*first = lst_command_new(NULL);
 	i = split_pipe(line, *first);
+	if (i != 0)
+		return (i);
 	free(line);
-	i = i + split_token(*first);
+	i = split_token(*first);
 	if (i != 0)
 		return (i);
 	free(temp);

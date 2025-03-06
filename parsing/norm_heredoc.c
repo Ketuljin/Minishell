@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   norm_heredoc.c                                     :+:      :+:    :+:   */
+/*   norm_heredoc.c     -                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,23 @@
 
 #include "parsing.h"
 
-int	skip_quote_index(char *str, int *i)
+int	skip_quote_index(char *temp, char *str, int *i, int *j)
 {
-	(void)str;
-	(void)i;
-	return (0);
+	char	c;
+
+	if (str[*i] != '\'' && str[*i] != '\"')
+		return (0);
+	c = str[*i];
+	temp[(*j)++] = str[(*i)++];
+	while (str[*i] != '\0' && str[*i] != c)
+		temp[(*j)++] = str[(*i)++];
+	if (str[*i] == '\0')
+		return (1);
+	temp[(*j)++] = str[(*i)++];
+	return(0);
 }
 
+// NB: plus besoin de **temp
 int	add_del_space(char *f_task, char **temp, int b)
 {
 	int	i;
@@ -28,7 +38,7 @@ int	add_del_space(char *f_task, char **temp, int b)
 	j = 0;
 	while (f_task[i] != '\0')
 	{
-		if (skip_quote_index(f_task, &i) == 1)
+		if (skip_quote_index(*temp, f_task, &i, &j) == 1)
 			return (1);
 		if (f_task[i] == '>' || f_task[i] == '<')
 		{

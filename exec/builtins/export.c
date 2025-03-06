@@ -88,8 +88,8 @@ int	export_arg(char ***env, char *content)
 		free(new_value);
 		free(name);
 	}
-	else if (!valid_name(content))
-		*env = add_env_var(*env, content);
+	// else if (!valid_name(content))
+		// *env = add_env_var(*env, content);
 	return (0);
 }
 

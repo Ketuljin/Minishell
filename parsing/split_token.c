@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/04 03:54:04 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:30:20 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ int	splitter(char *full_task, t_task *first)
 
 	i = 0;
 	skip_space((temp = full_task, &temp), &full_task, 0);
-	while (temp[0] != '\0')
+	while (1)
 	{
 		if (skip_quote(&temp) == 1)
 			return (1);
-		if (temp[0] == ' ' || temp[0] == '	')
+		if (temp[0] == ' ' || temp[0] == '	' || temp[0] == '\0')
 		{
 			i = (long)temp - (long)full_task;
 			first->content = extract_skip(&full_task, i);
 			if (first->content == NULL)
 				return (1);
-			skip_space(&temp, &full_task, 1);
+			skip_space(&temp, &full_task, 0);
+			if (temp[0] == '\0')
+				break ;
 			ft_lstadd_back((t_list **)&first, (t_list *)lst_task_new(NULL));
 			first = first->next;
-			temp = ++full_task;
 		}
-		if (temp[0] != '\0')
+		else if (temp[0] != '\0')
 			temp++;
 	}
-	first->content = ft_strdup(full_task);
 	return (first->content == NULL);
 }
 
@@ -68,11 +68,12 @@ int	split_token(t_command *first)
 	if (first == NULL)
 		return (0);
 	first->first = lst_task_new(NULL);
-	// if (norm_heredoc(&(first->full_task)) == 0)
-	// 	return (1);
+	if (norm_heredoc(&(first->full_task)) == 1)
+		return (4);
 	if (splitter(first->full_task, first->first) == 1)
-		return (1);
+		return (2);
 	if (first->first->content[0] == '\0')
-		return (1);
+		return (3);
 	return (split_token(first->next));
 }
+
