@@ -105,14 +105,35 @@ int	ft_create_process(int **pipes, t_command *command, char ***env,
 	return (0);
 }
 
+
+void	create_save_pwd(char ***env)
+{
+	char	*stock;
+	char	*path;
+
+	path = NULL;
+	stock = get_env_var("-P_W_D", *env);
+	if (stock == NULL)
+	{
+		path = malloc(sizeof(char )* 1000);
+		getcwd(path, 1000);
+		change_var(env, path, "-P_W_D");
+		free(path);
+	}
+}
+
+
 void	ft_execute(t_command *command, t_env_ex *env)
 {
 	int	nb_command;
+
 	//int	saved_stdout;
 	//int	saved_stdin;
 	int		cpt;
+
+	create_save_pwd(&env->env);
 	cpt = count_task(command);
-	printf("%d\n", cpt);
+	//printf("%d\n", cpt);
 	nb_command = count_command(command);
 	//saved_stdout = dup(STDOUT_FILENO);
 	//saved_stdin = dup(STDIN_FILENO);

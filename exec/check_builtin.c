@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/04 13:45:47 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:52:24 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	exec_builtin(t_command *command, char ***env)
 		if (!ft_strncmp("unset", task->content, i))
 			ret = ft_exec_unset(command, env);
 		if (!ft_strncmp("pwd", task->content, i))
-			ret = ft_exec_pwd();
+			ret = ft_exec_pwd(*env);
 		if (!ft_strncmp("env", task->content, i))
 			ret = ft_exec_env(command, *env);
 		if (!ft_strncmp("cd", task->content, i))

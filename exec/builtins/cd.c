@@ -32,6 +32,7 @@ int	cd_no_arg(char ***env)
 	}
 	change_pwd(env, home, "PWD");
 	change_var(env, pwd, "OLDPWD");
+	change_var(env, home, "-P_W_D");
 	free (pwd);
 	return (0);
 }
@@ -58,6 +59,7 @@ int	execute_cd_args(t_command *command, char ***env)
 	tmp = malloc(sizeof(char) * 1000);
 	getcwd(tmp, 1000);
 	change_pwd(env, tmp, "PWD");
+	change_var(env, tmp, "-P_W_D");
 	free (tmp);
 	free (pwd);
 	return (0);

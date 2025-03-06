@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 09:11:17 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/05 20:13:45 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:43:19 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ char	**change_var(char ***env, char *new_value, char *name)
 		if (ft_strncmp((*env)[i], name, name_len) == 0
 			&& (*env)[i][name_len] == '=')
 		{
+			free((*env)[i]);
 			(*env)[i] = new_var;
 			return (*env);
 		}
 		i++;
 	}
-	// *env = add_env_var(*env, new_var);
+	*env = add_env_var(*env, new_var);
 	free(new_var);
 	return (*env);
 }
@@ -65,6 +66,7 @@ char	**change_pwd(char ***env, char *new_value, char *name)
 		if (ft_strncmp((*env)[i], name, name_len) == 0
 			&& (*env)[i][name_len] == '=')
 		{
+			free((*env)[i]);
 			(*env)[i] = new_var;
 			return (*env);
 		}

@@ -12,12 +12,11 @@
 
 #include "../structure_execute.h"
 
-int	ft_exec_pwd(void)
+int	ft_exec_pwd(char	**env)
 {
 	char	*path;
 
-	path = malloc(sizeof(char) * 100);
-	getcwd(path, 100);
+	path = get_env_var("-P_W_D", env);
 	if (path == NULL)
 	{
 		ft_putstr_fd("Minishell: missing PWD", 1);
@@ -25,10 +24,5 @@ int	ft_exec_pwd(void)
 	}
 	ft_putstr_fd(path, 1);
 	ft_putstr_fd("\n", 1);
-	if (path)
-	{
-		free (path);
-		path = NULL;
-	}
 	return (0);
 }

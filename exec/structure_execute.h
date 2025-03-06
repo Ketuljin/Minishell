@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/04 11:40:52 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:52:49 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			arleady_exist(char **env, char *content);
 int			export_arg(char ***env, char *content);
 int			ft_exec_export(t_command *command, char ***env);
 /* ******************** pwd.c ******************** */
-int			ft_exec_pwd(void);
+int			ft_exec_pwd(char **env);
 /* ******************** unset.c ******************** */
 char		**delete_env_line(char **env, int pos);
 char		**delete_env_var(char **env, char *str);

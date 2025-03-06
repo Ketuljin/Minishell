@@ -22,16 +22,18 @@ int	valid_name(char *content)
 		ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
 		ft_putstr_fd(content, STDOUT_FILENO);
 		ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
+		
 		return (1);
 	}
 	i++;
 	while (content[i] && content[i] != '=')
 	{
-		if (ft_isalpha(content[i] && ft_isdigit(content[i] && content[i] != '_')))
+		if (0 == ft_isalpha(content[i]) && 0 == ft_isdigit(content[i]) && content[i] != '_')
 		{
 			ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
 			ft_putstr_fd(content, STDOUT_FILENO);
 			ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
+			return (1);
 		}
 		i++;
 	}
@@ -88,8 +90,8 @@ int	export_arg(char ***env, char *content)
 		free(new_value);
 		free(name);
 	}
-	// else if (!valid_name(content))
-		// *env = add_env_var(*env, content);
+	 else if (!valid_name(content))
+		 *env = add_env_var(*env, content);
 	return (0);
 }
 
