@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/08 03:45:50 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/08 05:28:10 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char const **argv, char **envp)
 	{
 		line = readline("torture : ");
 		add_history(line);
-		tortue = parsing(line, &first, env_ex);
+		tortue = parsing(line, &first, &env_ex);
 		if (tortue == 0)
 		{
 			printf("fait l'exec\n");
