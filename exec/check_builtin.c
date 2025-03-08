@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/06 15:52:24 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/08 03:45:49 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_builtin(char *content)
 	int	i;
 
 	i = ft_strlen(content);
-	if (i!= 0)
+	if (i != 0)
 	{
 		if (!ft_strncmp("echo", content, i))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/05 23:30:20 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/08 03:53:58 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ int	split_token(t_command *first)
 		return (3);
 	return (split_token(first->next));
 }
-

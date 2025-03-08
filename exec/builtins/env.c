@@ -31,7 +31,6 @@ char	**add_env_var(char **env, char *str)
 	return (new_env);
 }
 
-
 char	*get_env_var(const char *var, char **env)
 {
 	int	len;

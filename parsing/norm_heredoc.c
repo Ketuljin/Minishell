@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   norm_heredoc.c     -                                :+:      :+:    :+:   */
+/*   norm_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/02 03:56:48 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/08 03:54:34 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	skip_quote_index(char *temp, char *str, int *i, int *j)
 	if (str[*i] == '\0')
 		return (1);
 	temp[(*j)++] = str[(*i)++];
-	return(0);
+	return (0);
 }
 
 int	add_del_space(char *f_task, char *temp, int b)

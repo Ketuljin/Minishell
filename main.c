@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/05 20:31:36 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/08 03:45:50 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char const **argv, char **envp)
 			printf("fait l'exec\n");
 			// ft_execute(first, &env_ex);
 		}
-		else 
+		else
 			printf("fait pas l'exec %d\n", tortue);
 		free_struct(&first);
 		test++;

@@ -40,10 +40,9 @@ int	ft_execvp(t_command *command, char ***env)
 	path = path_execve("/bin/", task->content);
 	while (task && i < 255)
 	{
-		if (task->type == 0 )
+		if (task->type == 0)
 			args[i++] = task->content;
 		task = task->next;
-
 	}
 	args[i] = NULL;
 	if (execve(path, args, *env) == -1)
@@ -105,7 +104,6 @@ int	ft_create_process(int **pipes, t_command *command, char ***env,
 	return (0);
 }
 
-
 void	create_save_pwd(char ***env)
 {
 	char	*stock;
@@ -115,21 +113,19 @@ void	create_save_pwd(char ***env)
 	stock = get_env_var("-P_W_D", *env);
 	if (stock == NULL)
 	{
-		path = malloc(sizeof(char )* 1000);
+		path = malloc(sizeof(char ) * 1000);
 		getcwd(path, 1000);
 		change_var(env, path, "-P_W_D");
 		free(path);
 	}
 }
 
-
 void	ft_execute(t_command *command, t_env_ex *env)
 {
 	int	nb_command;
-
 	//int	saved_stdout;
 	//int	saved_stdin;
-	int		cpt;
+	int	cpt;
 
 	create_save_pwd(&env->env);
 	cpt = count_task(command);
@@ -146,7 +142,6 @@ void	ft_execute(t_command *command, t_env_ex *env)
 		env->exit_code = -1;
 		return ;
 	}*/
-	
 	if (nb_command == 1)
 	{
 		if (!is_builtin(command->first->content))

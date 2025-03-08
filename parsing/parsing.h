@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/08 01:20:37 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/08 03:51:25 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "../structure_minishell.h"
 
 int			parsing(char *line, t_command **first, t_env_ex *env_ex);
-
 
 int			split_pipe(char *line, t_command *first);
 int			norm_heredoc(char **full_task);

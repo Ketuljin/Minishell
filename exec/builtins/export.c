@@ -22,7 +22,6 @@ int	valid_name(char *content)
 		ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
 		ft_putstr_fd(content, STDOUT_FILENO);
 		ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
-		
 		return (1);
 	}
 	i++;
@@ -37,7 +36,7 @@ int	valid_name(char *content)
 		}
 		i++;
 	}
-	return (0);	
+	return (0);
 }
 
 int	check_task(char	*str)
@@ -90,8 +89,8 @@ int	export_arg(char ***env, char *content)
 		free(new_value);
 		free(name);
 	}
-	 else if (!valid_name(content))
-		 *env = add_env_var(*env, content);
+	else if (!valid_name(content))
+		*env = add_env_var(*env, content);
 	return (0);
 }
 
