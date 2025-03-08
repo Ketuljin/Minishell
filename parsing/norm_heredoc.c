@@ -28,8 +28,7 @@ int	skip_quote_index(char *temp, char *str, int *i, int *j)
 	return(0);
 }
 
-// NB: plus besoin de **temp
-int	add_del_space(char *f_task, char **temp, int b)
+int	add_del_space(char *f_task, char *temp, int b)
 {
 	int	i;
 	int	j;
@@ -38,15 +37,15 @@ int	add_del_space(char *f_task, char **temp, int b)
 	j = 0;
 	while (f_task[i] != '\0')
 	{
-		if (skip_quote_index(*temp, f_task, &i, &j) == 1)
+		if (skip_quote_index(temp, f_task, &i, &j) == 1)
 			return (1);
 		if (f_task[i] == '>' || f_task[i] == '<')
 		{
 			if (b-- != 1 && (f_task[i - 1] != ' ' || f_task[i - 1] != '	'))
-				(*temp)[j++] = ' ';
-			(*temp)[j++] = f_task[i++];
+				temp[j++] = ' ';
+			temp[j++] = f_task[i++];
 			if (f_task[i] != '\0' && f_task[i] == f_task[i - 1])
-				(*temp)[j++] = f_task[i++];
+				temp[j++] = f_task[i++];
 			if (f_task[i] != '\0' && f_task[i] == f_task[i - 1])
 				return (1);
 			if (f_task[i] != '\0' && (f_task[i] == ' ' || f_task[i] == '	'))
@@ -54,7 +53,7 @@ int	add_del_space(char *f_task, char **temp, int b)
 					i++;
 		}
 		if (f_task[i] != '\0')
-			(*temp)[j++] = f_task[i++];
+			temp[j++] = f_task[i++];
 	}
 	return (0);
 }
@@ -71,7 +70,7 @@ int	norm_heredoc(char **full_task)
 	i = 0;
 	if (*full_task[0] == '>' || *full_task[0] == '<')
 		i = 1;
-	if (add_del_space(*full_task, &temp, i) == 1)
+	if (add_del_space(*full_task, temp, i) == 1)
 		return (free(temp), 1);
 	printf("%s\n", temp);
 	free(*full_task);

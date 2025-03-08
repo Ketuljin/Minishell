@@ -14,6 +14,7 @@ SRC =	main.c \
 		parsing/split_token.c \
 		parsing/replace_var.c \
 		parsing/norm_heredoc.c \
+		parsing/trans_token.c \
 		 \
 		exec/check_builtin.c \
 		exec/ft_exec_1.c \
