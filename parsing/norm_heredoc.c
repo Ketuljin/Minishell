@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/08 03:54:34 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/09 03:41:18 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	norm_heredoc(char **full_task)
 		i = 1;
 	if (add_del_space(*full_task, temp, i) == 1)
 		return (free(temp), 1);
-	printf("%s\n", temp);
 	free(*full_task);
 	*full_task = ft_strdup(temp);
 	free(temp);
