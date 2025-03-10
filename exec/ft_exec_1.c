@@ -36,6 +36,8 @@ int	ft_execvp(t_command *command, char ***env)
 	char	*path;
 
 	i = 0;
+	command->fd_out_put = ft_verif_out_put(command);
+	command->fd_in_put = ft_verif_in_put(command);
 	task = command->first;
 	path = path_execve("/bin/", task->content);
 	while (task && i < 255)
@@ -78,7 +80,7 @@ int	ft_exec_parent(int **pipes, int nb_command)
 	return (g_status);
 }
 
-int	ft_create_process(int **pipes, t_command *command, char ***env,
+int	ft_create_process(int **pipes, t_command *command, t_env_ex *env,
 						int count)
 {
 	pid_t	pid;
@@ -99,7 +101,7 @@ int	ft_create_process(int **pipes, t_command *command, char ***env,
 		if (!is_builtin(command->first->content))
 			exit(exec_builtin(command, env));
 		else
-			exit(ft_execvp(command, env));
+			exit(ft_execvp(command, &env->env));
 	}
 	return (0);
 }
@@ -120,37 +122,44 @@ void	create_save_pwd(char ***env)
 	}
 }
 
-void	ft_execute(t_command *command, t_env_ex *env)
+int	in_out_put(t_command *command, t_env_ex *env)
 {
-	int	nb_command;
-	//int	saved_stdout;
-	//int	saved_stdin;
-	int	cpt;
-
-	create_save_pwd(&env->env);
-	cpt = count_task(command);
-	//printf("%d\n", cpt);
-	nb_command = count_command(command);
-	//saved_stdout = dup(STDOUT_FILENO);
-	//saved_stdin = dup(STDIN_FILENO);
-	if (nb_command == 0)
-		return ;
-	/*command->fd_out_put = ft_verif_out_put(command);
+	command->fd_out_put = ft_verif_out_put(command);
 	command->fd_in_put = ft_verif_in_put(command);
 	if (command->fd_out_put == -1 || command->fd_in_put == -1)
 	{
 		env->exit_code = -1;
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_execute(t_command *command, t_env_ex *env)
+{
+	int	nb_command;
+	int	saved_stdin;
+	int	saved_stdout;
+
+	create_save_pwd(&env->env);
+	nb_command = count_command(command);
+	saved_stdout = dup(STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
+	if (nb_command == 0)
 		return ;
-	}*/
-	if (nb_command == 1)
+	if (nb_command == 1 && !is_builtin(command->first->content))
 	{
-		if (!is_builtin(command->first->content))
-			env->exit_code = exec_builtin(command, &env->env);
-		else
-			env->exit_code = ft_exec_pipe(command, &env->env, nb_command);
+		if (!ft_strncmp("exit", command->first->content, ft_strlen(command->first->content)))
+		{
+			close(saved_stdin);
+			close(saved_stdout);
+			ft_exec_exit(command, env);
+		}
+		if (in_out_put(command, env))
+			return ;
+		env->exit_code = exec_builtin(command, env);
+		ft_close_out_put(command, saved_stdout);
+		ft_close_in_put(command, saved_stdin);
 	}
 	else
-		env->exit_code = ft_exec_pipe(command, &env->env, nb_command);
-	/*ft_close_out_put(command, saved_stdout);
-	ft_close_in_put(command, saved_stdin);*/
+		env->exit_code = ft_exec_pipe(command, env, nb_command);
 }

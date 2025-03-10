@@ -70,10 +70,8 @@ int	ft_verif_in_put(t_command *command)
 {
 	t_task		*task;
 	int			saved_stdin;
-	t_command	*stock_command;
 	int			new_in_put;
 
-	stock_command = command;
 	saved_stdin = dup(STDIN_FILENO);
 	new_in_put = saved_stdin;
 	if (saved_stdin == -1)
@@ -81,24 +79,20 @@ int	ft_verif_in_put(t_command *command)
 		perror("dup failed");
 		return (-1);
 	}
-	while (stock_command->next)
+	task = command->first;
+	while (task)
 	{
-		task = stock_command->first;
-		while (task)
-		{
-			if (task->type == 2)
-				new_in_put = ft_open_in_put (2, stock_command->fd_in_put, task->content, saved_stdin);
-			if (task->type == 4)
-				new_in_put = ft_open_in_put (4, stock_command->fd_in_put, task->content, saved_stdin);
-			if (stock_command->fd_in_put == -1)
-				return (-1);
-			task = task->next;
-		}
-		stock_command = stock_command->next;
+		if (task->type == 2)
+			new_in_put = ft_open_in_put (2, command->fd_in_put, task->content, saved_stdin);
+		if (task->type == 4)
+			new_in_put = ft_open_in_put (4, command->fd_in_put, task->content, saved_stdin);
+		if (command->fd_in_put == -1)
+			return (-1);
+		task = task->next;
 	}
-	if (stock_command->fd_in_put != STDIN_FILENO)
+	if (command->fd_in_put != STDIN_FILENO)
 	{
-		if (dup2(stock_command->fd_in_put, STDIN_FILENO) == -1)
+		if (dup2(command->fd_in_put, STDIN_FILENO) == -1)
 		{
 			perror("dup2 failed");
 			return (-1);

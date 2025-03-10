@@ -32,6 +32,7 @@ SRC =	main.c \
 		exec/builtins/unset.c \
 		exec/builtins/utils_task.c \
 		exec/builtins/change_var.c \
+		exec/builtins/exit.c \
 
 OBJ= $(SRC:.c=.o)
 

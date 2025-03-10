@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:06:44 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/02/27 19:51:44 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:22:35 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	**free_pipe(int **pipes, int nb_command)
 	return (NULL);
 }
 
-int	ft_exec_pipe(t_command *command, char ***env, int nb_command)
+int	ft_exec_pipe(t_command *command, t_env_ex *env, int nb_command)
 {
 	int	**pipes;
 	int	i;

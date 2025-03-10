@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/08 03:45:49 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:56:37 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_builtin(char *content)
 	return (1);
 }
 
-int	exec_builtin(t_command *command, char ***env)
+int	exec_builtin(t_command *command, t_env_ex *env)
 {
 	t_task	*task;
 	int		i;
@@ -51,15 +51,17 @@ int	exec_builtin(t_command *command, char ***env)
 		if (!ft_strncmp("echo", task->content, i))
 			ret = ft_exec_echo(command);
 		if (!ft_strncmp("export", task->content, i))
-			ret = ft_exec_export(command, env);
+			ret = ft_exec_export(command, &env->env);
 		if (!ft_strncmp("unset", task->content, i))
-			ret = ft_exec_unset(command, env);
+			ret = ft_exec_unset(command, &env->env);
 		if (!ft_strncmp("pwd", task->content, i))
-			ret = ft_exec_pwd(*env);
+			ret = ft_exec_pwd(env->env);
 		if (!ft_strncmp("env", task->content, i))
-			ret = ft_exec_env(command, *env);
+			ret = ft_exec_env(command, env->env);
 		if (!ft_strncmp("cd", task->content, i))
-			ret = ft_exec_cd(command, env);
+			ret = ft_exec_cd(command, &env->env);
+		if (!ft_strncmp("exit", command->first->content, i))
+			ret = 12;
 	}
 	return (ret);
 }

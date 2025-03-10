@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/06 15:52:49 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/10 12:42:14 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTURE_EXECUTE_H
 
 # include "../structure_minishell.h"
+# include "../minishell.h"
 # include "../newlibft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
@@ -59,12 +60,12 @@ int			count_command(t_command *command);
 /* ******************** ft_exec.c ******************** */
 int			ft_execvp(t_command *command, char ***env);
 int			ft_exec_parent(int **pipes, int nb_command);
-int			ft_create_process(int **pipes, t_command *command,
-				char ***env, int count);
+int			ft_create_process(int **pipes, t_command *command, t_env_ex *env,
+						int count);
 void		ft_execute(t_command *command, t_env_ex *env);
 /* ******************** check_builtin.c ******************** */
 int			is_builtin(char *content);
-int			exec_builtin(t_command *command, char ***env);
+int			exec_builtin(t_command *command, t_env_ex *env);
 t_command	*search_command(t_command *command, int count);
 int			count_out_put(t_command *command);
 /* ******************** change_var.c ******************** */
@@ -75,7 +76,7 @@ char		**change_pwd(char ***env, char *new_value, char *name);
 void		close_pipes(int **pipes, int nb_command);
 int			**ft_create_pipe(int nb_command);
 int			**free_pipe(int **pipes, int nb_command);
-int			ft_exec_pipe(t_command *command, char ***env, int nb_command);
+int			ft_exec_pipe(t_command *command, t_env_ex *env, int nb_command);
 int			is_pipe(t_command *command);
 char		*path_execve(const char *dir, const char *command);
 void		ft_close_dup(t_command *command, int fd);
@@ -88,5 +89,7 @@ int			ft_open_in_put(int type, int in_put,
 				char *content, int saved_stdin);
 void		open_str_stdin(const char *str);
 void		ft_close_in_put(t_command *command, int fd_stdin);
+void		ft_exec_exit(t_command *command, t_env_ex *env);
+
 
 #endif

@@ -60,7 +60,10 @@ int	ft_exec_env(t_command *command, char **env)
 		return (1);
 	}
 	if (cpt != 1)
-		ft_putstr_fd("Minishell: env: too many argument", 2);
+	{
+		ft_putstr_fd("Minishell: env: too many argument\n", 2);
+		return (1);
+	}
 	while (*env)
 	{
 		if (ft_strchr(*env, '='))
