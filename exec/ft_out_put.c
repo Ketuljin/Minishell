@@ -27,7 +27,7 @@ int	ft_open_out_put(int type, int out_put, char *content, int saved_stdout)
 	{
 		if (out_put != saved_stdout)
 			close(out_put);
-		out_put = open(content, O_WRONLY | O_CREAT, 0644);
+		out_put = open(content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (out_put == -1)
 			return (-1);
 		return (out_put);

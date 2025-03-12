@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/12 01:26:32 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:40:03 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void gestion_SIGINT(int sig) {
+    (void)sig;
+    write(1, "\ntorture : ", 11);
+}
+
+void gestion_SIGQUIT(int sig) {
+    (void)sig;
+	write(1, "torture : ", 11);
+}
 
 int	main(int argc, char const **argv, char **envp)
 {
@@ -22,20 +32,24 @@ int	main(int argc, char const **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
+	signal(SIGINT, gestion_SIGINT);
+	signal(SIGQUIT, gestion_SIGQUIT);
 	env_ex = malloc(sizeof(t_env_ex));
 	env_ex->env = ft_tabdup(envp);
 	first = NULL;
 	test = 0;
 	env_ex->exit_code = 0;
-	while (test != 10)
+	while (test != -1)
 	{
 		line = readline("torture : ");
+		if (line == NULL)
+			break ;
 		add_history(line);
 		tortue = parsing(line, &first, &env_ex);
 		if (tortue == 0)
 		{
 			printf("fait l'exec\n");
-			// ft_execute(first, env_ex);
+			ft_execute(first, env_ex);
 		}
 		else
 			printf("fait pas l'exec %d\n", tortue);
