@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/10 11:52:38 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/12 01:26:32 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char const **argv, char **envp)
 		if (tortue == 0)
 		{
 			printf("fait l'exec\n");
-			ft_execute(first, env_ex);
+			// ft_execute(first, env_ex);
 		}
 		else
 			printf("fait pas l'exec %d\n", tortue);
