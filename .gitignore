@@ -1,6 +1,5 @@
-*.o
+obj
 .vscode
 Minishell
 test.txt
-*/*.o
-*/*/*.o
+
