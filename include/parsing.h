@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/13 20:44:18 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/14 04:55:04 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include "../newlibft/libft.h"
 # include "structure_minishell.h"
 
+typedef struct s_count
+{
+	int	i;
+	int	j;
+}			t_count;
+
 int			parsing(char *line, t_command **first, t_env_ex **env_ex);
 
 int			split_pipe(char *line, t_command *first);
@@ -26,7 +32,8 @@ int			split_token(t_command *first);
 int			trans_token(t_command *first, t_env_ex **env_ex);
 
 int			trans_heredoc(t_task **token);
-char		*get_var(char **line, char **envp, int value_return);
+int			trans_var(t_task **token, t_env_ex **env_ex, char **newcnt,
+				t_count **count);
 
 t_command	*lst_command_new(void *content);
 char		*extract_skip(char **line, int len);

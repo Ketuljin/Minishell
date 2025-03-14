@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 02:52:53 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/14 02:30:27 by vdunatte         ###   ########.fr       */
+/*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
+/*   Updated: 2025/03/14 02:43:39 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parsing.h"
+//faire pour $PWD avec getcwd
 
-size_t	ft_strlen(const char *s)
+int	parsing(char *line, t_command **first, t_env_ex **env_ex)
 {
-	size_t	i;
+	int		i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i])
-		i++;
+	(void)env_ex;
+	*first = lst_command_new(NULL);
+	i = split_pipe(line, *first);
+	if (i != 0)
+		return (i);
+	free(line);
+	i = split_token(*first);
+	if (i != 0)
+		return (i);
+	i = trans_token(*first, env_ex);
+	if (i != 0)
+		return (i);
 	return (i);
 }

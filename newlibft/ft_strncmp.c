@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vi <vi@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 02:53:34 by vdunatte          #+#    #+#             */
-/*   Updated: 2024/06/01 07:01:19 by vi               ###   ########.fr       */
+/*   Updated: 2025/03/14 02:40:12 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
 	{
 		if (s1[i] != s2[i])
-		{
 			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
-		}
 		i++;
 	}
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
@@ -48,4 +46,18 @@ int	ft_strncmp_r(const char *s1, const char *s2, int n)
 		n--;
 	}
 	return ((unsigned char) s1[i] - (unsigned char) s2[j]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+		i++;
+	}
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }

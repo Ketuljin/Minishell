@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/13 20:44:28 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/14 04:55:43 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			count_command(t_command *command);
 int			ft_execvp(t_command *command, char ***env);
 int			ft_exec_parent(int **pipes, int nb_command);
 int			ft_create_process(int **pipes, t_command *command, t_env_ex *env,
-						int count);
+				int count);
 void		ft_execute(t_command *command, t_env_ex *env);
 /* ******************** check_builtin.c ******************** */
 int			is_builtin(char *content);
@@ -90,6 +90,5 @@ int			ft_open_in_put(int type, int in_put,
 void		open_str_stdin(const char *str);
 void		ft_close_in_put(t_command *command, int fd_stdin);
 void		ft_exec_exit(t_command *command, t_env_ex *env);
-
 
 #endif

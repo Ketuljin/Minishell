@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:01:04 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/01/08 00:01:40 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:40:37 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ size_t	ft_strlen(const char *s);//norm / paco-k
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));//norm/paco-k
 int		ft_strncmp(const char *s1, const char *s2, size_t n);//norm / paco-k
 int		ft_strncmp_r(const char *s1, const char *s2, int n);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strnstr(const char *big, const char *little, size_t len);//nor/pacok
 char	*ft_strrchr(const char *s, int c);//norm / paco-k
 char	*ft_strtrim(char const *s1, char const *set);//norm / paco-k
