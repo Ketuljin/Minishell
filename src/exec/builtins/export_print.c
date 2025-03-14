@@ -12,6 +12,21 @@
 
 #include "structure_execute.h"
 
+void	printf_export(char **stock, t_command *command)
+{
+	int	i;
+
+	i = 0;
+	while (stock[i])
+	{
+		if (stock[i][0] != '-')
+		safe_write("declare -x ", command->fd_out_put);
+		safe_write(stock[i], command->fd_out_put);
+		safe_write("\n", command->fd_out_put);
+		i++;
+	}
+}
+
 int	compare_ascii(char *s1, char *s2)
 {
 	int	i;
@@ -62,19 +77,7 @@ void	ascii_order(char **stock, t_command *command)
 	printf_export(stock, command);
 }
 
-void	printf_export(char **stock, t_command *command)
-{
-	int	i;
 
-	i = 0;
-	while (stock[i])
-	{
-		ft_putstr_fd("declare -x ", command->fd_out_put);
-		ft_putstr_fd(stock[i], command->fd_out_put);
-		ft_putstr_fd("\n", command->fd_out_put);
-		i++;
-	}
-}
 
 int	export_no_arg(t_command *command, char **env)
 {
@@ -88,10 +91,7 @@ int	export_no_arg(t_command *command, char **env)
 		count++;
 	stock = malloc((count +1) * sizeof(char *));
 	if (stock == NULL)
-	{
-		ft_putstr_fd("Memory leak", 2);
 		return (1);
-	}
 	while (i < count)
 	{
 		stock[i] = env[i];

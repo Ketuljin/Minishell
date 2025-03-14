@@ -6,15 +6,24 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/10 12:56:37 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/14 18:15:12 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
 
-int	is_builtin(char *content)
+t_task *check_first(t_command *command)
 {
-	int	i;
+	t_task *task;
+
+	task = command->first;
+	while (task->type != 0 && task != NULL)
+		task = task->next;
+	return (task);
+}
+int	is_builtin(char	*content)
+{
+	int		i;
 
 	i = ft_strlen(content);
 	if (i != 0)
@@ -42,27 +51,31 @@ int	exec_builtin(t_command *command, t_env_ex *env)
 	t_task	*task;
 	int		i;
 	int		ret;
+	int		saved_stdout;
 
+	
 	ret = -1;
-	task = command->first;
-	i = ft_strlen(command->first->content);
+	task = check_first(command);
+	i = ft_strlen(task->content);
+	saved_stdout = ft_verif_out_put(command);
 	if (i != 0)
 	{
 		if (!ft_strncmp("echo", task->content, i))
-			ret = ft_exec_echo(command);
+			ret = ft_exec_echo(command, task);
 		if (!ft_strncmp("export", task->content, i))
-			ret = ft_exec_export(command, &env->env);
+			ret = ft_exec_export(command, &env->env, task);
 		if (!ft_strncmp("unset", task->content, i))
-			ret = ft_exec_unset(command, &env->env);
+			ret = ft_exec_unset(task, &env->env);
 		if (!ft_strncmp("pwd", task->content, i))
 			ret = ft_exec_pwd(env->env);
 		if (!ft_strncmp("env", task->content, i))
 			ret = ft_exec_env(command, env->env);
 		if (!ft_strncmp("cd", task->content, i))
-			ret = ft_exec_cd(command, &env->env);
-		if (!ft_strncmp("exit", command->first->content, i))
+			ret = ft_exec_cd(task, &env->env);
+		if (!ft_strncmp("exit", task->content, i))
 			ret = 12;
 	}
+	ft_close_out_put(command, saved_stdout);
 	return (ret);
 }
 

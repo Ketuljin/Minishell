@@ -12,6 +12,21 @@
 
 #include "structure_execute.h"
 
+
+char	*option_cd(char *content, char **env)
+{
+	if (!ft_strncmp(content, "-", ft_strlen(content)))
+		return (get_env_var("OLDPWD", env));
+	if (content[0] == '-' && content[1] != '\0')
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(content, 2);
+		ft_putstr_fd(": invalid option\n", 2);
+		return (NULL);
+	}
+	return (content);
+}
+
 int	cd_no_arg(char ***env)
 {
 	char	*home;
@@ -37,15 +52,13 @@ int	cd_no_arg(char ***env)
 	return (0);
 }
 
-int	execute_cd_args(t_command *command, char ***env)
+int	execute_cd_args(t_task *task, char ***env)
 {
-	t_task	*task;
 	char	*path;
 	char	*pwd;
 	char	*tmp;
 
 	pwd = malloc(sizeof(char) * 1000);
-	task = command->first->next;
 	path = option_cd(task->content, *env);
 	if (!path)
 		return (1);
@@ -65,25 +78,13 @@ int	execute_cd_args(t_command *command, char ***env)
 	return (0);
 }
 
-char	*option_cd(char *content, char **env)
-{
-	if (!ft_strncmp(content, "-", ft_strlen(content)))
-		return (get_env_var("OLDPWD", env));
-	if (content[0] == '-' && content[1] != '\0')
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(content, 2);
-		ft_putstr_fd(": invalid option\n", 2);
-		return (NULL);
-	}
-	return (content);
-}
 
-int	ft_exec_cd(t_command *command, char ***env)
+
+int	ft_exec_cd(t_task *task, char ***env)
 {
 	int	task_count;
 
-	task_count = count_task(command);
+	task_count = count_task(task);
 	if (task_count > 2)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
@@ -92,6 +93,6 @@ int	ft_exec_cd(t_command *command, char ***env)
 	if (task_count == 1)
 		return (cd_no_arg(env));
 	if (task_count == 2)
-		return (execute_cd_args(command, env));
+		return (execute_cd_args(task, env));
 	return (0);
 }

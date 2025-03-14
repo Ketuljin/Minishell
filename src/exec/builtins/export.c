@@ -94,13 +94,11 @@ int	export_arg(char ***env, char *content)
 	return (0);
 }
 
-int	ft_exec_export(t_command *command, char ***env)
+int	ft_exec_export(t_command *command, char ***env, t_task *task)
 {
 	int		count;
-	t_task	*task;
 
-	task = command->first;
-	count = count_task(command);
+	count = count_task(task);
 	if (count == 1)
 	{
 		export_no_arg(command, *env);

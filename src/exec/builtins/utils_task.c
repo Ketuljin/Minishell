@@ -37,18 +37,16 @@ int	count_line(char	**str)
 	return (i);
 }
 
-int	count_task(t_command *command)
+int	count_task(t_task *task)
 {
-	t_task	*actual_task;
 	int		i;
 
 	i = 0;
-	actual_task = command->first;
-	while (actual_task)
+	while (task)
 	{
-		if (actual_task->type == 0)
+		if (task->type == 0)
 			i++;
-		actual_task = actual_task->next;
+		task = task->next;
 	}
 	return (i);
 }

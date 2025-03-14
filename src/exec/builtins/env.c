@@ -53,7 +53,7 @@ int	ft_exec_env(t_command *command, char **env)
 {
 	int		cpt;
 
-	cpt = count_task(command);
+	cpt = count_task(command->first);
 	if (!env || !*env)
 	{
 		ft_putstr_fd("Minishell: env: no environment variables found\n", 2);
@@ -66,10 +66,10 @@ int	ft_exec_env(t_command *command, char **env)
 	}
 	while (*env)
 	{
-		if (ft_strchr(*env, '='))
+		if (ft_strchr(*env, '=') && !ft_strchr(*env, '-'))
 		{
-			ft_putstr_fd(*env, command->fd_out_put);
-			ft_putstr_fd("\n", command->fd_out_put);
+			safe_write(*env, command->fd_out_put);
+			safe_write("\n", command->fd_out_put);
 		}
 		env++;
 	}

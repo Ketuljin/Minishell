@@ -40,7 +40,7 @@ int	ft_verif_out_put(t_command *command)
 	t_task	*task;
 	int		saved_stdout;
 
-	saved_stdout = 1;
+	saved_stdout = dup(STDOUT_FILENO);
 	task = command->first;
 	if (saved_stdout == -1)
 	{

@@ -24,7 +24,7 @@ void	ft_close_in_put(t_command *command, int fd_stdin)
 	close(fd_stdin);
 }
 
-void	open_str_stdin(const char *str)
+void	open_str_stdin(char *str)
 {
 	int	fd[2];
 
@@ -70,10 +70,8 @@ int	ft_verif_in_put(t_command *command)
 {
 	t_task		*task;
 	int			saved_stdin;
-	int			new_in_put;
 
 	saved_stdin = dup(STDIN_FILENO);
-	new_in_put = saved_stdin;
 	if (saved_stdin == -1)
 	{
 		perror("dup failed");
@@ -83,9 +81,9 @@ int	ft_verif_in_put(t_command *command)
 	while (task)
 	{
 		if (task->type == 2)
-			new_in_put = ft_open_in_put (2, command->fd_in_put, task->content, saved_stdin);
+			command->fd_in_put = ft_open_in_put (2, command->fd_in_put, task->content, saved_stdin);
 		if (task->type == 4)
-			new_in_put = ft_open_in_put (4, command->fd_in_put, task->content, saved_stdin);
+			command->fd_in_put = ft_open_in_put (4, command->fd_in_put, task->content, saved_stdin);
 		if (command->fd_in_put == -1)
 			return (-1);
 		task = task->next;
