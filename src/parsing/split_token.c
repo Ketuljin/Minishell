@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/08 03:53:58 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/15 04:41:07 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ int	splitter(char *full_task, t_task *first)
 	return (first->content == NULL);
 }
 
-int	split_token(t_command *first)
+int	split_token(t_command *first, t_env_ex **env_ex)
 {
 	if (first == NULL)
 		return (0);
 	first->first = lst_task_new(NULL);
 	if (norm_heredoc(&(first->full_task)) == 1)
-		return (4);
+		return (print_error("syntax error near unexpected token\n", env_ex, 2));
 	if (splitter(first->full_task, first->first) == 1)
-		return (2);
+		return (print_error("syntax error\n", env_ex, 22));
 	if (first->first->content[0] == '\0')
-		return (3);
-	return (split_token(first->next));
+		return (print_error("syntax error\n", env_ex, 22));
+	return (split_token(first->next, env_ex));
 }

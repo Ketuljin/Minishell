@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/14 02:33:14 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/15 04:23:19 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char const **argv, char **envp)
 	t_command	*first;
 	char		*line;
 	int			test;
-	int			tortue;
 
 	(void)argv;
 	(void)argc;
@@ -44,14 +43,13 @@ int	main(int argc, char const **argv, char **envp)
 		if (line == NULL)
 			break ;
 		add_history(line);
-		tortue = parsing(line, &first, &env_ex);
-		if (tortue == 0)
+		if (parsing(line, &first, &env_ex) == 0)
 		{
 			printf("fait l'exec\n");
 			// ft_execute(first, env_ex);
 		}
 		else
-			printf("fait pas l'exec %d\n", tortue);
+			printf("fait pas l'exec\n");
 		free_struct(&first);
 		test++;
 	}

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 23:02:08 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/02/26 02:13:11 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/15 04:21:44 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ int	char_count(char *s, char c, char d)
 		s++;
 	}
 	return (i);
+}
+
+int	print_error(char *msg_error, t_env_ex **env_ex, int exit_code)
+{
+	(*env_ex)->exit_code = exit_code;
+	if (msg_error != NULL)
+		write(STDERR_FILENO, msg_error, ft_strlen(msg_error));
+	return (1);
 }

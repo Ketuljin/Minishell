@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:32:37 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/14 02:42:54 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/15 04:48:23 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	for_d_enter(t_task **token)
 		stock(&newcontent, "\n");
 	}
 	free((*token)->content);
-	(*token)->type = 3;
+	(*token)->type = 4;
 	if (line == 0)
 		return ((*token)->content = calloc(1, 1), 0);
 	(*token)->content = newcontent;

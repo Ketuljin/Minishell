@@ -6,16 +6,15 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/14 04:47:11 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/15 04:39:03 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	trans_squote(t_task **token, t_env_ex **env_ex, char *temp, t_count **count)
+int	trans_squote(t_task **token, char *temp, t_count **count)
 {
 	(*count)->i++;
-	(void)env_ex;
 	while ((*token)->content[(*count)->i] != '\'')
 	{
 		temp[(*count)->j++] = (*token)->content[(*count)->i++];
@@ -30,10 +29,7 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	while ((*token)->content[(*count)->i] != '\"')
 	{
 		if ((*token)->content[(*count)->i] == '$')
-		{
-			if (trans_var(token, env_ex, tmp, count) == 1)
-				return (free(tmp), 1);
-		}
+			trans_var(token, env_ex, tmp, count);
 		else
 			*tmp[(*count)->j++] = (*token)->content[((*count)->i)++];
 	}
@@ -46,6 +42,7 @@ int	scan_trans(t_task **token, t_env_ex **env_ex)
 	char	*temp;
 	t_count	*count;
 
+	count = malloc(sizeof(t_count));
 	count->i = 0;
 	count->j = 0;
 	(void)env_ex;
@@ -56,26 +53,17 @@ int	scan_trans(t_task **token, t_env_ex **env_ex)
 	while ((*token)->content && (*token)->content[count->i] != '\0')
 	{
 		if ((*token)->content[count->i] == '\'')
-		{
-			if (trans_squote(token, env_ex, temp, &count) == 1)
-				return (free(temp), 1);
-		}
+			trans_squote(token, temp, &count);
 		else if ((*token)->content[count->i] == '\"')
-		{
-			if (trans_dquote(token, env_ex, &temp, &count) == 1)
-				return (free(temp), 1);
-		}
+			trans_dquote(token, env_ex, &temp, &count);
 		else if ((*token)->content[count->i] == '$')
-		{
-			if (trans_var(token, env_ex, &temp, &count) == 1)
-				return (free(temp), 1);
-		}
+			trans_var(token, env_ex, &temp, &count);
 		else if ((*token)->content[count->i] != '\0' )
 			temp[count->j++] = (*token)->content[count->i++];
 	}
 	free((*token)->content);
 	(*token)->content = temp;
-	return (0);
+	return (free(count), 0);
 }
 
 int	trans_token(t_command *first, t_env_ex **env_ex)
@@ -88,8 +76,7 @@ int	trans_token(t_command *first, t_env_ex **env_ex)
 		while (task != NULL)
 		{
 			if (scan_trans(&task, env_ex) == 1)
-				return (5);
-			printf("%s %d\n", task->content, task->type);
+				return (1);
 			task = task->next;
 		}
 		first = first->next;
