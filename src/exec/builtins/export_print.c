@@ -20,9 +20,11 @@ void	printf_export(char **stock, t_command *command)
 	while (stock[i])
 	{
 		if (stock[i][0] != '-')
-		safe_write("declare -x ", command->fd_out_put);
-		safe_write(stock[i], command->fd_out_put);
-		safe_write("\n", command->fd_out_put);
+		{
+			safe_write("declare -x ", command->fd_out_put);
+			safe_write(stock[i], command->fd_out_put);
+			safe_write("\n", command->fd_out_put);
+		}
 		i++;
 	}
 }
@@ -76,8 +78,6 @@ void	ascii_order(char **stock, t_command *command)
 	}
 	printf_export(stock, command);
 }
-
-
 
 int	export_no_arg(t_command *command, char **env)
 {

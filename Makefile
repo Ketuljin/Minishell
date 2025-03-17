@@ -29,6 +29,8 @@ SRC_FILES = \
 	exec/pipes_utils.c \
 	exec/ft_out_put.c \
 	exec/ft_in_put.c \
+	exec/ft_exec_2.c \
+	exec/exec_utils.c \
 	 \
 	exec/builtins/cd.c \
 	exec/builtins/echo.c \

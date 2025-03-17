@@ -27,7 +27,8 @@ int	valid_name(char *content)
 	i++;
 	while (content[i] && content[i] != '=')
 	{
-		if (0 == ft_isalpha(content[i]) && 0 == ft_isdigit(content[i]) && content[i] != '_')
+		if (0 == ft_isalpha(content[i])
+			&& 0 == ft_isdigit(content[i]) && content[i] != '_')
 		{
 			ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
 			ft_putstr_fd(content, STDOUT_FILENO);

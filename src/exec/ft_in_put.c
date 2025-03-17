@@ -73,28 +73,22 @@ int	ft_verif_in_put(t_command *command)
 
 	saved_stdin = dup(STDIN_FILENO);
 	if (saved_stdin == -1)
-	{
-		perror("dup failed");
 		return (-1);
-	}
 	task = command->first;
 	while (task)
 	{
 		if (task->type == 2)
-			command->fd_in_put = ft_open_in_put (2, command->fd_in_put, task->content, saved_stdin);
+			command->fd_in_put = ft_open_in_put (2, command->fd_in_put,
+					task->content, saved_stdin);
 		if (task->type == 4)
-			command->fd_in_put = ft_open_in_put (4, command->fd_in_put, task->content, saved_stdin);
-		if (command->fd_in_put == -1)
-			return (-1);
+			command->fd_in_put = ft_open_in_put (4, command->fd_in_put,
+					task->content, saved_stdin);
 		task = task->next;
 	}
 	if (command->fd_in_put != STDIN_FILENO)
 	{
 		if (dup2(command->fd_in_put, STDIN_FILENO) == -1)
-		{
-			perror("dup2 failed");
 			return (-1);
-		}
 	}
 	return (saved_stdin);
 }

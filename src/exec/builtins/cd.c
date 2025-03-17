@@ -12,7 +12,6 @@
 
 #include "structure_execute.h"
 
-
 char	*option_cd(char *content, char **env)
 {
 	if (!ft_strncmp(content, "-", ft_strlen(content)))
@@ -77,8 +76,6 @@ int	execute_cd_args(t_task *task, char ***env)
 	free (pwd);
 	return (0);
 }
-
-
 
 int	ft_exec_cd(t_task *task, char ***env)
 {

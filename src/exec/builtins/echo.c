@@ -12,17 +12,17 @@
 
 #include "structure_execute.h"
 
-
-int	safe_write (char *content, int fd)
+int	safe_write(char *content, int fd)
 {
-	size_t bytes_written;
+	size_t	bytes_written;
 
 	bytes_written = write(fd, content, ft_strlen(content));
 	if ((int)bytes_written == -1)
 	{
 		perror("write error: ");
 		if (errno == ENOMEM)
-			ft_putstr_fd("write error: no space left on device\n", STDERR_FILENO);
+			ft_putstr_fd("write error: no space left on device\n",
+				STDERR_FILENO);
 		return (1);
 	}
 	return (0);
@@ -61,6 +61,7 @@ int	ft_exec_echo(t_command *command, t_task *task)
 		{
 			if (safe_write(task->content, command->fd_out_put))
 				return (1);
+			write(command->fd_out_put, " ", 1);
 		}
 		task = task->next;
 	}

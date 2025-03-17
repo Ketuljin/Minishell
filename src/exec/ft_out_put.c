@@ -43,10 +43,7 @@ int	ft_verif_out_put(t_command *command)
 	saved_stdout = dup(STDOUT_FILENO);
 	task = command->first;
 	if (saved_stdout == -1)
-	{
-		perror("dup failed");
 		return (1);
-	}
 	while (task)
 	{
 		if (task->type == 1)
@@ -60,10 +57,7 @@ int	ft_verif_out_put(t_command *command)
 	if (command->fd_out_put != STDOUT_FILENO)
 	{
 		if (dup2(command->fd_out_put, STDOUT_FILENO) == -1)
-		{
-			perror("dup2 failed");
 			return (-1);
-		}
 	}
 	return (saved_stdout);
 }

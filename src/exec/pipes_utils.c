@@ -6,12 +6,11 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:06:44 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/14 17:29:18 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/17 14:17:03 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
-
 
 void	close_pipes(int **pipes, int nb_command)
 {
@@ -55,7 +54,7 @@ int	**free_pipe(int **pipes, int nb_command)
 	return (NULL);
 }
 
-int	ft_exec_pipe(t_command *command, t_env_ex *env, int nb_command)
+int	ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env)
 {
 	int	**pipes;
 	int	i;
@@ -71,7 +70,7 @@ int	ft_exec_pipe(t_command *command, t_env_ex *env, int nb_command)
 	i = 0;
 	while (i < nb_command)
 	{
-		ft_create_process(pipes, command, env, i);
+		ft_create_process(pipes, command, i, env);
 		i++;
 	}
 	return (ft_exec_parent(pipes, nb_command));
