@@ -6,20 +6,11 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/16 02:32:47 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/18 02:07:17 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	sigint_handler(int sig)
-{
-	(void)sig;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
 
 int	main(int argc, char const **argv, char **envp)
 {
@@ -30,8 +21,7 @@ int	main(int argc, char const **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
+	set_signals(S_IGNORE);
 	env_ex = malloc(sizeof(t_env_ex));
 	env_ex->env = ft_tabdup(envp);
 	first = NULL;
@@ -39,7 +29,9 @@ int	main(int argc, char const **argv, char **envp)
 	env_ex->exit_code = 0;
 	while (test != 10)
 	{
+		set_signals(S_INTERACTIVE);
 		line = readline("torture : ");
+		set_signals(S_IGNORE);
 		if (line == NULL)
 			break ;
 		add_history(line);

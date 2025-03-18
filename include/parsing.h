@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/15 04:28:25 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/18 02:07:30 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 
+#include "minishell.h"
 # include "../newlibft/libft.h"
 # include "structure_minishell.h"
 

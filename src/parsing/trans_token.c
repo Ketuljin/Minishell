@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/16 04:45:09 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:41:05 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 		{
 			(*tmp)[(*count)->j++] = (*token)->content[(*count)->i++];
 		}
-			
-	}	
+	}
 	(*count)->i++;
-	dprintf(1, "%s\n", *tmp);
 	return (0);
 }
 
@@ -46,7 +44,7 @@ int	scan_trans(t_task **token, t_env_ex **env_ex)
 	char	*temp;
 	t_count	*count;
 
-	count = malloc(sizeof(t_count));
+	count = malloc(sizeof(t_count) + 1);
 	count->i = 0;
 	count->j = 0;
 	(void)env_ex;
@@ -81,7 +79,6 @@ int	trans_token(t_command *first, t_env_ex **env_ex)
 		{
 			if (scan_trans(&task, env_ex) == 1)
 				return (1);
-			dprintf(1, "n10\n");
 			task = task->next;
 		}
 		first = first->next;

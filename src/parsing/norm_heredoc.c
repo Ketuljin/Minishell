@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/09 03:41:18 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:34:00 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	add_del_space(char *f_task, char *temp, int b)
 	j = 0;
 	while (f_task[i] != '\0')
 	{
-		if (skip_quote_index(temp, f_task, &i, &j) == 1)
-			return (1);
+		skip_quote_index(temp, f_task, &i, &j);
 		if (f_task[i] == '>' || f_task[i] == '<')
 		{
 			if (b-- != 1 && (f_task[i - 1] != ' ' || f_task[i - 1] != '	'))

@@ -1,5 +1,5 @@
 # Nom de l'exécutable
-NAME = Minishell
+NAME = minishell
 
 # Répertoires
 SRCDIR = src
@@ -14,6 +14,7 @@ CFLAGS = -Wall -Wextra -Werror -g -Ilibft -I$(INCDIR)
 SRC_FILES = \
 	main.c \
 	main_utils.c \
+	signals.c \
 	 \
 	parsing/utlis.c \
 	parsing/parsing.c \
@@ -61,7 +62,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 gdb: re
-	gdb ./$(NAME) -ex "b scan_trans"
+	gdb ./$(NAME) -ex "b trans_var"
 # Règles de nettoyage
 clean:
 	$(RM) -r $(OBJDIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/17 14:31:42 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 02:12:01 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
 	args = create_args(command->first);
+	set_signals(S_DEFAULT);
 	if (execve(path, args, env_ex->env) == -1)
 	{
 		perror("execve");
 		clean_all(args, env_ex, first_command);
 	}
+	set_signals(S_IGNORE);
 	return (0);
 }

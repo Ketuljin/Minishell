@@ -62,15 +62,21 @@ char	*find_var(char **envp, char *var)
 	return (NULL);
 }
 
+int	end_line(char **newcnt, t_count **count)
+{
+	(*newcnt)[((*count)->j)] = '$';
+	(*count)->j++;
+	return (0);
+}
+
 int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 {
 	char	*temp;
 	char	*var;
 	int		k;
 
-	if ((*token)->content[(*count)->i + 1] == '\0')
-		return (0);
-	(*count)->i++;
+	if ((*token)->content[++(*count)->i] == '\0')
+		return (end_line(newcnt, count));
 	temp = extract_var(((*token)->content), &(*count)->i);
 	if ((*token)->content[(*count)->i] == '?')
 	{
@@ -89,6 +95,5 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	while (var[k] != '\0')
 		temp[((*count)->j)++] = var[k++];
 	free(*newcnt);
-	*newcnt = temp;
-	return (0);
+	return (*newcnt = temp, 0);
 }

@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   structure_execute.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/17 14:23:59 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 01:55:45 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_EXECUTE_H
 # define STRUCTURE_EXECUTE_H
 
+# include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/wait.h>
 # include "structure_minishell.h"
 # include "minishell.h"
 # include "../newlibft/libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <errno.h>
 
 void		ft_exec_exit(t_command *command, t_env_ex *env,
 				t_command *first_command, int saved_stdout);
