@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 19:06:08 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 20:31:26 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*valid_command(char *content, char **stock)
 		{
 			close (fd);
 			return (full_command);
-			
 		}
 		free(full_command);
 		i++;

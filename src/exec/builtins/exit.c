@@ -6,21 +6,52 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/17 14:31:16 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 20:27:05 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
+#include <math.h>
+
+long long int	ft_atoie(const char	*nptr)
+{
+	long long int	n;
+	long long int	r;
+
+	n = 1;
+	r = 0;
+	while (*nptr == ' '
+		|| *nptr == '\f'
+		|| *nptr == '\n'
+		|| *nptr == '\r'
+		|| *nptr == '\t'
+		|| *nptr == '\v')
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
+	{
+		if (*nptr == '-')
+			n = -n;
+		nptr++;
+	}
+	while ('0' <= *nptr && *nptr <= '9')
+	{
+		r = r * 10 + *nptr - '0';
+		nptr++;
+	}
+	return (r * n);
+}
+
+
 
 int	check_content(char *content, int i)
 {
 	while (content[i])
 	{
-		if (!ft_isdigit(content[i]))
+		if (!ft_isdigit(content[i]) || i > 19)
 		{
-			ft_putstr_fd("Minishell: exit: '", STDERR_FILENO);
+			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(content, STDERR_FILENO);
-			ft_putstr_fd("' : numeric argument required\n", STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			return (2);
 		}
 		i++;
@@ -45,7 +76,7 @@ int	is_valid(char *content)
 {
 	int	i;
 	int	neg;
-	int	ret;
+	long long ret;
 
 	i = 0;
 	neg = 0;
@@ -60,8 +91,16 @@ int	is_valid(char *content)
 		neg = 1;
 		i++;
 	}
-	check_content(content, i);
-	ret = ft_atoi(content);
+	if (check_content(content, i))
+		return (2);
+	ret = ft_atoie(content);
+	if (ret > 9223372036854775807 || ret+1 < -9223372036854775807)
+	{
+		ft_putstr_fd("Minishell: exit: '", STDERR_FILENO);
+		ft_putstr_fd(content, STDERR_FILENO);
+		ft_putstr_fd("' : numeric argument required\n", STDERR_FILENO);
+		return (2);
+	}
 	ret = adjust_number(ret, neg);
 	return (ret);
 }
@@ -75,13 +114,17 @@ int	check_exit_args(t_command *command, t_env_ex *env)
 	task = command->first->next;
 	if (task == NULL)
 		return (env->exit_code);
-	if (task->next != NULL)
-	{
-		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
-		t = 1;
-	}
 	t = is_valid(task->content);
+	if (t != 2)
+	{
+		if (task->next != NULL)
+		{
+			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
+			t = 2;
+		}
+	}
+	
 	return (t);
 }
 
@@ -91,6 +134,7 @@ void	ft_exec_exit(t_command *command, t_env_ex *env,
 	int	ret;
 
 	ret = 0;
+	ft_putstr_fd("exit\n ", STDERR_FILENO);
 	ret = check_exit_args(command, env);
 	free_struct(&first_command);
 	ft_tabfree(env->env);
