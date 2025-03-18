@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 20:27:05 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 21:11:23 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ int	check_content(char *content, int i)
 int	adjust_number(int var, int neg)
 {
 	if (var > 255)
-		return (255);
+	{
+		while(var > 255)
+			var -= 256;
+		return (var);
+	}
 	if (neg)
 		var = -var;
 	while (var < 256)
@@ -134,7 +138,7 @@ void	ft_exec_exit(t_command *command, t_env_ex *env,
 	int	ret;
 
 	ret = 0;
-	ft_putstr_fd("exit\n ", STDERR_FILENO);
+	ft_putstr_fd("exit\n", STDERR_FILENO);
 	ret = check_exit_args(command, env);
 	free_struct(&first_command);
 	ft_tabfree(env->env);
