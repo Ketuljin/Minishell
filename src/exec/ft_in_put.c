@@ -66,14 +66,14 @@ int	ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 	return (-1);
 }
 
-int	ft_verif_in_put(t_command *command)
+void	ft_verif_in_put(t_command *command)
 {
 	t_task		*task;
 	int			saved_stdin;
 
-	saved_stdin = dup(STDIN_FILENO);
+	saved_stdin = dup(STDOUT_FILENO);
 	if (saved_stdin == -1)
-		return (-1);
+		return ;
 	task = command->first;
 	while (task)
 	{
@@ -88,7 +88,8 @@ int	ft_verif_in_put(t_command *command)
 	if (command->fd_in_put != 0)
 	{
 		if (dup2(command->fd_in_put, STDIN_FILENO) == -1)
-			return (-1);
+			return ;
 	}
-	return (saved_stdin);
+	close (saved_stdin);
+	return ;
 }

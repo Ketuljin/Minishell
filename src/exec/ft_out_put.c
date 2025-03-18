@@ -35,7 +35,7 @@ int	ft_open_out_put(int type, int out_put, char *content, int saved_stdout)
 	return (-1);
 }
 
-int	ft_verif_out_put(t_command *command)
+void	ft_verif_out_put(t_command *command)
 {
 	t_task	*task;
 	int		saved_stdout;
@@ -43,7 +43,7 @@ int	ft_verif_out_put(t_command *command)
 	saved_stdout = dup(STDOUT_FILENO);
 	task = command->first;
 	if (saved_stdout == -1)
-		return (1);
+		return ;
 	while (task)
 	{
 		if (task->type == 1)
@@ -57,9 +57,10 @@ int	ft_verif_out_put(t_command *command)
 	if (command->fd_out_put != STDOUT_FILENO)
 	{
 		if (dup2(command->fd_out_put, STDOUT_FILENO) == -1)
-			return (-1);
+			return ;
 	}
-	return (saved_stdout);
+	close (saved_stdout);
+	return ;
 }
 
 void	ft_close_out_put(t_command *command, int fd_save)

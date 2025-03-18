@@ -37,11 +37,13 @@ int	cd_no_arg(char ***env)
 	if (!home)
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		free (pwd);
 		return (1);
 	}
 	if (chdir(home) == -1)
 	{
 		perror("minishell: cd");
+		free(pwd);
 		return (1);
 	}
 	change_pwd(env, home, "PWD");
@@ -90,6 +92,6 @@ int	ft_exec_cd(t_task *task, char ***env)
 	if (task_count == 1)
 		return (cd_no_arg(env));
 	if (task_count == 2)
-		return (execute_cd_args(task, env));
+		return (execute_cd_args(task->next, env));
 	return (0);
 }

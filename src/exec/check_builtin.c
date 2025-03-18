@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/18 14:03:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/18 17:56:54 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	ft_exec_builtin(t_command *command, t_env_ex *env,
 	int	ret;
 	int	saved_stdout;
 
-	saved_stdout = ft_verif_out_put(command);
+	saved_stdout = dup(STDOUT_FILENO);
+	ft_verif_out_put(command);
 	ret = -1;
 	if (!ft_strncmp("echo", task->content, ft_strlen(task->content)))
 		ret = ft_exec_echo(command, task);

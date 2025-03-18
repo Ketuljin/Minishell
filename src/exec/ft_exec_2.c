@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 14:16:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:13:48 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ char	*valid_command(char *content, char **stock)
 			ft_strlen(full_command) + ft_strlen(content) + 1);
 		fd = open(full_command, O_RDONLY);
 		if (fd != -1)
+		{
+			close (fd);
 			return (full_command);
+			
+		}
 		free(full_command);
 		i++;
 	}
@@ -66,9 +70,11 @@ char	**create_args(t_task *task)
 	while (task != NULL)
 	{
 		if (task->type == 0)
+		{
 			args[i] = ft_strdup(task->content);
+			i++;
+		}
 		task = task->next;
-		i++;
 	}
 	args[i] = NULL;
 	return (args);
@@ -88,7 +94,12 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 		else
 			path = search_path(task->content, env_ex->env);
 		if (path == NULL)
+		{
+			ft_putstr_fd("command '", STDERR_FILENO);
+			ft_putstr_fd(task->content, STDERR_FILENO);
+			ft_putstr_fd("' : not found\n", STDERR_FILENO);
 			return (1);
+		}	
 	}
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
