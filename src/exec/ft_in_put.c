@@ -85,7 +85,7 @@ int	ft_verif_in_put(t_command *command)
 					task->content, saved_stdin);
 		task = task->next;
 	}
-	if (command->fd_in_put != STDIN_FILENO)
+	if (command->fd_in_put != 0)
 	{
 		if (dup2(command->fd_in_put, STDIN_FILENO) == -1)
 			return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 02:12:01 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:16:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,18 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	char	*path;
 
 	task = first_task(command);
-	if (task == NULL)
-		return (1);
-	if (!no_path(task->content))
-		path = ft_strdup(task->content);
-	else
-		path = search_path(task->content, env_ex->env);
-	if (path == NULL)
-		return (1);
+	if (task != NULL)
+	{
+		if (!no_path(task->content))
+			path = ft_strdup(task->content);
+		else
+			path = search_path(task->content, env_ex->env);
+		if (path == NULL)
+			return (1);
+	}
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
-	args = create_args(command->first);
+	args = create_args(first_task(command));
 	set_signals(S_DEFAULT);
 	if (execve(path, args, env_ex->env) == -1)
 	{

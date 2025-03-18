@@ -45,7 +45,7 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 
 	nb_command = count_command(first_command);
 	ex = 1;
-	if (!is_builtin(command->first->content))
+	if (!is_builtin(command))
 	{
 		if (!ft_strncmp("exit", command->first->content,
 				ft_strlen(command->first->content)))
@@ -71,10 +71,8 @@ int	ft_create_process(int **pipes, t_command *command, int count, t_env_ex *env)
 {
 	pid_t		pid;
 	int			nb_command;
-	int			ex;
 	t_command	*first_command;
 
-	ex = 0;
 	nb_command = count_command(command);
 	first_command = command;
 	command = search_command(command, count);
@@ -112,7 +110,6 @@ void	create_save_pwd(char ***env)
 void	ft_execute(t_command *command, t_env_ex *env)
 {
 	int			nb_command;
-	t_task		*task;
 	t_command	*first_command;
 
 	first_command = command;
@@ -120,8 +117,7 @@ void	ft_execute(t_command *command, t_env_ex *env)
 	nb_command = count_command(command);
 	if (nb_command == 0)
 		return ;
-	task = check_first(command);
-	if (nb_command == 1 && !is_builtin(task->content))
+	if (nb_command == 1 && !is_builtin(command))
 		env->exit_code = exec_builtin(command, env, first_command);
 	else
 		env->exit_code = ft_exec_pipe(command, nb_command, env);
