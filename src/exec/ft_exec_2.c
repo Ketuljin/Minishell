@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 18:13:48 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/18 19:06:08 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	**create_args(t_task *task)
 	int		i;
 
 	i = 1;
+	if (task == NULL)
+		return (NULL);
 	args = malloc(sizeof(char *) * (count_task(task) + 1));
 	args[0] = ft_strdup(task->content);
 	task = task->next;
@@ -104,6 +106,8 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
 	args = create_args(first_task(command));
+	if (args == NULL)
+		return (-1);
 	set_signals(S_DEFAULT);
 	if (execve(path, args, env_ex->env) == -1)
 	{
