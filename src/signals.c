@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:56:47 by rvandepu          #+#    #+#             */
-/*   Updated: 2025/03/18 02:23:49 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:32:26 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	int_handler(int sig)
 {
 	(void)sig;
 	// ft_fprintf(rl_outstream, "\n");
+	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
