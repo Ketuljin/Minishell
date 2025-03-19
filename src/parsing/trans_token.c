@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/17 21:41:05 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:47:53 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	while ((*token)->content[(*count)->i] != '\"')
 	{
 		if ((*token)->content[(*count)->i] == '$')
-			trans_var(token, env_ex, tmp, count);
+		{
+			if ((*token)->content[(*count)->i + 1] == '\"')
+				(*tmp)[(*count)->j++] = (*token)->content[(*count)->i++];
+			else
+				trans_var(token, env_ex, tmp, count);
+		}
 		else
 		{
 			(*tmp)[(*count)->j++] = (*token)->content[(*count)->i++];
@@ -37,7 +42,7 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	}
 	(*count)->i++;
 	return (0);
-}
+} 
 
 int	scan_trans(t_task **token, t_env_ex **env_ex)
 {
