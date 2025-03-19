@@ -34,6 +34,7 @@ typedef enum e_setsig
 }	t_setsig;
 
 void	free_struct(t_command **first);
+void	free_struct2(t_task	**first);
 
 extern int		g_last_sig;
 void	set_signals(t_setsig set);

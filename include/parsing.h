@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/18 02:07:30 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:39:42 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			norm_heredoc(char **full_task);
 int			split_token(t_command *first, t_env_ex **env_ex);
 int			trans_token(t_command *first, t_env_ex **env_ex);
 
-int			trans_heredoc(t_task **token);
+int			trans_heredoc(t_task **token, t_env_ex **env_ex, t_command *first, t_count	*count);
 int			trans_var(t_task **token, t_env_ex **env_ex, char **newcnt,
 				t_count **count);
 

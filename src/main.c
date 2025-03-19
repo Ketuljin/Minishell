@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/19 18:49:31 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:18:30 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	minishell(t_command **first, t_env_ex **env_ex)
 		if (g_last_sig == 130)
 			(*env_ex)->exit_code = 130;
 		g_last_sig = 0;
-		printf("here\n");
 		if (line == NULL)
 			return ;
 		add_history(line);
 		if (parsing(line, first, env_ex) == 0)
-			ft_execute(*first, *env_ex);
+			printf("ok\n");
+			// ft_execute(*first, *env_ex);
 		free_struct(first);
 	}
 }
