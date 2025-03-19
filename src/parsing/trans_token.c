@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/19 18:47:53 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:10:34 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	}
 	(*count)->i++;
 	return (0);
-} 
+}
 
-int	scan_trans(t_task **token, t_env_ex **env_ex)
+int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
 {
 	char	*temp;
 	t_count	*count;
@@ -54,7 +54,7 @@ int	scan_trans(t_task **token, t_env_ex **env_ex)
 	count->j = 0;
 	(void)env_ex;
 	if ((*token)->content[0] == '>' || (*token)->content[0] == '<')
-		if (trans_heredoc(token) != 0)
+		if (trans_heredoc(token, env_ex, first, count) != 0)
 			return (1);
 	temp = calloc((ft_strlen((*token)->content) + 1), sizeof(char));
 	while ((*token)->content && (*token)->content[count->i] != '\0')
@@ -82,7 +82,7 @@ int	trans_token(t_command *first, t_env_ex **env_ex)
 		task = first->first;
 		while (task != NULL)
 		{
-			if (scan_trans(&task, env_ex) == 1)
+			if (scan_trans(&task, env_ex, first) == 1)
 				return (1);
 			task = task->next;
 		}

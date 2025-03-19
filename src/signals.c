@@ -6,27 +6,28 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:56:47 by rvandepu          #+#    #+#             */
-/*   Updated: 2025/03/18 17:32:26 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:10:18 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	g_last_sig = 0;
+
 static void	int_handler(int sig)
 {
 	(void)sig;
-	// ft_fprintf(rl_outstream, "\n");
 	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_last_sig = 130;
 }
-
-int	g_last_sig = 0;
 
 static void	save_sig(int sig)
 {
-	g_last_sig = sig;
+	(void)sig;
+	g_last_sig = 130;
 }
 
 void	set_signals(t_setsig set)
