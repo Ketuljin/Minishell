@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 20:31:26 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/19 20:39:24 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,74 @@ char	**create_args(t_task *task)
 	return (args);
 }
 
+int	count_slash(char *content)
+{
+	int i;
+	int cpt;
+
+	cpt = 0;
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '/')
+		{
+			cpt++;
+			i++;
+			while (content[i] == '/')
+				i++;
+		}
+		else
+		{
+			cpt++;
+			i++;
+		}
+	}
+	return (cpt);
+}
+
+void	copy_slash(char *content, char *stock)
+{
+	int	i;
+	int	cpt;
+
+	cpt = 0;
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '/')
+		{
+			stock[cpt] = content[i];
+			cpt++;
+			i++;
+			while (content[i] == '/')
+				i++;
+		}
+		else
+		{
+			stock[cpt] = content[i];
+			cpt++;
+			i++;
+		}
+	}
+	stock[cpt] = '\0';
+}
+
+char	*delete_sl(char	*content)
+{
+	int		i;
+	int		cpt;
+	char	*stock;
+
+	i = 0;
+	cpt = 0;
+	cpt = count_slash(content);
+	stock = malloc(sizeof(char) * cpt +1);
+	copy_slash(content, stock);
+	free(content);
+	return (stock);
+}
+
+
 int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 {
 	t_task	*task;
@@ -88,10 +156,11 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	char	*path;
 
 	task = first_task(command);
+	path = NULL;
 	if (task != NULL)
 	{
 		if (!no_path(task->content))
-			path = ft_strdup(task->content);
+			task->content = delete_sl(task->content);
 		else
 			path = search_path(task->content, env_ex->env);
 		if (path == NULL)

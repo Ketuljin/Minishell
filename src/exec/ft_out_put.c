@@ -71,7 +71,7 @@ void	ft_close_out_put(t_command *command, int fd_save)
 		return ;
 	}
 	close(fd_save);
-	if (command->fd_out_put != STDOUT_FILENO)
+	if (command->fd_out_put > 0)
 		close(command->fd_out_put);
 	command->fd_out_put = STDERR_FILENO;
 }

@@ -14,13 +14,14 @@
 
 void	ft_close_in_put(t_command *command, int fd_stdin)
 {
-	if (command->fd_in_put != fd_stdin && command->fd_in_put != STDIN_FILENO)
-		close (command->fd_in_put);
+	if (command->fd_in_put != fd_stdin && command->fd_in_put > 0)
+			close (command->fd_in_put);
 	if (dup2(fd_stdin, STDIN_FILENO == -1))
 	{
 		perror("dup2 failed in ft_close_in_put");
 		exit(EXIT_FAILURE);
 	}
+	command->fd_in_put = 0;
 	close(fd_stdin);
 }
 
@@ -48,7 +49,7 @@ int	ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 {
 	if (type == 2)
 	{
-		if (in_put != saved_stdin)
+		if (in_put >= 0)
 			close(in_put);
 		in_put = open(content, O_RDONLY);
 		if (in_put == -1)
@@ -57,7 +58,7 @@ int	ft_open_in_put(int type, int in_put, char *content, int saved_stdin)
 	}
 	if (type == 4)
 	{
-		if (in_put != saved_stdin && in_put != STDIN_FILENO)
+		if (in_put != saved_stdin && in_put < 0)
 			close(in_put);
 		open_str_stdin(content);
 		in_put = STDIN_FILENO;
@@ -85,7 +86,7 @@ void	ft_verif_in_put(t_command *command)
 					task->content, saved_stdin);
 		task = task->next;
 	}
-	if (command->fd_in_put != 0)
+	if (command->fd_in_put > 0)
 	{
 		if (dup2(command->fd_in_put, STDIN_FILENO) == -1)
 			return ;
