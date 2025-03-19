@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_execute.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 01:55:45 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:25:04 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ char		**copy_memory(char **src, char **dest, int z);
 int			export_no_arg(t_command *command, char **env);
 void		ft_execute(t_command *command, t_env_ex *env);
 t_task		*check_first(t_command *command);
-int			is_builtin(char	*content);
-int			ft_verif_in_put(t_command *command);
+int			is_builtin(t_command *command);
+void		ft_verif_in_put(t_command *command);
 void		ft_close_in_put(t_command *command, int fd_stdin);
 void		ft_close_out_put(t_command *command, int fd_save);
 int			ft_open_out_put(int type, int out_put,
 				char *content, int saved_stdout);
-int			ft_verif_out_put(t_command *command);
+void		ft_verif_out_put(t_command *command);
 int			ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env);
 int			is_pipe(t_command *command);
 int			**free_pipe(int **pipes, int nb_command);
