@@ -33,6 +33,7 @@ SRC_FILES = \
 	exec/ft_exec_2.c \
 	exec/exec_utils.c \
 	exec/ft_create_path.c \
+	exec/create_path_utils.c \
 	 \
 	exec/builtins/cd.c \
 	exec/builtins/echo.c \
@@ -43,7 +44,8 @@ SRC_FILES = \
 	exec/builtins/unset.c \
 	exec/builtins/utils_task.c \
 	exec/builtins/change_var.c \
-	exec/builtins/exit.c
+	exec/builtins/exit.c \
+	exec/builtins/exit_utils.c
 
 # Construction du chemin complet vers les sources et génération des objets
 SRC = $(addprefix $(SRCDIR)/, $(SRC_FILES))

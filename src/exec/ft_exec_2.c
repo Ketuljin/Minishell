@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 18:28:08 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 21:23:20 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	path = NULL;
 	if (task != NULL)
 	{
-		if(create_path(task, &path, env_ex))
+		if (create_path(task, &path, env_ex))
 			return (1);
 	}
 	ft_verif_out_put(command);

@@ -6,46 +6,15 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 19:37:27 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 21:26:45 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
-#include <math.h>
-
-long long int	ft_atoie(const char	*nptr)
-{
-	long long int	n;
-	long long int	r;
-
-	n = 1;
-	r = 0;
-	while (*nptr == ' '
-		|| *nptr == '\f'
-		|| *nptr == '\n'
-		|| *nptr == '\r'
-		|| *nptr == '\t'
-		|| *nptr == '\v')
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr == '-')
-			n = -n;
-		nptr++;
-	}
-	while ('0' <= *nptr && *nptr <= '9')
-	{
-		r = r * 10 + *nptr - '0';
-		nptr++;
-	}
-	return (r * n);
-}
-
-
 
 int	check_content(char *content, int i)
 {
-	int cpt;
+	int	cpt;
 
 	cpt = 0;
 	while (content[i] == '0')
@@ -69,7 +38,7 @@ int	adjust_number(int var, int neg)
 {
 	if (var > 255)
 	{
-		while(var > 255)
+		while (var > 255)
 			var -= 256;
 		return (var);
 	}
@@ -84,9 +53,9 @@ int	adjust_number(int var, int neg)
 
 int	is_valid(char *content)
 {
-	int	i;
-	int	neg;
-	long long ret;
+	int			i;
+	int			neg;
+	long long	ret;
 
 	i = 0;
 	neg = 0;
@@ -100,7 +69,7 @@ int	is_valid(char *content)
 	if (check_content(content, i - 1))
 		return (2);
 	ret = ft_atoie(content);
-	if (ret > 9223372036854775807 || ret+1 < -9223372036854775807)
+	if (ret > 9223372036854775807 || ret +1 < -9223372036854775807)
 	{
 		ft_putstr_fd("torture: exit: '", STDERR_FILENO);
 		ft_putstr_fd(content, STDERR_FILENO);
@@ -129,7 +98,6 @@ int	check_exit_args(t_command *command, t_env_ex *env)
 			t = 2;
 		}
 	}
-	
 	return (t);
 }
 

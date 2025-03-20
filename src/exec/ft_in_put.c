@@ -15,7 +15,7 @@
 void	ft_close_in_put(t_command *command, int fd_stdin)
 {
 	if (command->fd_in_put != fd_stdin && command->fd_in_put > 0)
-			close (command->fd_in_put);
+		close (command->fd_in_put);
 	if (dup2(fd_stdin, STDIN_FILENO == -1))
 	{
 		perror("dup2 failed in ft_close_in_put");

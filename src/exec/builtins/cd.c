@@ -66,6 +66,7 @@ int	execute_cd_args(t_task *task, char ***env)
 	getcwd(pwd, 1000);
 	if (chdir(path) == -1)
 	{
+		free(pwd);
 		perror("torture: cd");
 		return (1);
 	}

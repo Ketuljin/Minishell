@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   create_path_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 20:56:15 by jkerthe          ###   ########.fr       */
+/*   Created: 2025/03/20 20:58:14 by jkerthe           #+#    #+#             */
+/*   Updated: 2025/03/20 21:19:33 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
 
-char	last_content(char *str)
+char	*delete_sl(char	*content)
 {
-	if (!str)
-		return ('\0');
-	return (str[ft_strlen(str) -1]);
+	int		i;
+	int		cpt;
+	char	*stock;
+
+	i = 0;
+	cpt = 0;
+	cpt = count_slash(content);
+	stock = malloc(sizeof(char) * cpt +1);
+	copy_slash(content, stock);
+	return (stock);
 }
 
-t_task	*first_task(t_command *command)
-{
-	t_task	*actual_task;
-
-	actual_task = command->first;
-	while (actual_task)
-	{
-		if (actual_task->type == 0)
-			return (actual_task);
-		actual_task = actual_task->next;
-	}
-	return (NULL);
-}
-
-void	clean_all(char **args, t_env_ex *env_ex, t_command **command)
-{
-	if (args != NULL)
-		free_double(args);
-	ft_tabfree(env_ex->env);
-	free(env_ex);
-	free_struct(command);
-	rl_clear_history();
-}
-
-int	count_slash(char *content)
+void	copy_slash(char *content, char *stock)
 {
 	int	i;
 	int	cpt;
@@ -54,6 +37,7 @@ int	count_slash(char *content)
 	{
 		if (content[i] == '/')
 		{
+			stock[cpt] = content[i];
 			cpt++;
 			i++;
 			while (content[i] == '/')
@@ -61,9 +45,10 @@ int	count_slash(char *content)
 		}
 		else
 		{
+			stock[cpt] = content[i];
 			cpt++;
 			i++;
 		}
 	}
-	return (cpt);
+	stock[cpt] = '\0';
 }

@@ -6,42 +6,15 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:38:10 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 20:29:16 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 21:18:46 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
 
-void	copy_slash(char *content, char *stock)
-{
-	int	i;
-	int	cpt;
-
-	cpt = 0;
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '/')
-		{
-			stock[cpt] = content[i];
-			cpt++;
-			i++;
-			while (content[i] == '/')
-				i++;
-		}
-		else
-		{
-			stock[cpt] = content[i];
-			cpt++;
-			i++;
-		}
-	}
-	stock[cpt] = '\0';
-}
-
 int	only_content(char *content, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (content[i])
@@ -67,20 +40,6 @@ int	no_path(char *content)
 	return (1);
 }
 
-char	*delete_sl(char	*content)
-{
-	int		i;
-	int		cpt;
-	char	*stock;
-
-	i = 0;
-	cpt = 0;
-	cpt = count_slash(content);
-	stock = malloc(sizeof(char) * cpt +1);
-	copy_slash(content, stock);
-	return (stock);
-}
-
 char	*search_path(char *content, char **env)
 {
 	char	*path;
@@ -96,26 +55,25 @@ char	*search_path(char *content, char **env)
 	return (full_path);
 }
 
+void	clean_path(char *content, char **path)
+{
+	int	fd;
+
+	*path = delete_sl(content);
+	fd = open(*path, O_RDONLY);
+	if (fd == -1)
+	{
+		free(*path);
+		*path = NULL;
+	}
+	else
+		close (fd);
+}
+
 int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 {
-	int fd;
-
-	fd = 0;
-
 	if (!no_path(task->content))
-	{
-		*path = delete_sl(task->content);
-		fd = open(*path, O_RDONLY);
-		if (fd == -1)
-		{
-			free(*path);
-			*path = NULL;
-		}
-		else
-		{
-			close (fd);
-		}
-	}
+		clean_path(task->content, path);
 	else
 		*path = search_path(task->content, env_ex->env);
 	if (!only_content(task->content, '/') || !only_content(task->content, '.'))
