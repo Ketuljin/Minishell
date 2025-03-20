@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:38:10 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 19:22:19 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 19:46:29 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,28 @@ int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 	int fd;
 
 	fd = 0;
-		if (!no_path(task->content))
+	if (!no_path(task->content))
+	{
+		*path = delete_sl(task->content);
+		fd = open(*path, O_RDONLY);
+		if (fd == -1)
 		{
-			*path = delete_sl(task->content);
-			fd = open(full_command, O_RDONLY);
-			if (fd == -1)
-			{
-				free(path);
-				path = NULL;
-			}
-			else
-				close (fd);
+			free(path);
+			*path = NULL;
 		}
 		else
-			*path = search_path(task->content, env_ex->env);
-		if (*path == NULL)
 		{
-			ft_putstr_fd("command '", STDERR_FILENO);
-			ft_putstr_fd(task->content, STDERR_FILENO);
-			ft_putstr_fd("' : not found\n", STDERR_FILENO);
-			return (1);
+			close (fd);
 		}
-		return (0);
+	}
+	else
+		*path = search_path(task->content, env_ex->env);
+	if (*path == NULL)
+	{
+		ft_putstr_fd("command '", STDERR_FILENO);
+		ft_putstr_fd(task->content, STDERR_FILENO);
+		ft_putstr_fd("' : not found\n", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
 }
