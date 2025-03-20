@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:38:10 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 16:15:18 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 19:22:19 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*delete_sl(char	*content)
 	cpt = count_slash(content);
 	stock = malloc(sizeof(char) * cpt +1);
 	copy_slash(content, stock);
-	//free(content);
 	return (stock);
 }
 
@@ -85,8 +84,21 @@ char	*search_path(char *content, char **env)
 
 int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 {
+	int fd;
+
+	fd = 0;
 		if (!no_path(task->content))
+		{
 			*path = delete_sl(task->content);
+			fd = open(full_command, O_RDONLY);
+			if (fd == -1)
+			{
+				free(path);
+				path = NULL;
+			}
+			else
+				close (fd);
+		}
 		else
 			*path = search_path(task->content, env_ex->env);
 		if (*path == NULL)

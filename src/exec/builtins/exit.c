@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 15:00:32 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 19:37:27 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_content(char *content, int i)
 	{
 		if (!ft_isdigit(content[i]) || cpt > 19)
 		{
-			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd("torture: exit: ", STDERR_FILENO);
 			ft_putstr_fd(content, STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			return (2);
@@ -92,27 +92,22 @@ int	is_valid(char *content)
 	neg = 0;
 	if (!content || content[0] == '\0')
 	{
-		ft_putstr_fd("Minishell: exit: '':numeric argument required\n",
-			STDERR_FILENO);
+		ft_putstr_fd("torture: exit: '':numeric argument required\n", 2);
 		return (2);
 	}
-	if (content[i] == '-')
-	{
+	if (content[i++] == '-')
 		neg = 1;
-		i++;
-	}
-	if (check_content(content, i))
+	if (check_content(content, i - 1))
 		return (2);
 	ret = ft_atoie(content);
 	if (ret > 9223372036854775807 || ret+1 < -9223372036854775807)
 	{
-		ft_putstr_fd("Minishell: exit: '", STDERR_FILENO);
+		ft_putstr_fd("torture: exit: '", STDERR_FILENO);
 		ft_putstr_fd(content, STDERR_FILENO);
 		ft_putstr_fd("' : numeric argument required\n", STDERR_FILENO);
 		return (2);
 	}
-	ret = adjust_number(ret, neg);
-	return (ret);
+	return (adjust_number(ret, neg));
 }
 
 int	check_exit_args(t_command *command, t_env_ex *env)
@@ -129,7 +124,7 @@ int	check_exit_args(t_command *command, t_env_ex *env)
 	{
 		if (task->next != NULL)
 		{
-			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd("torture: exit: ", STDERR_FILENO);
 			ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
 			t = 2;
 		}

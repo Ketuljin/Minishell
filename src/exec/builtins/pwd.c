@@ -19,7 +19,7 @@ int	ft_exec_pwd(char	**env)
 	path = get_env_var("-P_W_D", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("Minishell: missing PWD", 2);
+		ft_putstr_fd("torture: missing PWD", 2);
 		return (-1);
 	}
 	safe_write(path, 1);

@@ -18,7 +18,7 @@ char	*option_cd(char *content, char **env)
 		return (get_env_var("OLDPWD", env));
 	if (content[0] == '-' && content[1] != '\0')
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd("torture: cd: ", 2);
 		ft_putstr_fd(content, 2);
 		ft_putstr_fd(": invalid option\n", 2);
 		return (NULL);
@@ -36,13 +36,13 @@ int	cd_no_arg(char ***env)
 	home = get_env_var("HOME", *env);
 	if (!home)
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		ft_putstr_fd("torture: cd: HOME not set\n", 2);
 		free (pwd);
 		return (1);
 	}
 	if (chdir(home) == -1)
 	{
-		perror("minishell: cd");
+		perror("torture: cd");
 		free(pwd);
 		return (1);
 	}
@@ -66,7 +66,7 @@ int	execute_cd_args(t_task *task, char ***env)
 	getcwd(pwd, 1000);
 	if (chdir(path) == -1)
 	{
-		perror("minishell: cd");
+		perror("torture: cd");
 		return (1);
 	}
 	change_var(env, pwd, "OLDPWD");
@@ -86,7 +86,7 @@ int	ft_exec_cd(t_task *task, char ***env)
 	task_count = count_task(task);
 	if (task_count > 2)
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		ft_putstr_fd("torture: cd: too many arguments\n", 2);
 		return (1);
 	}
 	if (task_count == 1)
