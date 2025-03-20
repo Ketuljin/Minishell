@@ -54,14 +54,14 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 			ft_exec_exit (command, env_ex, first_command, -1);
 		}
 		ex = exec_builtin(command, env_ex, first_command);
-		clean_all(NULL, env_ex, first_command);
+		clean_all(NULL, env_ex, &first_command);
 		free_pipe(pipes, nb_command);
 		exit (ex);
 	}
 	else
 	{
 		ft_execve(command, env_ex, first_command);
-		clean_all(NULL, env_ex, first_command);
+		clean_all(NULL, env_ex, &first_command);
 		free_pipe(pipes, nb_command);
 		exit (ex);
 	}

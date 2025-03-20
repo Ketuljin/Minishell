@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 21:11:23 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 15:00:32 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ long long int	ft_atoie(const char	*nptr)
 
 int	check_content(char *content, int i)
 {
+	int cpt;
+
+	cpt = 0;
+	while (content[i] == '0')
+		i++;
 	while (content[i])
 	{
-		if (!ft_isdigit(content[i]) || i > 19)
+		if (!ft_isdigit(content[i]) || cpt > 19)
 		{
 			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(content, STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			return (2);
 		}
+		cpt++;
 		i++;
 	}
 	return (0);

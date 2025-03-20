@@ -6,11 +6,20 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/19 20:39:24 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 18:28:08 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
+
+void	content_command(char *full_command, char **stock, int i, char *content)
+{
+	ft_strlcpy(full_command, stock[i], ft_strlen(stock[i]) + 1);
+	if (last_content(stock[i]) != '/')
+		ft_strlcat(full_command, "/", ft_strlen(full_command) + 2);
+	ft_strlcat(full_command, content,
+		ft_strlen(full_command) + ft_strlen(content) + 1);
+}
 
 char	*valid_command(char *content, char **stock)
 {
@@ -25,11 +34,7 @@ char	*valid_command(char *content, char **stock)
 		full_command = malloc(ft_strlen(stock[i]) + ft_strlen(content) + 2);
 		if (!full_command)
 			return (NULL);
-		ft_strlcpy(full_command, stock[i], ft_strlen(stock[i]) + 1);
-		if (last_content(stock[i]) != '/')
-			ft_strlcat(full_command, "/", ft_strlen(full_command) + 2);
-		ft_strlcat(full_command, content,
-			ft_strlen(full_command) + ft_strlen(content) + 1);
+		content_command(full_command, stock, i, content);
 		fd = open(full_command, O_RDONLY);
 		if (fd != -1)
 		{
@@ -40,21 +45,6 @@ char	*valid_command(char *content, char **stock)
 		i++;
 	}
 	return (NULL);
-}
-
-char	*search_path(char *content, char **env)
-{
-	char	*path;
-	char	**stock;
-	char	*full_path;
-
-	path = get_env_var("PATH", env);
-	if (path == NULL)
-		return (NULL);
-	stock = ft_split(path, ':');
-	full_path = valid_command(content, stock);
-	free_double(stock);
-	return (full_path);
 }
 
 char	**create_args(t_task *task)
@@ -81,74 +71,6 @@ char	**create_args(t_task *task)
 	return (args);
 }
 
-int	count_slash(char *content)
-{
-	int i;
-	int cpt;
-
-	cpt = 0;
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '/')
-		{
-			cpt++;
-			i++;
-			while (content[i] == '/')
-				i++;
-		}
-		else
-		{
-			cpt++;
-			i++;
-		}
-	}
-	return (cpt);
-}
-
-void	copy_slash(char *content, char *stock)
-{
-	int	i;
-	int	cpt;
-
-	cpt = 0;
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '/')
-		{
-			stock[cpt] = content[i];
-			cpt++;
-			i++;
-			while (content[i] == '/')
-				i++;
-		}
-		else
-		{
-			stock[cpt] = content[i];
-			cpt++;
-			i++;
-		}
-	}
-	stock[cpt] = '\0';
-}
-
-char	*delete_sl(char	*content)
-{
-	int		i;
-	int		cpt;
-	char	*stock;
-
-	i = 0;
-	cpt = 0;
-	cpt = count_slash(content);
-	stock = malloc(sizeof(char) * cpt +1);
-	copy_slash(content, stock);
-	free(content);
-	return (stock);
-}
-
-
 int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 {
 	t_task	*task;
@@ -159,17 +81,8 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	path = NULL;
 	if (task != NULL)
 	{
-		if (!no_path(task->content))
-			task->content = delete_sl(task->content);
-		else
-			path = search_path(task->content, env_ex->env);
-		if (path == NULL)
-		{
-			ft_putstr_fd("command '", STDERR_FILENO);
-			ft_putstr_fd(task->content, STDERR_FILENO);
-			ft_putstr_fd("' : not found\n", STDERR_FILENO);
+		if(create_path(task, &path, env_ex))
 			return (1);
-		}	
 	}
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
@@ -180,7 +93,8 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	if (execve(path, args, env_ex->env) == -1)
 	{
 		perror("execve");
-		clean_all(args, env_ex, first_command);
+		clean_all(args, env_ex, &first_command);
+		free(path);
 	}
 	set_signals(S_IGNORE);
 	return (0);

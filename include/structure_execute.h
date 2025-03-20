@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/19 19:25:04 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 16:04:22 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ int			ft_create_process(int **pipes, t_command *command,
 int			ft_exec_parent(int **pipes, int nb_command);
 int			exec_builtin(t_command *command, t_env_ex *env,
 				t_command *first_command);
-void		clean_all(char **args, t_env_ex *env_ex, t_command *command);
 int			ft_execve(t_command *command, t_env_ex *env_ex,
 				t_command *first_command);
 char		last_content(char *str);
 t_task		*first_task(t_command *command);
 int			no_path(char *content);
-void		clean_all(char  **args, t_env_ex *env_ex, t_command *command);
+void		clean_all(char  **args, t_env_ex *env_ex, t_command **command);
+int			create_path(t_task *task, char **path, t_env_ex *env_ex);
+char		*valid_command(char *content, char **stock);
+int			count_slash(char *content);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/19 20:10:07 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 16:03:32 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,39 @@ t_task	*first_task(t_command *command)
 	return (NULL);
 }
 
-int	no_path(char *content)
-{
-	int	i;
-
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '/')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	clean_all(char **args, t_env_ex *env_ex, t_command *command)
+void	clean_all(char **args, t_env_ex *env_ex, t_command **command)
 {
 	if (args != NULL)
 		free_double(args);
 	ft_tabfree(env_ex->env);
 	free(env_ex);
-	free_struct(&command);
+	free_struct(command);
 	rl_clear_history();
 }
+
+int	count_slash(char *content)
+{
+	int	i;
+	int	cpt;
+
+	cpt = 0;
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '/')
+		{
+			cpt++;
+			i++;
+			while (content[i] == '/')
+				i++;
+		}
+		else
+		{
+			cpt++;
+			i++;
+		}
+	}
+	return (cpt);
+}
+
+
