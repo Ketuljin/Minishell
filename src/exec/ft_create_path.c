@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:38:10 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 19:46:29 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/20 20:29:16 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ void	copy_slash(char *content, char *stock)
 		}
 	}
 	stock[cpt] = '\0';
+}
+
+int	only_content(char *content, char c)
+{
+	int i;
+
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] != c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	no_path(char *content)
@@ -87,13 +101,14 @@ int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 	int fd;
 
 	fd = 0;
+
 	if (!no_path(task->content))
 	{
 		*path = delete_sl(task->content);
 		fd = open(*path, O_RDONLY);
 		if (fd == -1)
 		{
-			free(path);
+			free(*path);
 			*path = NULL;
 		}
 		else
@@ -103,6 +118,11 @@ int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 	}
 	else
 		*path = search_path(task->content, env_ex->env);
+	if (!only_content(task->content, '/') || !only_content(task->content, '.'))
+	{
+		free(*path);
+		*path = NULL;
+	}
 	if (*path == NULL)
 	{
 		ft_putstr_fd("command '", STDERR_FILENO);
