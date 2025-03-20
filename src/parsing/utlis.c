@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 23:02:08 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/15 04:21:44 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/20 03:55:24 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ int	print_error(char *msg_error, t_env_ex **env_ex, int exit_code)
 	if (msg_error != NULL)
 		write(STDERR_FILENO, msg_error, ft_strlen(msg_error));
 	return (1);
+}
+
+void	free_all(t_env_ex **env_ex, t_command **first, t_count **count)
+{
+	free(*count);
+	ft_tabfree((*env_ex)->env);
+	free((*env_ex));
+	free_struct(first);
 }

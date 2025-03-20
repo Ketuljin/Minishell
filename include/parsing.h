@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/19 21:08:45 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/20 03:55:19 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include <stdio.h>
+# include <limits.h>
 
 # include "minishell.h"
 # include "../newlibft/libft.h"
@@ -42,5 +43,6 @@ char		*extract_skip(char **line, int len);
 int			skip_quote(char **temp);
 int			char_count(char *s, char c, char d);
 int			print_error(char *msg_error, t_env_ex **env_ex, int exit_code);
+void		free_all(t_env_ex **env_ex, t_command **first, t_count **count);
 
 #endif
