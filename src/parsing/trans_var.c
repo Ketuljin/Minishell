@@ -75,7 +75,8 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	char	*var;
 	int		k;
 
-	if (ft_strchr(" \0", (*token)->content[++(*count)->i]) != NULL)
+	if (ft_isalnum((*token)->content[++(*count)->i]) != 0
+		|| (*token)->content[(*count)->i] != '_')
 		return (end_line(newcnt, count));
 	temp = extract_var(((*token)->content), &(*count)->i);
 	if ((*token)->content[(*count)->i] == '?')
@@ -94,6 +95,5 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	ft_strlcpy(temp, *newcnt, ft_strlen(*newcnt) + 1);
 	while (var[k] != '\0')
 		temp[((*count)->j)++] = var[k++];
-	free(*newcnt);
-	return (free(var), *newcnt = temp, 0);
+	return (free(*newcnt), free(var), *newcnt = temp, 0);
 }
