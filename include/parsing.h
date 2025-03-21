@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/20 20:26:25 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 05:29:10 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <limits.h>
-#include <readline/readline.h>
+# include <readline/readline.h>
 
 # include "minishell.h"
 # include "../newlibft/libft.h"

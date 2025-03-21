@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:15:56 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 04:34:58 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 06:14:55 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	get_eof(char *eof, char *src)
 	if (ft_strlen(src) > 1000000)
 	{
 		write(STDERR_FILENO, "torture : eof too long\n", 24);
-		return(22);
+		return (22);
 	}
 	if (src[i] == '>' || src[i] == '<')
 	{
@@ -69,6 +69,7 @@ int	get_eof(char *eof, char *src)
 		skip_quote_index(eof, src, &i, &j);
 		eof[j] = src[i];
 		i++;
+		j++;
 	}
 	return (0);
 }
@@ -80,7 +81,6 @@ void	take_herdoc(t_task **token, t_env_ex **env_ex, t_command *first,
 	int		i;
 
 	ft_bzero(eof, 1000000);
-
 	i = get_eof(eof, (*token)->content);
 	if (i != 0)
 	{

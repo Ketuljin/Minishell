@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:32:37 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 04:59:59 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 06:14:32 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,37 @@
 // 3 : >> :redirige la sortie et garde le contenu
 // 4 : << :recupere avec readline
 
+int	get_herdoc(t_task **token, t_env_ex **env_ex)
+{
+	int		i;
+	char	*temp;
+
+	i = open("/tmp/tmp_minishell.txt", O_RDONLY, 0644);
+	if (i == -1)
+		return (print_error("torture : 'tmp_minishell' does not exist\n",
+				env_ex, 9));
+	else
+	{
+		free((*token)->content);
+		(*token)->content = NULL;
+		temp = get_next_line(i);
+		while (temp != NULL)
+		{
+			stock(&(*token)->content, temp);
+			free(temp);
+			temp = get_next_line(i);
+		}
+		close(i);
+		unlink("/tmp/tmp_minishell.txt");
+	}
+	return (0);
+}
+
 int	for_d_enter(t_task **token, t_env_ex **env_ex, t_command *first,
 			t_count *count)
 {
 	pid_t	pid;
 	int		i;
-	char	*temp;
 
 	(*token)->type = 4;
 	pid = fork();
@@ -34,19 +59,8 @@ int	for_d_enter(t_task **token, t_env_ex **env_ex, t_command *first,
 	{
 		waitpid(pid, &i, 0);
 		if (i != 0)
-			return (i);
-		i = open("/tmp/tmp_minishell.txt", O_RDONLY, 0644);
-		free((*token)->content);
-		(*token)->content = NULL;
-			temp = get_next_line(i);
-		while (temp != NULL)
-		{
-			stock(&(*token)->content, temp);
-			free(temp);
-			temp = get_next_line(i);
-		}
-		close(i);
-		unlink("/tmp/tmp_minishell.txt");
+			return (print_error(NULL, env_ex, i));
+		return (get_herdoc(token, env_ex));
 	}
 	return (0);
 }
