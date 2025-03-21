@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 21:21:17 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:27:00 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 21:08:41 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ long long int	ft_atoie(const char	*nptr)
 		nptr++;
 	}
 	return (r * n);
+}
+
+int	size_comp(char *content, char *env)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	y = 0;
+	while (content[i] && content[i] != '=')
+		i++;
+	while (env[y] && env[y] != '=')
+		y++;
+	if (y >= i)
+		return (y);
+	else
+		return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 20:56:15 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 21:03:17 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ int	count_slash(char *content)
 		}
 	}
 	return (cpt);
+}
+
+int	check_sign(char c)
+{
+	if (c == '-')
+		return (-1);
+	if (c == '+')
+		return (1);
+	return (0);
 }

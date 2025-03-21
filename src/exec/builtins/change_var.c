@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 09:11:17 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 17:11:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/21 21:03:43 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ char	**change_pwd(char ***env, char *new_value, char *name)
 	while ((*env)[i])
 	{
 		if (ft_strncmp((*env)[i], name, name_len) == 0
-			&& ((*env)[i][name_len+1] == '=' || (*env)[i][name_len+1] == '\0'))
+			&& ((*env)[i][name_len +1] == '=' ||
+			(*env)[i][name_len +1] == '\0'))
 		{
 			free((*env)[i]);
 			(*env)[i] = new_var;

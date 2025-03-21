@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 18:55:47 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 21:09:20 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int				count_slash(char *content);
 void			copy_slash(char *content, char *stock);
 char			*delete_sl(char	*content);
 long long int	ft_atoie(const char	*nptr);
-int				size_compare(char *content, char *env);
+int				size_comp(char *content, char *env);
+int				check_sign(char c);
 
 #endif

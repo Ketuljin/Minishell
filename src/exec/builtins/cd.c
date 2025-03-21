@@ -15,10 +15,7 @@
 char	*option_cd(char *content, char **env)
 {
 	if (!ft_strncmp(content, "-", ft_strlen(content)))
-	{
-
 		return (get_env_var("OLDPWD", env));
-	}
 	if (content[0] == '-' && content[1] != '\0')
 	{
 		ft_putstr_fd("torture: cd: ", 2);

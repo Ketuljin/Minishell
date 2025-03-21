@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 16:54:16 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/21 21:11:16 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_execve(t_command *command, t_env_ex *env_ex)
 	if (task != NULL)
 	{
 		if (create_path(task, &path, env_ex))
-			return (137);
+			return (127);
 	}
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
@@ -97,5 +97,5 @@ int	ft_execve(t_command *command, t_env_ex *env_ex)
 		free(path);
 	}
 	set_signals(S_IGNORE);
-	return (136);
+	return (127);
 }

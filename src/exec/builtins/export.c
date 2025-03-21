@@ -57,47 +57,30 @@ int	check_task(char	*str)
 	return (0);
 }
 
-int	size_compare(char *content, char *env)
-{
-	int i;
-	int y;
-
-	i = 0;
-	y = 0;
-	while(content[i] && content[i] != '=')
-    	i++;
-	while(env[y] && env[y] != '=')
-		y++;
-	if (y >= i)
-		return (y);
-	else
-		return (i);
-}
-
 char	**arleady_exist(char **env, char *content)
 {
 	int	len;
 	int	i;
-	
+
 	i = 0;
 	len = 0;
 	while (env[i])
 	{
-		len = size_compare(content, env[i]);
+		len = size_comp(content, env[i]);
 		if (!ft_strncmp(env[i], content, len))
 		{
 			if (!valid_name(content) && ft_strchr(content, '='))
 			{
 				free(env[i]);
-				env[i] = malloc(sizeof(char) * (ft_strlen(content)+1));
-				ft_strlcpy(env[i], content, ft_strlen(content) +1);
+				env[i] = malloc(sizeof(char) * (ft_strlen(content) + 1));
+				ft_strlcpy(env[i], content, ft_strlen(content) + 1);
 			}
 			return (env);
 		}
 		i++;
 	}
 	if (!valid_name(content))
-			env = add_env_var(env, content);
+		env = add_env_var(env, content);
 	return (env);
 }
 

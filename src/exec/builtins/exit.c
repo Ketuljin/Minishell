@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:26:45 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 21:22:09 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ int	is_valid(char *content)
 		ft_putstr_fd("torture: exit: '':numeric argument required\n", 2);
 		return (2);
 	}
-	if (content[i++] == '-')
-		neg = 1;
-	if (check_content(content, i - 1))
+	neg = check_sign(content[0]);
+	if (neg == 1 || neg == -1)
+		i++;
+	if (check_content(content, i))
 		return (2);
 	ret = ft_atoie(content);
 	if (ret > 9223372036854775807 || ret +1 < -9223372036854775807)
