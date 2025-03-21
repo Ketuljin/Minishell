@@ -15,7 +15,14 @@
 char	*option_cd(char *content, char **env)
 {
 	if (!ft_strncmp(content, "-", ft_strlen(content)))
-		return (get_env_var("OLDPWD", env));
+	{
+		if (get_env_var("OLDPWD", env) == NULL)
+		{
+			ft_putstr_fd("torture: cd: OLDPWD not set\n", 2);
+			return (NULL);
+		}
+	}
+		
 	if (content[0] == '-' && content[1] != '\0')
 	{
 		ft_putstr_fd("torture: cd: ", 2);
@@ -61,7 +68,7 @@ int	execute_cd_args(t_task *task, char ***env)
 
 	pwd = malloc(sizeof(char) * 1000);
 	path = option_cd(task->content, *env);
-	if (!path)
+	if (path == NULL)
 		return (1);
 	getcwd(pwd, 1000);
 	if (chdir(path) == -1)
