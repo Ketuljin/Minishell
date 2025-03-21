@@ -6,27 +6,11 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:23:23 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/17 21:34:00 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/20 20:25:52 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int	skip_quote_index(char *temp, char *str, int *i, int *j)
-{
-	char	c;
-
-	if (str[*i] != '\'' && str[*i] != '\"')
-		return (0);
-	c = str[*i];
-	temp[(*j)++] = str[(*i)++];
-	while (str[*i] != '\0' && str[*i] != c)
-		temp[(*j)++] = str[(*i)++];
-	if (str[*i] == '\0')
-		return (1);
-	temp[(*j)++] = str[(*i)++];
-	return (0);
-}
 
 int	add_del_space(char *f_task, char *temp, int b)
 {

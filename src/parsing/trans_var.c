@@ -95,5 +95,5 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	while (var[k] != '\0')
 		temp[((*count)->j)++] = var[k++];
 	free(*newcnt);
-	return (*newcnt = temp, 0);
+	return (free(var), *newcnt = temp, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/20 04:24:26 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 05:26:47 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,27 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	return (0);
 }
 
+int	for_heredoc_4(t_task **token, t_env_ex **env_ex)
+{
+	char	*temp;
+	t_count	*count;
+
+	count = malloc(sizeof(t_count) + 1);
+	count->i = 0;
+	count->j = 0;
+	temp = calloc((ft_strlen((*token)->content) + 1), sizeof(char));
+	while ((*token)->content && (*token)->content[count->i] != '\0')
+	{
+		if ((*token)->content[count->i] == '$')
+			trans_var(token, env_ex, &temp, &count);
+		else if ((*token)->content[count->i] != '\0' )
+			temp[count->j++] = (*token)->content[count->i++];
+	}
+	free((*token)->content);
+	(*token)->content = temp;
+	return (free(count), 0);
+}
+
 int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
 {
 	char	*temp;
@@ -52,10 +73,11 @@ int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
 	count = malloc(sizeof(t_count) + 1);
 	count->i = 0;
 	count->j = 0;
-	(void)env_ex;
 	if ((*token)->content[0] == '>' || (*token)->content[0] == '<')
 		if (trans_heredoc(token, env_ex, first, count) != 0)
-			return (1);
+			return (free(count), 1);
+	if ((*token)->type == 4)
+		return(free(count), for_heredoc_4(token, env_ex));
 	temp = calloc((ft_strlen((*token)->content) + 1), sizeof(char));
 	while ((*token)->content && (*token)->content[count->i] != '\0')
 	{

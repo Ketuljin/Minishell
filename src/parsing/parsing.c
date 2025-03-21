@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/20 04:26:59 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 04:13:20 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parsing(char *line, t_command **first, t_env_ex **env_ex)
 	{
 		if (g_last_sig == 130)
 			return (1);
-		return (print_error("syntax error near unexpected token\n", env_ex, 2));
+		return (1);
 	}
 	if ((*first)->first->next == NULL && (*first)->next == NULL
 		&& (*first)->first->content[0] == '\0' && (*first)->first->type == 0)

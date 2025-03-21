@@ -24,6 +24,8 @@ SRC_FILES = \
 	parsing/trans_token.c \
 	parsing/trans_heredoc.c \
 	parsing/trans_var.c \
+	parsing/trans_heredoc_child.c \
+	parsing/utlis2.c \
 	 \
 	exec/check_builtin.c \
 	exec/ft_exec_1.c \
