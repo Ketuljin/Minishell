@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:30:46 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 18:55:47 by jkerthe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int				ft_create_process(int **pipes, t_command *command,
 int				ft_exec_parent(int **pipes, int nb_command);
 int				exec_builtin(t_command *command, t_env_ex *env,
 					t_command *first_command);
-int				ft_execve(t_command *command, t_env_ex *env_ex,
-					t_command *first_command);
+int				ft_execve(t_command *command, t_env_ex *env_ex);
 char			last_content(char *str);
 t_task			*first_task(t_command *command);
 int				no_path(char *content);
@@ -74,5 +73,6 @@ int				count_slash(char *content);
 void			copy_slash(char *content, char *stock);
 char			*delete_sl(char	*content);
 long long int	ft_atoie(const char	*nptr);
+int				size_compare(char *content, char *env);
 
 #endif

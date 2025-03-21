@@ -57,41 +57,53 @@ int	check_task(char	*str)
 	return (0);
 }
 
-int	arleady_exist(char **env, char *content)
+int	size_compare(char *content, char *env)
 {
-	int	i;
-	int	len;
+	int i;
+	int y;
 
 	i = 0;
-	len = 0;
-	while (content[len] != '=' && content[len] != '\0')
-		len++;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], content, len) && env[i][len] == '=')
-			return (0);
-		i++;
-	}
-	return (1);
+	y = 0;
+	while(content[i] && content[i] != '=')
+    	i++;
+	while(env[y] && env[y] != '=')
+		y++;
+	if (y >= i)
+		return (y);
+	else
+		return (i);
 }
 
-int	export_arg(char ***env, char *content)
+char	**arleady_exist(char **env, char *content)
 {
-	int		i;
-	char	*new_value;
-	char	*name;
-
-	i = check_task(content);
-	if (!arleady_exist(*env, content))
+	int	len;
+	int	i;
+	
+	i = 0;
+	len = 0;
+	while (env[i])
 	{
-		new_value = ft_substr(content, i + 1, ft_strlen(content));
-		name = ft_substr(content, 0, i);
-		*env = change_var(env, new_value, name);
-		free(new_value);
-		free(name);
+		len = size_compare(content, env[i]);
+		if (!ft_strncmp(env[i], content, len))
+		{
+			if (!valid_name(content) && ft_strchr(content, '='))
+			{
+				free(env[i]);
+				env[i] = malloc(sizeof(char) * (ft_strlen(content)+1));
+				ft_strlcpy(env[i], content, ft_strlen(content) +1);
+			}
+			return (env);
+		}
+		i++;
 	}
-	else if (!valid_name(content))
-		*env = add_env_var(*env, content);
+	if (!valid_name(content))
+			env = add_env_var(env, content);
+	return (env);
+}
+
+char	export_arg(char ***env, char *content)
+{
+	*env = arleady_exist(*env, content);
 	return (0);
 }
 

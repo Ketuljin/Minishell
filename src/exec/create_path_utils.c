@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_path_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:58:14 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:19:33 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 14:51:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 char	*delete_sl(char	*content)
 {
-	int		i;
 	int		cpt;
 	char	*stock;
 
-	i = 0;
 	cpt = 0;
 	cpt = count_slash(content);
 	stock = malloc(sizeof(char) * cpt +1);

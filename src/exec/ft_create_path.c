@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:38:10 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:18:46 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 16:48:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	create_path(t_task *task, char **path, t_env_ex *env_ex)
 		ft_putstr_fd("command '", STDERR_FILENO);
 		ft_putstr_fd(task->content, STDERR_FILENO);
 		ft_putstr_fd("' : not found\n", STDERR_FILENO);
-		return (1);
+		return (137);
 	}
 	return (0);
 }

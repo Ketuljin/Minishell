@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:58:08 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 20:47:08 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 14:58:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**delete_env_var(char **env, char *str)
 	i = 0;
 	while ((env)[i] != NULL)
 	{
-		if (ft_strncmp(env[i], str, len) == 0 && env[i][len] == '=')
+		if (ft_strncmp(env[i], str, len) == 0)
 		{
 			env = delete_env_line(env, i);
 			return (env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/20 21:23:20 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/21 16:54:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**create_args(t_task *task)
 	return (args);
 }
 
-int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
+int	ft_execve(t_command *command, t_env_ex *env_ex)
 {
 	t_task	*task;
 	char	**args;
@@ -82,7 +82,7 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	if (task != NULL)
 	{
 		if (create_path(task, &path, env_ex))
-			return (1);
+			return (137);
 	}
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
@@ -93,9 +93,9 @@ int	ft_execve(t_command *command, t_env_ex *env_ex, t_command *first_command)
 	if (execve(path, args, env_ex->env) == -1)
 	{
 		perror("execve");
-		clean_all(args, env_ex, &first_command);
+		free_double(args);
 		free(path);
 	}
 	set_signals(S_IGNORE);
-	return (0);
+	return (136);
 }
