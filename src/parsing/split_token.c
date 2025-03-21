@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/16 02:35:49 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:18:35 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ int	split_token(t_command *first, t_env_ex **env_ex)
 		return (0);
 	first->first = lst_task_new(NULL);
 	if (norm_heredoc(&(first->full_task)) == 1)
-		return (print_error("syntax error near unexpected token\n", env_ex, 2));
+		return (print_error("torture : syntax error near unexpected token\n",
+				env_ex, 2));
 	if (splitter(first->full_task, first->first) == 1)
-		return (print_error("syntax error\n", env_ex, 22));
+		return (print_error("torture : syntax error\n", env_ex, 22));
 	if (first->first->content[0] == '\0')
-		return (print_error("syntax error\n", env_ex, 22));
+		return (print_error("torture : syntax error\n", env_ex, 22));
 	return (split_token(first->next, env_ex));
 }
