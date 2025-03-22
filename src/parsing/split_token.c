@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 20:18:35 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 06:15:29 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ t_task	*lst_task_new(void *content)
 	lst->next = NULL;
 	lst->type = 0;
 	return (lst);
-}
-
-void	skip_space(char **temp, char **full_task, int i)
-{
-	while ((*temp)[i] != '\0' && ((*temp)[i] == ' ' || (*temp)[i] == '	'))
-	{
-		(*temp)++;
-		(*full_task)++;
-	}
 }
 
 int	splitter(char *full_task, t_task *first)
@@ -69,11 +60,11 @@ int	split_token(t_command *first, t_env_ex **env_ex)
 		return (0);
 	first->first = lst_task_new(NULL);
 	if (norm_heredoc(&(first->full_task)) == 1)
-		return (print_error("torture : syntax error near unexpected token\n",
+		return (print_err("torture : syntax error near unexpected token\n",
 				env_ex, 2));
 	if (splitter(first->full_task, first->first) == 1)
-		return (print_error("torture : syntax error\n", env_ex, 22));
+		return (print_err("torture : syntax error\n", env_ex, 22));
 	if (first->first->content[0] == '\0')
-		return (print_error("torture : syntax error\n", env_ex, 22));
+		return (print_err("torture : syntax error\n", env_ex, 22));
 	return (split_token(first->next, env_ex));
 }

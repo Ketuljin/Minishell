@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 23:02:08 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/20 03:55:24 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 06:15:29 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	char_count(char *s, char c, char d)
 	return (i);
 }
 
-int	print_error(char *msg_error, t_env_ex **env_ex, int exit_code)
+int	print_err(char *msg_error, t_env_ex **env_ex, int exit_code)
 {
 	(*env_ex)->exit_code = exit_code;
 	if (msg_error != NULL)

@@ -38,7 +38,7 @@ char	*extract_var(char *content, int *i)
 	char	*var;
 	int		j;
 
-	var = calloc(ft_strlen(content) + 2, sizeof(char));
+	var = ft_calloc(ft_strlen(content) + 2, sizeof(char));
 	j = 0;
 	while (content[*i] != '\0'
 		&& (ft_isalnum(content[*i]) != 0 || content[*i] == '_'))
@@ -90,7 +90,7 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	if (var == NULL)
 		return (0);
 	k = 0;
-	temp = calloc(ft_strlen(var) + (*count)->j + ft_strlen((*token)->content)
+	temp = ft_calloc(ft_strlen(var) + (*count)->j + ft_strlen((*token)->content)
 			- (*count)->i + 1, sizeof(char));
 	ft_strlcpy(temp, *newcnt, ft_strlen(*newcnt) + 1);
 	while (var[k] != '\0')

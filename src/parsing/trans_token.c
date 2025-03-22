@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 05:29:54 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/21 23:37:41 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	for_heredoc_4(t_task **token, t_env_ex **env_ex)
 	count = malloc(sizeof(t_count) + 1);
 	count->i = 0;
 	count->j = 0;
-	temp = calloc((ft_strlen((*token)->content) + 1), sizeof(char));
+	temp = ft_calloc((ft_strlen((*token)->content) + 1), sizeof(char));
 	while ((*token)->content && (*token)->content[count->i] != '\0')
 	{
 		if ((*token)->content[count->i] == '$')
@@ -78,7 +78,7 @@ int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
 			return (free(count), 1);
 	if ((*token)->type == 4)
 		return (free(count), for_heredoc_4(token, env_ex));
-	temp = calloc((ft_strlen((*token)->content) + 1), sizeof(char));
+	temp = ft_calloc((ft_strlen((*token)->content) + 1), sizeof(char));
 	while ((*token)->content && (*token)->content[count->i] != '\0')
 	{
 		if ((*token)->content[count->i] == '\'')
