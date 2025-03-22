@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 21:03:17 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/22 23:35:18 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,6 @@ void	clean_all(char **args, t_env_ex *env_ex, t_command **command)
 	free(env_ex);
 	free_struct(command);
 	rl_clear_history();
-}
-
-int	count_slash(char *content)
-{
-	int	i;
-	int	cpt;
-
-	cpt = 0;
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '/')
-		{
-			cpt++;
-			i++;
-			while (content[i] == '/')
-				i++;
-		}
-		else
-		{
-			cpt++;
-			i++;
-		}
-	}
-	return (cpt);
 }
 
 int	check_sign(char c)

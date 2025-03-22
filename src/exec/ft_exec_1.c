@@ -60,7 +60,7 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 	}
 	else
 	{
-		ex = ft_execve(command, env_ex);
+		ex = try_execve(command, env_ex);
 		clean_all(NULL, env_ex, &first_command);
 		free_pipe(pipes, nb_command);
 		exit (ex);
