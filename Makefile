@@ -34,8 +34,6 @@ SRC_FILES = \
 	exec/ft_in_put.c \
 	exec/ft_exec_2.c \
 	exec/exec_utils.c \
-	exec/ft_create_path.c \
-	exec/create_path_utils.c \
 	 \
 	exec/builtins/cd.c \
 	exec/builtins/echo.c \

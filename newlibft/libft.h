@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:01:04 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/14 02:40:37 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:56:06 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_strchr(const char *s, int c);//norm / paco-k
 char	*ft_strdup(const char *s);//norm / paco-k
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));//norm / paco-k
 char	*ft_strjoin(char const *s1, char const *s2);//norm / paco-k
+char	*ft_strjoinv(int count, ...); //merci rosa
 size_t	ft_strlcat(char *dst, const char *src, size_t size);//norm / paco-k
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);//norm / paco-k
 size_t	ft_strlen(const char *s);//norm / paco-k

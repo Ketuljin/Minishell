@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_execute.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 21:09:20 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/22 21:42:01 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				ft_create_process(int **pipes, t_command *command,
 int				ft_exec_parent(int **pipes, int nb_command);
 int				exec_builtin(t_command *command, t_env_ex *env,
 					t_command *first_command);
-int				ft_execve(t_command *command, t_env_ex *env_ex);
+int				try_execve(t_command *command, t_env_ex *env);
 char			last_content(char *str);
 t_task			*first_task(t_command *command);
 int				no_path(char *content);

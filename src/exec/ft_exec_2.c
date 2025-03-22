@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 21:11:16 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/22 21:52:58 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
-
-void	content_command(char *full_command, char **stock, int i, char *content)
-{
-	ft_strlcpy(full_command, stock[i], ft_strlen(stock[i]) + 1);
-	if (last_content(stock[i]) != '/')
-		ft_strlcat(full_command, "/", ft_strlen(full_command) + 2);
-	ft_strlcat(full_command, content,
-		ft_strlen(full_command) + ft_strlen(content) + 1);
-}
-
-char	*valid_command(char *content, char **stock)
-{
-	char	*full_command;
-	int		fd;
-	int		i;
-
-	i = 0;
-	fd = -1;
-	while (stock[i])
-	{
-		full_command = malloc(ft_strlen(stock[i]) + ft_strlen(content) + 2);
-		if (!full_command)
-			return (NULL);
-		content_command(full_command, stock, i, content);
-		fd = open(full_command, O_RDONLY);
-		if (fd != -1)
-		{
-			close (fd);
-			return (full_command);
-		}
-		free(full_command);
-		i++;
-	}
-	return (NULL);
-}
 
 char	**create_args(t_task *task)
 {
@@ -71,31 +36,82 @@ char	**create_args(t_task *task)
 	return (args);
 }
 
-int	ft_execve(t_command *command, t_env_ex *env_ex)
+static void	print_exec_err(int type, char **args, int errsv)
 {
-	t_task	*task;
-	char	**args;
-	char	*path;
-
-	task = first_task(command);
-	path = NULL;
-	if (task != NULL)
+	if (type == 0)
 	{
-		if (create_path(task, &path, env_ex))
-			return (127);
+		ft_putstr_fd(args[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
+	else if (type == 1)
+	{
+		ft_putstr_fd("torture: ", STDERR_FILENO);
+		ft_putstr_fd(args[0], STDERR_FILENO);
+		ft_putstr_fd(" : Is a directory\n", STDERR_FILENO);
+	}
+	else if (type == 2)
+	{
+		ft_putstr_fd("torture: ", STDERR_FILENO);
+		ft_putstr_fd(args[0], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errsv), STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+}
+
+static int	_try_execve_path(char **args, t_env_ex *env_ex, int *errsv)
+{
+	char		**paths;
+	int			i;
+	char		*command;
+	struct stat	buf;
+
+	paths = ft_split(get_env_var("PATH", env_ex->env), ':');
+	if (paths == NULL)
+		return (false);
+	i = -1;
+	while (paths[++i])
+	{
+		command = ft_strjoinv(3, paths[i], "/", args[0]);
+		if (command == NULL)
+			return (ft_tabfree(paths), false);
+		if (stat(command, &buf) == 0 && !S_ISDIR(buf.st_mode))
+		{
+			set_signals(S_DEFAULT);
+			execve(command, args, env_ex->env);
+			*errsv = errno;
+			set_signals(S_IGNORE);
+		}
+		free(command);
+	}
+	return (ft_tabfree(paths), true);
+}
+
+int	try_execve(t_command *command, t_env_ex *env_ex)
+{
+	char		**args;
+	int			errsv;
+	struct stat	buf;
+
+	if (!first_task(command))
+		return (-1);
+	args = create_args(first_task(command));
 	ft_verif_out_put(command);
 	ft_verif_in_put(command);
-	args = create_args(first_task(command));
-	if (args == NULL)
-		return (-1);
-	set_signals(S_DEFAULT);
-	if (execve(path, args, env_ex->env) == -1)
+	errsv = ENOENT;
+	if (ft_strchr(args[0], '/') || get_env_var("PATH", env_ex->env) == NULL)
 	{
-		perror("execve");
-		free_double(args);
-		free(path);
+		set_signals(S_DEFAULT);
+		execve(args[0], args, env_ex->env);
+		errsv = errno;
+		set_signals(S_IGNORE);
+		if (stat(args[0], &buf) == 0 && S_ISDIR(buf.st_mode))
+			return (print_exec_err(1, args, errsv), ft_tabfree(args), 126);
 	}
-	set_signals(S_IGNORE);
-	return (127);
+	else
+		if (!_try_execve_path(args, env_ex, &errsv))
+			return (ft_tabfree(args), -1);
+	if (errsv == ENOENT)
+		return (print_exec_err(0, args, errsv), ft_tabfree(args), 127);
+	return (print_exec_err(2, args, errsv), ft_tabfree(args), 126);
 }
