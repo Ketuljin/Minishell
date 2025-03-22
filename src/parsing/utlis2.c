@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:24:57 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 23:05:43 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:34:00 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ void	skip_space(char **temp, char **full_task, int i)
 		(*temp)++;
 		(*full_task)++;
 	}
+}
+
+int	*get_fd(void)
+{
+	static int	fd;
+
+	return (&fd);
 }

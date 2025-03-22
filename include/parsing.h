@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:14 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 06:15:29 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:45:35 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int			print_err(char *msg_error, t_env_ex **env_ex, int exit_code);
 void		free_all(t_env_ex **env_ex, t_command **first, t_count **count);
 int			skip_quote_index(char *temp, char *str, int *i, int *j);
 void		skip_space(char **temp, char **full_task, int i);
+int			*get_fd(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 21:31:34 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 21:32:54 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:49:43 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	int_handler(int sig)
 static void	save_sig(int sig)
 {
 	(void)sig;
-	close(g_last_sig);
+	close(*get_fd());
 	g_last_sig = 130;
 	exit(130);
 }

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 06:17:01 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:55:21 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	perror_spe(char c)
 	return (1);
 }
 
+#define MSG_ERROR_PIPE "torture : syntax error near unexpected token `|'\n"
+
 int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
 {
 	while (str[0] != '\0' && (str[0] == ' ' || str[0] == '	'))
@@ -32,8 +34,7 @@ int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
 	if (str[0] == '\0' && i == 0)
 		return (1);
 	if (str[0] == '|')
-		return (print_err("torture : syntax error near unexpected token `|'\n",
-				env_ex, 2));
+		return (print_err(MSG_ERROR_PIPE, env_ex, 2));
 	while (str[0] != '\0')
 	{
 		if (skip_quote(&str) == 1)
@@ -42,7 +43,7 @@ int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
 			return (vrf_nonly_hrdcpipe(++str, env_ex, 1));
 		if (str[0] == '>' || str[0] == '<')
 		{
-			if (++str[0] == str[-1])
+			if ((str++, 1) || str[0] == str[-1])
 				str++;
 			while (str[0] != '\0' && (str[0] == ' ' || str[0] == '	'))
 				str++;

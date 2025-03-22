@@ -22,7 +22,6 @@ char	*option_cd(char *content, char **env)
 			return (NULL);
 		}
 	}
-		
 	if (content[0] == '-' && content[1] != '\0')
 	{
 		ft_putstr_fd("torture: cd: ", 2);

@@ -31,7 +31,7 @@ int	ft_exec_parent(int **pipes, int nb_command)
 	{
 		g_status = WTERMSIG(status);
 		if (g_status != 131)
-			g_status += 118;
+			g_status += 128;
 	}
 	free_pipe(pipes, nb_command);
 	return (g_status);

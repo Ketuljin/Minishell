@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:30:20 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 05:27:00 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:44:26 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char const **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
+	rl_outstream = stderr;
 	set_signals(S_IGNORE);
 	env_ex = malloc(sizeof(t_env_ex));
 	env_ex->env = ft_tabdup(envp);

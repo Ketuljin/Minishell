@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/21 21:05:43 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/22 18:02:45 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	is_builtin(t_command *command)
 	char	*content;
 
 	task = first_task(command);
-	content = task->content;
 	if (task == NULL)
 		return (1);
+	content = task->content;
 	if (!ft_strncmp("echo", content, size_comp("echo", content)))
 		return (0);
 	if (!ft_strncmp("export", content, size_comp("export", content)))
