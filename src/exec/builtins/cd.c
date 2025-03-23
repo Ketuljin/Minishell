@@ -6,7 +6,7 @@
 /*   By: jkerthe <jkerthe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:20:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2024/11/28 15:20:55 by jkerthe          ###   ########.fr       */
+/*   Updated: 2025/03/23 08:17:24 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	execute_cd_args(t_task *task, char ***env)
 	char	*pwd;
 	char	*tmp;
 
-	pwd = malloc(sizeof(char) * 1000);
 	path = option_cd(task->content, *env);
 	if (path == NULL)
 		return (1);
+	pwd = malloc(sizeof(char) * 1000);
 	getcwd(pwd, 1000);
 	if (chdir(path) == -1)
 	{
