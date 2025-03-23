@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/23 07:10:19 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:53:05 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,16 @@ int	exec_builtin(t_command *command, t_env_ex *env, t_command *first_command)
 
 	task = first_task(command);
 	saved_stdout = dup(STDOUT_FILENO);
-	handle_redir(command, false, true);
-	ret = ft_exec_builtin(command, env, first_command, saved_stdout);
+	if (!handle_redir(command, false, true))
+		ret = 1;
+	else
+	{
+		if (command->fd_in_put < 0)
+			command->fd_in_put = STDIN_FILENO;
+		if (command->fd_out_put < 0)
+			command->fd_out_put = STDOUT_FILENO;
+		ret = ft_exec_builtin(command, env, first_command, saved_stdout);
+	}
 	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
 		perror("exec_builtin: couldn't restore stdout");
 	ft_close(&saved_stdout);

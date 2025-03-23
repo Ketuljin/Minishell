@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 05:32:54 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/23 06:41:24 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:59:25 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,19 @@ bool	handle_redir(t_command *cmd, bool in, bool out)
 			|| (task->type == R_IN && !r_in(&cmd->fd_in_put, task->content))
 			|| (task->type == R_APP && !r_app(&cmd->fd_out_put, task->content))
 			|| (task->type == R_HD && !r_hd(&cmd->fd_in_put, task->content)))
-			return (false);
+			return (ft_close(&cmd->fd_in_put),
+				ft_close(&cmd->fd_out_put), false);
 		task = task->next;
 	}
 	if (in && cmd->fd_in_put > 2)
 		if (dup2(cmd->fd_in_put, STDIN_FILENO) == -1)
-			return (perror("handle_redir: input dup2 error"), false);
+			return (perror("handle_redir: input dup2 error"),
+				ft_close(&cmd->fd_in_put), false);
+	ft_close(&cmd->fd_in_put);
 	if (out && cmd->fd_out_put > 2)
 		if (dup2(cmd->fd_out_put, STDOUT_FILENO) == -1)
-			return (perror("handle_redir: output dup2 error"), false);
+			return (perror("handle_redir: output dup2 error"),
+				ft_close(&cmd->fd_out_put), false);
+	ft_close(&cmd->fd_out_put);
 	return (true);
 }
