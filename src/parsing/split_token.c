@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 06:15:29 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:12:55 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	splitter(char *full_task, t_task *first)
 	return (first->content == NULL);
 }
 
-int	split_token(t_command *first, t_env_ex **env_ex)
+int	split_token(t_command *first, t_env_ex *env_ex)
 {
 	if (first == NULL)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/21 23:37:41 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:18:50 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	trans_squote(t_task **token, char *temp, t_count **count)
 	return (0);
 }
 
-int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
+int	trans_dquote(t_task **token, t_env_ex *env_ex, char **tmp, t_count **count)
 {
 	(*count)->i++;
 	while ((*token)->content[(*count)->i] != '\"')
@@ -44,7 +44,7 @@ int	trans_dquote(t_task **token, t_env_ex **env_ex, char **tmp, t_count **count)
 	return (0);
 }
 
-int	for_heredoc_4(t_task **token, t_env_ex **env_ex)
+int	for_heredoc_4(t_task **token, t_env_ex *env_ex)
 {
 	char	*temp;
 	t_count	*count;
@@ -65,7 +65,7 @@ int	for_heredoc_4(t_task **token, t_env_ex **env_ex)
 	return (free(count), 0);
 }
 
-int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
+int	scan_trans(t_task **token, t_env_ex *env_ex, t_command *first)
 {
 	char	*temp;
 	t_count	*count;
@@ -94,7 +94,7 @@ int	scan_trans(t_task **token, t_env_ex **env_ex, t_command *first)
 	return ((*token)->content = temp, free(count), 0);
 }
 
-int	trans_token(t_command *first, t_env_ex **env_ex)
+int	trans_token(t_command *first, t_env_ex *env_ex)
 {
 	t_task	*task;
 

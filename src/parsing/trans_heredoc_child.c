@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:15:56 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 20:49:40 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:18:03 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	get_eof(char *eof, char *src)
 	return (0);
 }
 
-void	take_herdoc(t_task **token, t_env_ex **env_ex, t_command *first,
+void	take_herdoc(t_task **token, t_env_ex *env_ex, t_command *first,
 			t_count *count)
 {
 	char	eof[EOF_MAXLEN];

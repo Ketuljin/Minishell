@@ -6,13 +6,13 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 17:55:21 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:14:10 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	perror_spe(char c)
+int	perror_spe(t_env_ex *env_ex, char c)
 {
 	if (c == '|' || c == '\0')
 		write(2, "torture: syntax error near unexpected token `newline'\n", 55);
@@ -22,12 +22,13 @@ int	perror_spe(char c)
 		write(2, &c, 1);
 		write(2, "'\n", 3);
 	}
+	env_ex->exit_code = 1;
 	return (1);
 }
 
 #define MSG_ERROR_PIPE "torture : syntax error near unexpected token `|'\n"
 
-int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
+int	vrf_nonly_hrdcpipe(char *str, t_env_ex *env_ex, int i)
 {
 	while (str[0] != '\0' && (str[0] == ' ' || str[0] == '	'))
 		str++;
@@ -48,7 +49,7 @@ int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
 			while (str[0] != '\0' && (str[0] == ' ' || str[0] == '	'))
 				str++;
 			if (ft_strchr("|><;\0", str[0]) != NULL)
-				return (perror_spe(str[0]));
+				return (perror_spe(env_ex, str[0]));
 		}
 		else if (str[0] != '\0')
 			str++;
@@ -56,7 +57,7 @@ int	vrf_nonly_hrdcpipe(char *str, t_env_ex **env_ex, int i)
 	return (0);
 }
 
-int	parsing(char *line, t_command **first, t_env_ex **env_ex)
+int	parsing(char *line, t_command **first, t_env_ex *env_ex)
 {
 	int	i;
 

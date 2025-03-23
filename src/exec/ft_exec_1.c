@@ -12,33 +12,29 @@
 
 #include "structure_execute.h"
 
-int	ft_exec_parent(int **pipes, int nb_command)
+int	ft_exec_parent(t_command *command)
 {
-	int	i;
 	int	status;
-	int	g_status;
+	int	exitcode;
 
-	i = 0;
-	close_pipes(pipes, nb_command);
-	while (i < nb_command)
+	while (command)
 	{
-		wait(&status);
-		i++;
+		waitpid(command->pid, &status, 0);
+		command = command->next;
 	}
 	if (WIFEXITED(status))
-		g_status = WEXITSTATUS(status);
+		exitcode = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
-		g_status = WTERMSIG(status);
-		if (g_status != 131)
-			g_status += 128;
+		exitcode = WTERMSIG(status);
+		if (exitcode != 131)
+			exitcode += 128;
 	}
-	free_pipe(pipes, nb_command);
-	return (g_status);
+	return (exitcode);
 }
 
 int	ft_exec_process(t_command *command, t_env_ex *env_ex,
-						t_command *first_command, int **pipes)
+						t_command *first_command)
 {
 	int	ex;
 	int	nb_command;
@@ -47,46 +43,45 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 	ex = 1;
 	if (!is_builtin(command))
 	{
+		// FIXME
 		if (!ft_strncmp("exit", command->first->content,
 				ft_strlen(command->first->content)))
 		{
-			free_pipe(pipes, nb_command);
 			ft_exec_exit (command, env_ex, first_command, -1);
 		}
 		ex = exec_builtin(command, env_ex, first_command);
 		clean_all(NULL, env_ex, &first_command);
-		free_pipe(pipes, nb_command);
 		exit (ex);
 	}
 	else
 	{
 		ex = try_execve(command, env_ex);
 		clean_all(NULL, env_ex, &first_command);
-		free_pipe(pipes, nb_command);
 		exit (ex);
 	}
 }
 
-int	ft_create_process(int **pipes, t_command *command, int count, t_env_ex *env)
+int	ft_create_process(int in, int pfd[2], t_command *cmd, int i, t_env_ex *env)
 {
-	pid_t		pid;
 	int			nb_command;
 	t_command	*first_command;
 
-	nb_command = count_command(command);
-	first_command = command;
-	command = search_command(command, count);
-	pid = fork();
-	if (pid == -1)
+	nb_command = count_command(cmd);
+	first_command = cmd;
+	cmd = search_command(cmd, i);
+	cmd->pid = fork();
+	if (cmd->pid == -1)
 		return (-1);
-	if (pid == 0)
+	if (cmd->pid == 0)
 	{
-		if (count > 0)
-			dup2(pipes[count -1][0], STDIN_FILENO);
-		if (count < nb_command -1)
-			dup2(pipes[count][1], STDOUT_FILENO);
-		close_pipes(pipes, nb_command);
-		ft_exec_process(command, env, first_command, pipes);
+		if (i > 0)
+			dup2(in, STDIN_FILENO);
+		ft_close(&in);
+		if (i < nb_command - 1)
+			dup2(pfd[WRITE], STDOUT_FILENO);
+		ft_close(&pfd[WRITE]);
+		ft_close(&pfd[READ]);
+		ft_exec_process(cmd, env, first_command);
 	}
 	return (0);
 }

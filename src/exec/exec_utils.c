@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/22 23:35:18 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:20:27 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	clean_all(char **args, t_env_ex *env_ex, t_command **command)
 	if (args != NULL)
 		free_double(args);
 	ft_tabfree(env_ex->env);
-	free(env_ex);
 	free_struct(command);
 	rl_clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:32:37 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/22 06:15:29 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 03:18:22 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 3 : >> :redirige la sortie et garde le contenu
 // 4 : << :recupere avec readline
 
-int	get_herdoc(t_task **token, t_env_ex **env_ex)
+int	get_herdoc(t_task **token, t_env_ex *env_ex)
 {
 	int		i;
 	char	*temp;
@@ -43,7 +43,7 @@ int	get_herdoc(t_task **token, t_env_ex **env_ex)
 	return (0);
 }
 
-int	for_d_enter(t_task **token, t_env_ex **env_ex, t_command *first,
+int	for_d_enter(t_task **token, t_env_ex *env_ex, t_command *first,
 			t_count *count)
 {
 	pid_t	pid;
@@ -65,7 +65,7 @@ int	for_d_enter(t_task **token, t_env_ex **env_ex, t_command *first,
 	return (0);
 }
 
-int	trans_heredoc(t_task **token, t_env_ex **env_ex, t_command *first,
+int	trans_heredoc(t_task **token, t_env_ex *env_ex, t_command *first,
 			t_count *count)
 {
 	char	*temp;

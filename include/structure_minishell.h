@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/04 03:28:58 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 01:45:40 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_command
 	char				*full_task;
 	int					fd_in_put;
 	int					fd_out_put;
+	pid_t				pid;
 }			t_command;
 
 typedef struct s_task

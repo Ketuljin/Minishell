@@ -3,77 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:06:44 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/18 13:36:04 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/23 02:55:37 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure_execute.h"
 
-void	close_pipes(int **pipes, int nb_command)
+void	ft_close(int *fd)
 {
-	int	i;
-
-	i = 0;
-	while (i < nb_command -1)
+	if (*fd > 2)
 	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-		i++;
+		close(*fd);
+		*fd = -1;
 	}
-}
-
-int	**ft_create_pipe(int nb_command)
-{
-	int	i;
-	int	**pipes;
-
-	i = 0;
-	pipes = malloc(sizeof(int *) * nb_command -1);
-	while (nb_command -1 > i)
-	{
-		pipes[i] = malloc(sizeof(int) * 2);
-		i++;
-	}
-	return (pipes);
-}
-
-int	**free_pipe(int **pipes, int nb_command)
-{
-	int	i;
-
-	i = 0;
-	while (nb_command -1 > i)
-	{
-		free(pipes[i]);
-		i++;
-	}
-	free (pipes);
-	return (NULL);
 }
 
 int	ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env)
 {
-	int	**pipes;
-	int	i;
+	int i;
+	int	pipefd[2];
+	int	lastfd;
 
-	pipes = ft_create_pipe(nb_command);
-	i = 0;
-	while (i < nb_command -1)
-	{
-		if (pipe(pipes[i]) == -1)
-			return (-1);
-		i++;
-	}
+	lastfd = STDIN_FILENO;
 	i = 0;
 	while (i < nb_command)
 	{
-		ft_create_process(pipes, command, i, env);
+		if (i < nb_command - 1)
+			if (pipe(pipefd) == -1)
+				return (-1);
+		ft_create_process(lastfd, pipefd, command, i, env);
+		ft_close(&lastfd);
+		ft_close(&pipefd[WRITE]);
+		lastfd = pipefd[READ];
 		i++;
 	}
-	return (ft_exec_parent(pipes, nb_command));
+	return (ft_exec_parent(command));
 }
 
 int	is_pipe(t_command *command)

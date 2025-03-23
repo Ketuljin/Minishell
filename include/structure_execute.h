@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/22 21:42:01 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 02:58:48 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include "structure_minishell.h"
 # include "minishell.h"
 # include "../newlibft/libft.h"
+
+#define WRITE 1
+#define READ 0
 
 void			ft_exec_exit(t_command *command, t_env_ex *env,
 					t_command *first_command, int saved_stdout);
@@ -53,13 +56,11 @@ int				ft_open_out_put(int type, int out_put,
 void			ft_verif_out_put(t_command *command);
 int				ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env);
 int				is_pipe(t_command *command);
-int				**free_pipe(int **pipes, int nb_command);
-int				**ft_create_pipe(int nb_command);
-void			close_pipes(int **pipes, int nb_command);
+void			ft_close(int *fd);
 t_command		*search_command(t_command *command, int count);
-int				ft_create_process(int **pipes, t_command *command,
-					int count, t_env_ex *env);
-int				ft_exec_parent(int **pipes, int nb_command);
+int				ft_create_process(int in, int pfd[2], t_command *cmd, int i,
+					t_env_ex *env);
+int				ft_exec_parent(t_command *command);
 int				exec_builtin(t_command *command, t_env_ex *env,
 					t_command *first_command);
 int				try_execve(t_command *command, t_env_ex *env);

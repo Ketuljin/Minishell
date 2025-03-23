@@ -69,7 +69,7 @@ int	end_line(char **newcnt, t_count **count)
 	return (0);
 }
 
-int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
+int	trans_var(t_task **token, t_env_ex *env_ex, char **newcnt, t_count **count)
 {
 	char	*temp;
 	char	*var;
@@ -82,10 +82,10 @@ int	trans_var(t_task **token, t_env_ex **env_ex, char **newcnt, t_count **count)
 	if ((*token)->content[(*count)->i] == '?')
 	{
 		(*count)->i++;
-		var = ft_itoa((*env_ex)->exit_code);
+		var = ft_itoa(env_ex->exit_code);
 	}
 	else
-		var = find_var((*env_ex)->env, temp);
+		var = find_var(env_ex->env, temp);
 	free(temp);
 	if (var == NULL)
 		return (0);
