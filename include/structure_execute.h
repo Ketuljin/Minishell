@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:47:45 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/23 02:58:48 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:15:49 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "minishell.h"
 # include "../newlibft/libft.h"
 
-#define WRITE 1
-#define READ 0
+# define WRITE 1
+# define READ 0
 
 void			ft_exec_exit(t_command *command, t_env_ex *env,
 					t_command *first_command, int saved_stdout);
@@ -49,20 +49,20 @@ void			ft_execute(t_command *command, t_env_ex *env);
 t_task			*check_first(t_command *command);
 int				is_builtin(t_command *command);
 void			ft_verif_in_put(t_command *command);
-void			ft_close_in_put(t_command *command, int fd_stdin);
 void			ft_close_out_put(t_command *command, int fd_save);
-int				ft_open_out_put(int type, int out_put,
+int				ft_open_out_put(t_type type, int out_put,
 					char *content, int saved_stdout);
 void			ft_verif_out_put(t_command *command);
 int				ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env);
 int				is_pipe(t_command *command);
 void			ft_close(int *fd);
 t_command		*search_command(t_command *command, int count);
-int				ft_create_process(int in, int pfd[2], t_command *cmd, int i,
-					t_env_ex *env);
+int				ft_create_process(int lastfd, int pfd[2], int i, t_env_ex *env);
 int				ft_exec_parent(t_command *command);
 int				exec_builtin(t_command *command, t_env_ex *env,
 					t_command *first_command);
+bool			handle_redir(t_command *cmd, bool in, bool out);
+void			print_exec_err(int type, char *str, int errsv);
 int				try_execve(t_command *command, t_env_ex *env);
 char			last_content(char *str);
 t_task			*first_task(t_command *command);

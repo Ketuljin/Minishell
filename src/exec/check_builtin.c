@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:22:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/22 18:02:45 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:10:19 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,42 +38,45 @@ int	is_builtin(t_command *command)
 	return (1);
 }
 
-int	ft_exec_builtin(t_command *command, t_env_ex *env,
-						t_command *first_command, t_task *task)
+static int	ft_exec_builtin(t_command *command, t_env_ex *env,
+						t_command *first_command, int saved_stdout)
 {
 	int		ret;
-	int		saved_stdout;
 	char	*content;
 
-	content = task->content;
-	saved_stdout = dup(STDOUT_FILENO);
-	ft_verif_out_put(command);
+	content = first_task(command)->content;
 	ret = -1;
 	if (!ft_strncmp("echo", content, size_comp("echo", content)))
-		ret = ft_exec_echo(command, task);
+		ret = ft_exec_echo(command, first_task(command));
 	if (!ft_strncmp("export", content, size_comp("export", content)))
-		ret = ft_exec_export(command, &env->env, task);
+		ret = ft_exec_export(command, &env->env, first_task(command));
 	if (!ft_strncmp("unset", content, size_comp("unset", content)))
-		ret = ft_exec_unset(task, &env->env);
+		ret = ft_exec_unset(first_task(command), &env->env);
 	if (!ft_strncmp("pwd", content, size_comp("pwd", content)))
 		ret = ft_exec_pwd(env->env);
 	if (!ft_strncmp("env", content, size_comp("env", content)))
 		ret = ft_exec_env(command, env->env);
 	if (!ft_strncmp("cd", content, size_comp("cd", content)))
-		ret = ft_exec_cd(task, &env->env);
+		ret = ft_exec_cd(first_task(command), &env->env);
 	if (!ft_strncmp("exit", content, size_comp("exit", content)))
 		ft_exec_exit (command, env, first_command, saved_stdout);
-	ft_close_out_put(command, saved_stdout);
 	return (ret);
 }
 
 int	exec_builtin(t_command *command, t_env_ex *env, t_command *first_command)
 {
 	t_task	*task;
+	int		saved_stdout;
 	int		ret;
 
 	task = first_task(command);
-	ret = ft_exec_builtin(command, env, first_command, task);
+	saved_stdout = dup(STDOUT_FILENO);
+	handle_redir(command, false, true);
+	ret = ft_exec_builtin(command, env, first_command, saved_stdout);
+	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
+		perror("exec_builtin: couldn't restore stdout");
+	ft_close(&saved_stdout);
+	command->fd_out_put = STDOUT_FILENO;
 	return (ret);
 }
 

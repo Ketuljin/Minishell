@@ -30,8 +30,7 @@ SRC_FILES = \
 	exec/check_builtin.c \
 	exec/ft_exec_1.c \
 	exec/pipes_utils.c \
-	exec/ft_out_put.c \
-	exec/ft_in_put.c \
+	exec/redirections.c \
 	exec/ft_exec_2.c \
 	exec/exec_utils.c \
 	 \

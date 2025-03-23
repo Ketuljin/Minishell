@@ -44,7 +44,7 @@ int	count_task(t_task *task)
 	i = 0;
 	while (task)
 	{
-		if (task->type == 0)
+		if (task->type == T_CMD)
 			i++;
 		task = task->next;
 	}

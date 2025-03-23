@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:06:44 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/23 02:55:37 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:15:28 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_close(int *fd)
 
 int	ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env)
 {
-	int i;
+	int	i;
 	int	pipefd[2];
 	int	lastfd;
 
@@ -34,10 +34,14 @@ int	ft_exec_pipe(t_command *command, int nb_command, t_env_ex *env)
 		if (i < nb_command - 1)
 			if (pipe(pipefd) == -1)
 				return (-1);
-		ft_create_process(lastfd, pipefd, command, i, env);
+		env->cmd = command;
+		ft_create_process(lastfd, pipefd, i, env);
 		ft_close(&lastfd);
-		ft_close(&pipefd[WRITE]);
-		lastfd = pipefd[READ];
+		if (i < nb_command - 1)
+		{
+			ft_close(&pipefd[WRITE]);
+			lastfd = pipefd[READ];
+		}
 		i++;
 	}
 	return (ft_exec_parent(command));

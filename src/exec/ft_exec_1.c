@@ -43,7 +43,6 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 	ex = 1;
 	if (!is_builtin(command))
 	{
-		// FIXME
 		if (!ft_strncmp("exit", command->first->content,
 				ft_strlen(command->first->content)))
 		{
@@ -61,27 +60,29 @@ int	ft_exec_process(t_command *command, t_env_ex *env_ex,
 	}
 }
 
-int	ft_create_process(int in, int pfd[2], t_command *cmd, int i, t_env_ex *env)
+int	ft_create_process(int lastfd, int pfd[2], int i, t_env_ex *env)
 {
 	int			nb_command;
 	t_command	*first_command;
 
-	nb_command = count_command(cmd);
-	first_command = cmd;
-	cmd = search_command(cmd, i);
-	cmd->pid = fork();
-	if (cmd->pid == -1)
+	nb_command = count_command(env->cmd);
+	first_command = env->cmd;
+	env->cmd = search_command(env->cmd, i);
+	env->cmd->pid = fork();
+	if (env->cmd->pid == -1)
 		return (-1);
-	if (cmd->pid == 0)
+	if (env->cmd->pid == 0)
 	{
 		if (i > 0)
-			dup2(in, STDIN_FILENO);
-		ft_close(&in);
+			dup2(lastfd, STDIN_FILENO);
+		ft_close(&lastfd);
 		if (i < nb_command - 1)
+		{
 			dup2(pfd[WRITE], STDOUT_FILENO);
-		ft_close(&pfd[WRITE]);
-		ft_close(&pfd[READ]);
-		ft_exec_process(cmd, env, first_command);
+			ft_close(&pfd[WRITE]);
+			ft_close(&pfd[READ]);
+		}
+		ft_exec_process(env->cmd, env, first_command);
 	}
 	return (0);
 }

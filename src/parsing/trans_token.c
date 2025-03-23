@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:01:26 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/23 03:18:50 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 05:22:38 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	scan_trans(t_task **token, t_env_ex *env_ex, t_command *first)
 	if ((*token)->content[0] == '>' || (*token)->content[0] == '<')
 		if (trans_heredoc(token, env_ex, first, count) != 0)
 			return (free(count), 1);
-	if ((*token)->type == 4)
+	if ((*token)->type == R_HD)
 		return (free(count), for_heredoc_4(token, env_ex));
 	temp = ft_calloc((ft_strlen((*token)->content) + 1), sizeof(char));
 	while ((*token)->content && (*token)->content[count->i] != '\0')

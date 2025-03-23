@@ -12,17 +12,17 @@
 
 #include "structure_execute.h"
 
-int	valid_name(char *content)
+bool	valid_name(char *content)
 {
 	int	i;
 
 	i = 0;
 	if (0 == ft_isalpha(content[i]) && content[i] != '_')
 	{
-		ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
-		ft_putstr_fd(content, STDOUT_FILENO);
-		ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
-		return (1);
+		ft_putstr_fd("Minishell: export: '", STDERR_FILENO);
+		ft_putstr_fd(content, STDERR_FILENO);
+		ft_putstr_fd("' : not a valid identifier\n", STDERR_FILENO);
+		return (false);
 	}
 	i++;
 	while (content[i] && content[i] != '=')
@@ -30,14 +30,14 @@ int	valid_name(char *content)
 		if (0 == ft_isalpha(content[i])
 			&& 0 == ft_isdigit(content[i]) && content[i] != '_')
 		{
-			ft_putstr_fd("Minishell: export: '", STDOUT_FILENO);
-			ft_putstr_fd(content, STDOUT_FILENO);
-			ft_putstr_fd("' : not a valid identifier\n", STDOUT_FILENO);
-			return (1);
+			ft_putstr_fd("Minishell: export: '", STDERR_FILENO);
+			ft_putstr_fd(content, STDERR_FILENO);
+			ft_putstr_fd("' : not a valid identifier\n", STDERR_FILENO);
+			return (false);
 		}
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
 int	check_task(char	*str)
@@ -57,37 +57,31 @@ int	check_task(char	*str)
 	return (0);
 }
 
-char	**arleady_exist(char **env, char *content)
+bool	export_arg(char ***env, char *content)
 {
 	int	len;
 	int	i;
 
 	i = 0;
 	len = 0;
-	while (env[i])
+	while ((*env)[i])
 	{
-		len = size_comp(content, env[i]);
-		if (!ft_strncmp(env[i], content, len))
+		len = size_comp(content, (*env)[i]);
+		if (!ft_strncmp((*env)[i], content, len))
 		{
-			if (!valid_name(content) && ft_strchr(content, '='))
+			if (valid_name(content) && ft_strchr(content, '='))
 			{
-				free(env[i]);
-				env[i] = malloc(sizeof(char) * (ft_strlen(content) + 1));
-				ft_strlcpy(env[i], content, ft_strlen(content) + 1);
+				free((*env)[i]);
+				(*env)[i] = malloc(sizeof(char) * (ft_strlen(content) + 1));
+				ft_strlcpy((*env)[i], content, ft_strlen(content) + 1);
 			}
-			return (env);
+			return (true);
 		}
 		i++;
 	}
-	if (!valid_name(content))
-		env = add_env_var(env, content);
-	return (env);
-}
-
-char	export_arg(char ***env, char *content)
-{
-	*env = arleady_exist(*env, content);
-	return (0);
+	if (valid_name(content))
+		return (*env = add_env_var(*env, content), true);
+	return (false);
 }
 
 int	ft_exec_export(t_command *command, char ***env, t_task *task)
@@ -103,8 +97,9 @@ int	ft_exec_export(t_command *command, char ***env, t_task *task)
 	task = task->next;
 	while (task != NULL)
 	{
-		if (task->type == 0)
-			export_arg(env, task->content);
+		if (task->type == T_CMD)
+			if (!export_arg(env, task->content))
+				return (1);
 		task = task->next;
 	}
 	return (0);

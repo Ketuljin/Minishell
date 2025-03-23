@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:58:08 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/21 14:58:02 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/23 05:24:50 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_exec_unset(t_task *task, char ***env)
 		return (0);
 	while (task != NULL && task->content != NULL)
 	{
-		if (task->type == 0)
+		if (task->type == T_CMD)
 			*env = delete_env_var(*env, task->content);
 		task = task->next;
 	}

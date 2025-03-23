@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:17:57 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/23 03:20:27 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 05:28:22 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_task	*first_task(t_command *command)
 	actual_task = command->first;
 	while (actual_task)
 	{
-		if (actual_task->type == 0)
+		if (actual_task->type == T_CMD)
 			return (actual_task);
 		actual_task = actual_task->next;
 	}

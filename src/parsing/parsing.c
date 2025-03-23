@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:53:38 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/23 03:14:10 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 05:24:37 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	perror_spe(t_env_ex *env_ex, char c)
 		write(2, &c, 1);
 		write(2, "'\n", 3);
 	}
-	env_ex->exit_code = 1;
+	env_ex->exit_code = 2;
 	return (1);
 }
 
@@ -44,11 +44,11 @@ int	vrf_nonly_hrdcpipe(char *str, t_env_ex *env_ex, int i)
 			return (vrf_nonly_hrdcpipe(++str, env_ex, 1));
 		if (str[0] == '>' || str[0] == '<')
 		{
-			if ((str++, 1) || str[0] == str[-1])
+			if ((str++, 1) && str[0] == str[-1])
 				str++;
 			while (str[0] != '\0' && (str[0] == ' ' || str[0] == '	'))
 				str++;
-			if (ft_strchr("|><;\0", str[0]) != NULL)
+			if (str[0] == '\0' || ft_strchr("|><;", str[0]) != NULL)
 				return (perror_spe(env_ex, str[0]));
 		}
 		else if (str[0] != '\0')
@@ -78,8 +78,10 @@ int	parsing(char *line, t_command **first, t_env_ex *env_ex)
 			return (1);
 		return (1);
 	}
-	if ((*first)->first->next == NULL && (*first)->next == NULL
-		&& (*first)->first->content[0] == '\0' && (*first)->first->type == 0)
+	if ((*first)->first->next == NULL
+		&& (*first)->next == NULL
+		&& (*first)->first->content[0] == '\0'
+		&& (*first)->first->type == T_CMD)
 		return (print_err("Command '' not found\n", env_ex, 127));
 	return (0);
 }

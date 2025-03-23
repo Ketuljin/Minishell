@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:43:55 by jkerthe           #+#    #+#             */
-/*   Updated: 2025/03/23 03:21:26 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 06:38:23 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void	ft_exec_exit(t_command *command, t_env_ex *env,
 	free_struct(&first_command);
 	ft_tabfree(env->env);
 	rl_clear_history();
-	if (saved_stdout == -1)
-		exit (ret);
-	close(saved_stdout);
+	ft_close(&saved_stdout);
 	exit(ret);
 }

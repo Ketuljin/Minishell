@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 23:56:44 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/23 03:12:55 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 05:23:50 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_task	*lst_task_new(void *content)
 		return (NULL);
 	lst->content = content;
 	lst->next = NULL;
-	lst->type = 0;
+	lst->type = T_CMD;
 	return (lst);
 }
 

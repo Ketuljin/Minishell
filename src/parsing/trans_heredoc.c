@@ -6,7 +6,7 @@
 /*   By: vdunatte <vdunatte@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:32:37 by vdunatte          #+#    #+#             */
-/*   Updated: 2025/03/23 03:18:22 by vdunatte         ###   ########.fr       */
+/*   Updated: 2025/03/23 05:23:02 by vdunatte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	for_d_enter(t_task **token, t_env_ex *env_ex, t_command *first,
 	pid_t	pid;
 	int		i;
 
-	(*token)->type = 4;
+	(*token)->type = R_HD;
 	pid = fork();
 	if (pid == -1)
 		return (print_err("torture : can't fork\n", env_ex, 10));
@@ -73,9 +73,9 @@ int	trans_heredoc(t_task **token, t_env_ex *env_ex, t_command *first,
 	if ((*token)->content[1] != '>' && (*token)->content[1] != '<')
 	{
 		if ((*token)->content[0] == '>')
-			(*token)->type = 1;
+			(*token)->type = R_OUT;
 		else
-			(*token)->type = 2;
+			(*token)->type = R_IN;
 		temp = ft_substr((*token)->content, 1, ft_strlen((*token)->content));
 		free((*token)->content);
 		(*token)->content = temp;
@@ -85,7 +85,7 @@ int	trans_heredoc(t_task **token, t_env_ex *env_ex, t_command *first,
 		return (print_err("syntax error near unexpected token\n", env_ex, 2));
 	if ((*token)->content[1] == '<')
 		return (for_d_enter(token, env_ex, first, count));
-	(*token)->type = 3;
+	(*token)->type = R_APP;
 	temp = ft_substr((*token)->content, 2, ft_strlen((*token)->content));
 	free((*token)->content);
 	(*token)->content = temp;
